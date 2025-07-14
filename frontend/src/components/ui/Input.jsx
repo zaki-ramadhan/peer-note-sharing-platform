@@ -11,22 +11,20 @@ const Input = React.forwardRef(({
     ...props
 }, ref) => {
     return (
-        <div className="w-full">
-            {label && (
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                    {label}
-                </label>
-            )}
+        <div className="w-full">            {label && (
+            <label className="block text-sm font-medium text-gray-700 mb-2 font-['Hanken_Grotesk']">
+                {label}
+            </label>
+        )}
             <div className="relative">
                 {Icon && (
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <Icon className="h-5 w-5 text-gray-400" />
                     </div>
-                )}
-                <input
+                )}                <input
                     type={type}
                     className={clsx(
-                        'block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm placeholder-gray-400 shadow-sm transition-colors duration-200',
+                        'block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm placeholder-gray-400 shadow-sm transition-colors duration-200 font-["Hanken_Grotesk"]',
                         'focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500',
                         'disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500',
                         Icon && 'pl-10',

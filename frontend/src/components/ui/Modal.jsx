@@ -27,9 +27,8 @@ const Modal = ({
                     onClick={onClose}
                 />
 
-                {/* Modal content */}
-                <div className={clsx(
-                    'relative transform overflow-hidden rounded-xl bg-white text-left shadow-xl transition-all',
+                {/* Modal content */}                <div className={clsx(
+                    'relative transform overflow-hidden rounded-xl bg-white text-left shadow-xl transition-all font-["Hanken_Grotesk"]',
                     sizes[size],
                     'w-full',
                     className

@@ -33,17 +33,16 @@ const Avatar = ({
         );
     }
 
-    return (
-        <div
-            className={clsx(
-                'inline-flex items-center justify-center rounded-full bg-gray-500 font-medium text-white',
-                sizes[size],
-                className
-            )}
-            {...props}
-        >
-            {initials || alt?.[0]?.toUpperCase() || 'U'}
-        </div>
+    return (<div
+        className={clsx(
+            'inline-flex items-center justify-center rounded-full bg-gray-500 font-medium text-white font-["Hanken_Grotesk"]',
+            sizes[size],
+            className
+        )}
+        {...props}
+    >
+        {initials || alt?.[0]?.toUpperCase() || 'U'}
+    </div>
     );
 };
 

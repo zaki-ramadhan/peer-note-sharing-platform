@@ -62,8 +62,8 @@ const LeaderboardPage = () => {
     const TopPerformer = ({ user, rank }) => (
         <Card className="relative overflow-hidden bg-gradient-to-br from-white to-slate-50 border-2 border-blue-100 hover:shadow-xl transition-all duration-300">
             <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${rank === 1 ? 'from-yellow-400 to-yellow-600' :
-                    rank === 2 ? 'from-gray-300 to-gray-500' :
-                        'from-orange-400 to-orange-600'
+                rank === 2 ? 'from-gray-300 to-gray-500' :
+                    'from-orange-400 to-orange-600'
                 }`} />
 
             <CardContent className="p-6 text-center">
@@ -111,11 +111,9 @@ const LeaderboardPage = () => {
             default:
                 return <Trophy className="w-4 h-4" />;
         }
-    };
-
-    return (
+    }; return (
         <Layout user={currentUser}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-['Hanken_Grotesk']">
                 {/* Header */}
                 <div className="text-center mb-8">
                     <h1 className="text-4xl font-bold text-slate-800 mb-4">
@@ -134,8 +132,8 @@ const LeaderboardPage = () => {
                                 key={period}
                                 onClick={() => setTimeframe(period)}
                                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${timeframe === period
-                                        ? 'bg-blue-600 text-white'
-                                        : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'
+                                    ? 'bg-blue-600 text-white'
+                                    : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'
                                     }`}
                             >
                                 {period === 'all-time' ? 'Sepanjang Waktu' :
@@ -150,8 +148,8 @@ const LeaderboardPage = () => {
                                 key={cat}
                                 onClick={() => setCategory(cat)}
                                 className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${category === cat
-                                        ? 'bg-blue-600 text-white'
-                                        : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'
+                                    ? 'bg-blue-600 text-white'
+                                    : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'
                                     }`}
                             >
                                 {getCategoryIcon(cat)}

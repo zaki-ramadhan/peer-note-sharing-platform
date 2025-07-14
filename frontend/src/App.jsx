@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router';
-import LandingPage from './pages/ModernLandingPage';
+import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import Dashboard from './pages/Dashboard';
-import NotesPage from './pages/ModernNotesPage';
+import NotesPage from './pages/NotesPage';
 import UploadPage from './pages/UploadPage';
 import ForumPage from './pages/ForumPage';
 import LeaderboardPage from './pages/LeaderboardPage';

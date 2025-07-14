@@ -8,7 +8,7 @@ const Badge = ({
     children,
     ...props
 }) => {
-    const baseClasses = 'inline-flex items-center rounded-full font-medium';
+    const baseClasses = 'inline-flex items-center rounded-full font-medium font-["Hanken_Grotesk"]';
 
     const variants = {
         default: 'bg-gray-100 text-gray-800',

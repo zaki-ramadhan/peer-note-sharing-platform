@@ -49,7 +49,7 @@ const ForumPage = () => {
                 createdAt: '2025-07-11T11:30:00Z',
                 replyCount: 7,
                 likes: 9,
-                tags: ['machine-learning', 'algoritma', 'diskusi']
+                tags: ['machine learning', 'programming', 'pemula']
             }
         ];
         setPosts(forumPosts);
@@ -59,7 +59,6 @@ const ForumPage = () => {
     useEffect(() => {
         let filtered = [...posts];
 
-        // Search filter
         if (searchTerm) {
             filtered = filtered.filter(post =>
                 post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -67,12 +66,11 @@ const ForumPage = () => {
             );
         }
 
-        // Category filter
         if (selectedCategory) {
             filtered = filtered.filter(post => post.subject === selectedCategory);
         }
 
-        // Sorting
+        // Sort posts
         switch (sortBy) {
             case 'newest':
                 filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -80,22 +78,20 @@ const ForumPage = () => {
             case 'popular':
                 filtered.sort((a, b) => b.likes - a.likes);
                 break;
-            case 'most-replies':
+            case 'replies':
                 filtered.sort((a, b) => b.replyCount - a.replyCount);
-                break;
-            default:
                 break;
         }
 
         setFilteredPosts(filtered);
     }, [posts, searchTerm, selectedCategory, sortBy]);
 
-    const formatDate = (date) => {
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
         const now = new Date();
-        const postDate = new Date(date);
-        const diffTime = Math.abs(now - postDate);
-        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-        const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+        const diffMs = now - date;
+        const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+        const diffDays = Math.floor(diffHours / 24);
 
         if (diffDays > 0) {
             return `${diffDays} hari yang lalu`;
@@ -172,7 +168,7 @@ const ForumPage = () => {
 
     return (
         <Layout user={currentUser}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-['Hanken_Grotesk']">
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
                     <div>
@@ -202,73 +198,66 @@ const ForumPage = () => {
                                             onChange={(e) => setSearchTerm(e.target.value)}
                                         />
                                     </div>
-
-                                    <select
-                                        value={selectedCategory}
-                                        onChange={(e) => setSelectedCategory(e.target.value)}
-                                        className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                                    >
-                                        <option value="">Semua Kategori</option>
-                                        {categories.map((category) => (
-                                            <option key={category} value={category}>
-                                                {category}
-                                            </option>
-                                        ))}
-                                    </select>
-
-                                    <select
-                                        value={sortBy}
-                                        onChange={(e) => setSortBy(e.target.value)}
-                                        className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                                    >
-                                        <option value="newest">Terbaru</option>
-                                        <option value="popular">Terpopuler</option>
-                                        <option value="most-replies">Paling Banyak Reply</option>
-                                    </select>
+                                    <div className="flex gap-2">
+                                        <select
+                                            value={selectedCategory}
+                                            onChange={(e) => setSelectedCategory(e.target.value)}
+                                            className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        >
+                                            <option value="">Semua Kategori</option>
+                                            {categories.map(category => (
+                                                <option key={category} value={category}>{category}</option>
+                                            ))}
+                                        </select>
+                                        <select
+                                            value={sortBy}
+                                            onChange={(e) => setSortBy(e.target.value)}
+                                            className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        >
+                                            <option value="newest">Terbaru</option>
+                                            <option value="popular">Terpopuler</option>
+                                            <option value="replies">Paling Dibalas</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </CardContent>
                         </Card>
 
                         {/* Posts */}
                         <div className="space-y-4">
-                            {filteredPosts.map((post) => (
+                            {filteredPosts.map(post => (
                                 <PostCard key={post.id} post={post} />
                             ))}
                         </div>
 
                         {filteredPosts.length === 0 && (
-                            <div className="text-center py-12">
-                                <MessageSquare className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                                <h3 className="text-lg font-medium text-gray-900 mb-2">
-                                    Belum ada diskusi
-                                </h3>
-                                <p className="text-gray-500 mb-6">
-                                    Jadilah yang pertama memulai diskusi di kategori ini.
-                                </p>
-                                <Button>Buat Post Pertama</Button>
-                            </div>
+                            <Card>
+                                <CardContent className="p-8 text-center">
+                                    <MessageSquare className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                                    <p className="text-gray-500">
+                                        {searchTerm || selectedCategory ? 'Tidak ada diskusi yang sesuai dengan filter.' : 'Belum ada diskusi. Jadilah yang pertama!'}
+                                    </p>
+                                </CardContent>
+                            </Card>
                         )}
                     </div>
 
                     {/* Sidebar */}
                     <div className="space-y-6">
-                        {/* Popular Categories */}
+                        {/* Categories */}
                         <Card>
                             <CardHeader>
-                                <CardTitle className="flex items-center text-base">
-                                    <TrendingUp className="w-4 h-4 mr-2" />
-                                    Kategori Populer
-                                </CardTitle>
+                                <CardTitle className="text-lg">Kategori</CardTitle>
                             </CardHeader>
-                            <CardContent>
-                                <div className="space-y-3">
-                                    {categories.slice(0, 6).map((category) => (
+                            <CardContent className="p-4">
+                                <div className="space-y-2">
+                                    {categories.map(category => (
                                         <button
                                             key={category}
-                                            onClick={() => setSelectedCategory(category)}
-                                            className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${selectedCategory === category
-                                                ? 'bg-blue-100 text-blue-700'
-                                                : 'hover:bg-gray-100 text-gray-700'
+                                            onClick={() => setSelectedCategory(category === selectedCategory ? '' : category)}
+                                            className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${selectedCategory === category
+                                                    ? 'bg-blue-50 text-blue-600 font-medium'
+                                                    : 'text-gray-600 hover:bg-gray-50'
                                                 }`}
                                         >
                                             {category}
@@ -278,40 +267,41 @@ const ForumPage = () => {
                             </CardContent>
                         </Card>
 
-                        {/* Forum Stats */}
+                        {/* Popular Tags */}
                         <Card>
                             <CardHeader>
-                                <CardTitle className="text-base">Statistik Forum</CardTitle>
+                                <CardTitle className="text-lg">Tag Popular</CardTitle>
                             </CardHeader>
-                            <CardContent>
-                                <div className="space-y-3">
-                                    <div className="flex justify-between">
-                                        <span className="text-sm text-gray-600">Total Post</span>
-                                        <span className="text-sm font-medium">1,234</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-sm text-gray-600">Active Users</span>
-                                        <span className="text-sm font-medium">456</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-sm text-gray-600">Post Hari Ini</span>
-                                        <span className="text-sm font-medium">23</span>
-                                    </div>
+                            <CardContent className="p-4">
+                                <div className="flex flex-wrap gap-2">
+                                    {['ujian', 'tips', 'belajar', 'programming', 'matematika', 'fisika'].map(tag => (
+                                        <Badge key={tag} variant="default" size="sm" className="cursor-pointer hover:bg-blue-100">
+                                            #{tag}
+                                        </Badge>
+                                    ))}
                                 </div>
                             </CardContent>
                         </Card>
 
-                        {/* Forum Rules */}
+                        {/* Forum Stats */}
                         <Card>
                             <CardHeader>
-                                <CardTitle className="text-base">Aturan Forum</CardTitle>
+                                <CardTitle className="text-lg">Statistik Forum</CardTitle>
                             </CardHeader>
-                            <CardContent>
-                                <div className="text-sm text-gray-600 space-y-2">
-                                    <p>• Gunakan bahasa yang sopan dan santun</p>
-                                    <p>• Jangan spam atau post berulang</p>
-                                    <p>• Berikan pertanyaan yang jelas dan spesifik</p>
-                                    <p>• Bantu sesama dengan memberikan jawaban yang berkualitas</p>
+                            <CardContent className="p-4">
+                                <div className="space-y-3">
+                                    <div className="flex justify-between">
+                                        <span className="text-sm text-gray-600">Total Diskusi</span>
+                                        <span className="font-medium">{posts.length}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <span className="text-sm text-gray-600">Anggota Aktif</span>
+                                        <span className="font-medium">1,234</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <span className="text-sm text-gray-600">Post Hari Ini</span>
+                                        <span className="font-medium">23</span>
+                                    </div>
                                 </div>
                             </CardContent>
                         </Card>
