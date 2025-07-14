@@ -50,10 +50,9 @@ const Navbar = ({ user }) => {
                     {/* Logo and Desktop Navigation */}
                     <div className="flex items-center">
                         <Link to="/" className="flex items-center space-x-3 group">
-                            <div className="relative">
-                                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
-                                    <BookOpen className="h-6 w-6 text-white" />
-                                </div>
+                            <div className="relative">                                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                                <BookOpen className="h-6 w-6 text-white" />
+                            </div>
                                 <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl opacity-30 blur-lg group-hover:opacity-60 transition-opacity duration-300"></div>
                             </div>
                             <span className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
@@ -82,10 +81,8 @@ const Navbar = ({ user }) => {
                                 );
                             })}
                         </div>
-                    </div>
-
-                    {/* Search and User Menu */}
-                    <div className="flex items-center space-x-4">
+                    </div>                    {/* Search and User Menu */}
+                    <div className="flex items-center space-x-2 lg:space-x-4">
                         {/* Search Bar */}
                         <div className="hidden md:block relative">
                             <div className="relative">
@@ -93,60 +90,53 @@ const Navbar = ({ user }) => {
                                 <input
                                     type="text"
                                     placeholder="Search notes..."
-                                    className="pl-10 pr-4 py-2.5 w-64 bg-white/50 backdrop-blur-sm border border-gray-200/50 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 hover:bg-white/70"
+                                    className="pl-10 pr-4 py-2.5 w-40 lg:w-48 xl:w-64 bg-white/50 backdrop-blur-sm border border-gray-200/50 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 hover:bg-white/70"
                                 />
                             </div>
-                        </div>
-
-                        {/* Notifications */}
-                        <button className="relative p-2.5 text-gray-600 hover:text-blue-600 hover:bg-blue-50/50 rounded-xl transition-all duration-300 group">
+                        </div>                        {/* Notifications */}
+                        <button className="relative p-2 lg:p-2.5 text-gray-600 hover:text-blue-600 hover:bg-blue-50/50 rounded-xl transition-all duration-300 group">
                             <Bell className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
-                            <Badge variant="danger" size="sm" className="absolute -top-1 -right-1 h-5 w-5 text-xs animate-pulse">
+                            <span className="absolute -top-0.5 -right-0.5 h-4 w-4 lg:h-5 lg:w-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center animate-pulse font-medium">
                                 3
-                            </Badge>
-                        </button>
-
-                        {/* User Menu */}
+                            </span>
+                        </button>{/* User Menu */}
                         {user ? (
-                            <div className="relative">
-                                <button
-                                    onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                                    className="flex items-center space-x-3 p-2 rounded-xl hover:bg-gray-50/50 transition-all duration-300 group"
-                                >
-                                    <div className="hidden sm:block text-right">
-                                        <p className="text-sm font-medium text-gray-900">{user.name}</p>
-                                        <p className="text-xs text-gray-500">{user.points} points</p>
+                            <div className="relative">                                <button
+                                onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+                                className="flex items-center space-x-2 lg:space-x-3 p-2 rounded-xl hover:bg-gray-50/50 transition-all duration-300 group"
+                            >
+                                <div className="hidden sm:block text-right">
+                                    <p className="text-sm font-medium text-gray-900 truncate max-w-20 md:max-w-24 lg:max-w-none">{user.name}</p>
+                                    <p className="text-xs text-gray-500">{user.points} points</p>
+                                </div>
+                                <Avatar
+                                    src={user.avatar}
+                                    alt={user.name}
+                                    size="md"
+                                    initials={user.name?.split(' ').map(n => n[0]).join('')}
+                                    className="ring-2 ring-gray-100 group-hover:ring-blue-200 transition-all duration-300"
+                                />
+                                <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform duration-300 hidden lg:block ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
+                            </button>                                {/* Profile Dropdown */}
+                                {isProfileMenuOpen && (<div className="absolute right-0 mt-2 w-56 bg-white/95 backdrop-blur-xl rounded-2xl shadow-lg border border-gray-200/50 py-2 animate-fade-in-up z-50">
+                                    <div className="px-4 py-3 border-b border-gray-100">
+                                        <p className="text-sm font-medium text-gray-900 truncate">{user.name}</p>
+                                        <p className="text-xs text-gray-500 truncate">{user.email}</p>
                                     </div>
-                                    <Avatar
-                                        src={user.avatar}
-                                        alt={user.name}
-                                        initials={user.name?.split(' ').map(n => n[0]).join('')}
-                                        className="ring-2 ring-gray-100 group-hover:ring-blue-200 transition-all duration-300"
-                                    />
-                                    <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform duration-300 ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
-                                </button>
-
-                                {/* Profile Dropdown */}
-                                {isProfileMenuOpen && (
-                                    <div className="absolute right-0 mt-2 w-56 bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-gray-200/50 py-2 animate-fade-in-up">
-                                        <div className="px-4 py-3 border-b border-gray-100">
-                                            <p className="text-sm font-medium text-gray-900">{user.name}</p>
-                                            <p className="text-xs text-gray-500">{user.email}</p>
-                                        </div>
-                                        <Link to="/profile" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors">
-                                            <User className="h-4 w-4 mr-3" />
-                                            Profile
-                                        </Link>
-                                        <Link to="/settings" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors">
-                                            <Settings className="h-4 w-4 mr-3" />
-                                            Settings
-                                        </Link>
-                                        <hr className="my-2 border-gray-100" />
-                                        <button className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50/50 transition-colors">
-                                            <LogOut className="h-4 w-4 mr-3" />
-                                            Sign out
-                                        </button>
-                                    </div>
+                                    <Link to="/profile" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors">
+                                        <User className="h-4 w-4 mr-3" />
+                                        Profile
+                                    </Link>
+                                    <Link to="/settings" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors">
+                                        <Settings className="h-4 w-4 mr-3" />
+                                        Settings
+                                    </Link>
+                                    <hr className="my-2 border-gray-100" />
+                                    <button className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50/50 transition-colors">
+                                        <LogOut className="h-4 w-4 mr-3" />
+                                        Sign out
+                                    </button>
+                                </div>
                                 )}
                             </div>
                         ) : (
@@ -173,14 +163,12 @@ const Navbar = ({ user }) => {
                         </button>
                     </div>
                 </div>
-            </div>
-
-            {/* Mobile Navigation */}
+            </div>            {/* Mobile Navigation */}
             {isMobileMenuOpen && (
-                <div className="lg:hidden border-t border-gray-200/50 bg-white/90 backdrop-blur-xl">
+                <div className="lg:hidden border-t border-gray-200/50 bg-white/95 backdrop-blur-xl">
                     <div className="px-4 pt-4 pb-6 space-y-2">
                         {/* Mobile Search */}
-                        <div className="mb-4">
+                        <div className="mb-4 md:hidden">
                             <div className="relative">
                                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                                 <input

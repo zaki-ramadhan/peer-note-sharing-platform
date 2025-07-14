@@ -98,6 +98,10 @@ html {
 	animation-delay: 600ms;
 }
 
+.animation-delay-800 {
+	animation-delay: 800ms;
+}
+
 /* Glass morphism effect */
 .glass {
 	background: rgba(255, 255, 255, 0.25);

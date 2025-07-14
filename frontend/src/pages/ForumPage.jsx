@@ -177,8 +177,8 @@ const ForumPage = () => {
                             Berdiskusi, bertanya, dan berbagi pengalaman dengan komunitas
                         </p>
                     </div>
-                    <Button className="mt-4 sm:mt-0">
-                        <Plus className="w-4 h-4 mr-2" />
+                    <Button className="mt-4 sm:mt-0 flex">
+                        <Plus className="inline w-4 h-4 mr-2" />
                         Buat Post Baru
                     </Button>
                 </div>

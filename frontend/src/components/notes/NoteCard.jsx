@@ -18,7 +18,7 @@ import { Button } from '../ui';
 import { Badge, Avatar } from '../ui';
 import { formatDistanceToNow } from 'date-fns';
 
-const NoteCard = ({ note, onDownload, onRate, compact = false }) => {
+const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false }) => {
     const {
         id,
         title,
@@ -75,15 +75,47 @@ const NoteCard = ({ note, onDownload, onRate, compact = false }) => {
         return gradients[subject] || 'from-gray-500 to-gray-600';
     };
 
+    if (mini) {
+        return (
+            <Card variant="glass" className="hover:shadow-md transition-all duration-300 border border-white/20 font-['Hanken_Grotesk']">
+                <CardContent className="p-3">
+                    <div className="text-center">
+                        <div className={`w-10 h-10 bg-gradient-to-br ${getSubjectGradient(subject)} rounded-lg flex items-center justify-center shadow-sm mx-auto mb-2`}>
+                            <FileText className="w-5 h-5 text-white" />
+                        </div>
+                        <Link to={`/notes/${id}`} className="group">
+                            <h3 className="text-xs font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-1 leading-tight">
+                                {title}
+                            </h3>
+                        </Link>
+                        <p className="text-xs text-gray-500 mb-2">{subject}</p>
+                        <div className="flex items-center justify-center space-x-1 mb-2">
+                            {getRatingStars(averageRating).slice(0, 3)}
+                        </div>
+                        <div className="flex items-center justify-between text-xs text-gray-500">
+                            <div className="flex items-center space-x-1">
+                                <Download className="w-3 h-3" />
+                                <span>{downloadCount}</span>
+                            </div>
+                            <div className="flex items-center space-x-1">
+                                <Eye className="w-3 h-3" />
+                                <span>{Math.floor(downloadCount * 1.5)}</span>
+                            </div>
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+        );
+    }
+
     if (compact) {
         return (
-            <Card variant="glass" className="hover:shadow-xl transition-all duration-300 border border-white/20 font-['Hanken_Grotesk']">
+            <Card variant="glass" className="hover:shadow-lg transition-all duration-300 border border-white/20 font-['Hanken_Grotesk']">
                 <CardContent className="p-5">
                     <div className="flex items-start space-x-4">
-                        <div className="flex-shrink-0">
-                            <div className={`w-14 h-14 bg-gradient-to-br ${getSubjectGradient(subject)} rounded-xl flex items-center justify-center shadow-lg`}>
-                                <FileText className="w-7 h-7 text-white" />
-                            </div>
+                        <div className="flex-shrink-0">                            <div className={`w-14 h-14 bg-gradient-to-br ${getSubjectGradient(subject)} rounded-xl flex items-center justify-center shadow-md`}>
+                            <FileText className="w-7 h-7 text-white" />
+                        </div>
                         </div>
                         <div className="flex-1 min-w-0">
                             <Link to={`/notes/${id}`} className="group">
@@ -114,7 +146,7 @@ const NoteCard = ({ note, onDownload, onRate, compact = false }) => {
             </Card>
         );
     } return (
-        <Card variant="elevated" className="group hover:shadow-2xl transition-all duration-500 overflow-hidden font-['Hanken_Grotesk']">
+        <Card variant="elevated" className="group hover:shadow-xl transition-all duration-500 overflow-hidden font-['Hanken_Grotesk']">
             {/* Header with gradient and thumbnail */}
             <div className="relative">
                 <div className={`h-48 bg-gradient-to-br ${getSubjectGradient(subject)} relative overflow-hidden`}>
