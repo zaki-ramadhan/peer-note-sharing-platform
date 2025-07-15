@@ -121,15 +121,12 @@ const LoginPage = () => {
                                     </>
                                 )}
                             </Button>
-                        </form>
-
-                        <div className="mt-6 text-center">
+                        </form>                        <div className="mt-6 text-center">
                             <span className="text-slate-600">Belum punya akun? </span>
                             <Link to="/register" className="text-blue-600 hover:text-blue-700 font-semibold">
                                 Daftar sekarang
                             </Link>
                         </div>
-
                     </CardContent>
                 </Card>
 

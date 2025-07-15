@@ -163,50 +163,62 @@ const Navbar = () => {
                                     className="ring-2 ring-gray-100 group-hover:ring-blue-200 transition-all duration-300"
                                 />
                                 <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform duration-300 hidden lg:block ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
-                            </button>                                {/* Profile Dropdown */}                                {isProfileMenuOpen && (
-                                <div
-                                    className="absolute right-0 mt-2 w-56 bg-white/95 backdrop-blur-xl rounded-2xl shadow-lg border border-gray-200/50 py-2 z-[100]"
-                                    data-aos="fade-down"
-                                    data-aos-duration="200"
-                                >
-                                    <div className="px-4 py-3 border-b border-gray-100">
-                                        <p className="lg:text-sm font-semibold lg:font-medium text-gray-900 truncate">{user.name}</p>
-                                        <p className="lg:text-xs text-gray-500 truncate">{user.email}</p>
+                            </button>
+
+                                {/* Profile Dropdown */}                               {isProfileMenuOpen && (
+                                    <div
+                                        className="absolute right-0 mt-2 w-56 bg-white/95 backdrop-blur-xl rounded-2xl shadow-lg border border-gray-200/50 py-2 z-[100]"
+                                        data-aos="fade-down"
+                                        data-aos-duration="200"
+                                    >
+                                        <div className="px-4 py-3 border-b border-gray-100">
+                                            <p className="lg:text-sm font-semibold lg:font-medium text-gray-900 truncate">{user.name}</p>
+                                            <p className="lg:text-xs text-gray-500 truncate">{user.email}</p>
+                                        </div>
+                                        <Link
+                                            to="/profile"
+                                            className="flex items-center px-4 py-2 lg:text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
+                                            onClick={() => setIsProfileMenuOpen(false)}
+                                        >
+                                            <User className="w-5 h-5 lg:h-4 lg:w-4 mr-3" />
+                                            Profile
+                                        </Link>                                    <Link
+                                            to="/settings"
+                                            className="flex items-center px-4 py-2 lg:text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
+                                            onClick={() => setIsProfileMenuOpen(false)}
+                                        >                                            <Settings className="w-5 h-5 lg:h-4 lg:w-4 mr-3" />
+                                            Settings
+                                        </Link>                                    <Link
+                                            to="/favorites"
+                                            className="flex items-center px-4 py-2  lg:text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
+                                            onClick={() => setIsProfileMenuOpen(false)}
+                                        >
+                                            <Star className="w-5 h-5 lg:h-4 lg:w-4 mr-3" />
+                                            My Favorites
+                                        </Link>
+                                        {/* Admin Access - Only show for admin users */}
+                                        {user?.role === 'admin' && (
+                                            <Link
+                                                to="/admin"
+                                                className="flex items-center px-4 py-2 lg:text-sm text-purple-700 hover:bg-purple-50/50 hover:text-purple-800 transition-colors"
+                                                onClick={() => setIsProfileMenuOpen(false)}
+                                            >
+                                                <Settings className="w-5 h-5 lg:h-4 lg:w-4 mr-3" />
+                                                Admin Panel
+                                            </Link>
+                                        )}
+                                        <hr className="my-2 border-gray-100" /><button
+                                            onClick={() => {
+                                                setIsProfileMenuOpen(false);
+                                                setShowLogoutModal(true);
+                                            }}
+                                            className="flex items-center w-full px-4 py-2 lg:text-sm text-red-600 hover:bg-red-50/50 transition-colors"
+                                        >
+                                            <LogOut className="h-5 w-5 lg:h-4 lg:w-4 mr-3" />
+                                            Sign out
+                                        </button>
                                     </div>
-                                    <Link
-                                        to="/profile"
-                                        className="flex items-center px-4 py-2 lg:text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
-                                        onClick={() => setIsProfileMenuOpen(false)}
-                                    >
-                                        <User className="w-5 h-5 lg:h-4 lg:w-4 mr-3" />
-                                        Profile
-                                    </Link>                                    <Link
-                                        to="/settings"
-                                        className="flex items-center px-4 py-2 lg:text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
-                                        onClick={() => setIsProfileMenuOpen(false)}
-                                    >                                            <Settings className="w-5 h-5 lg:h-4 lg:w-4 mr-3" />
-                                        Settings
-                                    </Link>
-                                    <Link
-                                        to="/favorites"
-                                        className="flex items-center px-4 py-2  lg:text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
-                                        onClick={() => setIsProfileMenuOpen(false)}
-                                    >
-                                        <Star className="w-5 h-5 lg:h-4 lg:w-4 mr-3" />
-                                        My Favorites
-                                    </Link>
-                                    <hr className="my-2 border-gray-100" /><button
-                                        onClick={() => {
-                                            setIsProfileMenuOpen(false);
-                                            setShowLogoutModal(true);
-                                        }}
-                                        className="flex items-center w-full px-4 py-2 lg:text-sm text-red-600 hover:bg-red-50/50 transition-colors"
-                                    >
-                                        <LogOut className="h-5 w-5 lg:h-4 lg:w-4 mr-3" />
-                                        Sign out
-                                    </button>
-                                </div>
-                            )}
+                                )}
                             </div>
                         ) : (
                             <div className="flex items-center space-x-3">

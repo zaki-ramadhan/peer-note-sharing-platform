@@ -102,3 +102,19 @@ export const showSuccessToast = (message) => {
         autoClose: 3000,
     });
 };
+
+// Generic error notification
+export const showErrorToast = (message = 'Something went wrong!') => {
+    toast.error(`❌ ${message}`, {
+        position: "top-right",
+        autoClose: 3000,
+    });
+};
+
+// Generic info notification
+export const showInfoToast = (message) => {
+    toast.info(`ℹ️ ${message}`, {
+        position: "top-right",
+        autoClose: 3000,
+    });
+};

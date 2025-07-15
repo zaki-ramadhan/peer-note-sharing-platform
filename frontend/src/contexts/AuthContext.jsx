@@ -34,40 +34,53 @@ export const AuthProvider = ({ children }) => {
             }
         }
         setLoading(false);
-    }, []);
-
-    const login = async (credentials) => {
+    }, []); const login = async (credentials) => {
         try {
             setLoading(true);
 
             // Simulate API call
             const response = await new Promise((resolve) => {
                 setTimeout(() => {
+                    // Check if admin credentials
+                    const isAdmin = credentials.email === 'admin@noteshare.com' && credentials.password === 'admin123';
+
                     // Mock user data based on credentials
                     const mockUser = {
-                        id: 'user-' + Date.now(),
-                        name: 'John Doe',
+                        id: isAdmin ? 'admin-1' : 'user-' + Date.now(),
+                        name: isAdmin ? 'Administrator' : 'John Doe',
                         email: credentials.email,
-                        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
-                        points: 1250,
-                        role: 'user',
+                        role: isAdmin ? 'admin' : 'user',
+                        avatar: isAdmin
+                            ? 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
+                            : 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+                        points: isAdmin ? 0 : 1250,
                         joinDate: new Date().toISOString(),
-                        university: 'Tech University',
-                        bio: 'Computer Science student passionate about sharing knowledge and helping fellow students succeed.',
-                        phone: '+62 812 3456 7890',
-                        location: 'Jakarta, Indonesia',
-                        website: 'https://johndoe.dev'
+                        university: isAdmin ? 'System Admin' : 'Tech University',
+                        bio: isAdmin ? 'Platform Administrator' : 'Computer Science student passionate about sharing knowledge and helping fellow students succeed.',
+                        phone: isAdmin ? '' : '+62 812 3456 7890',
+                        location: isAdmin ? 'Server Room' : 'Jakarta, Indonesia',
+                        website: isAdmin ? 'https://admin.noteshare.com' : 'https://johndoe.dev'
                     };
 
                     const mockToken = 'mock-jwt-token-' + Date.now();
 
-                    resolve({
-                        success: true,
-                        data: {
-                            user: mockUser,
-                            token: mockToken
-                        }
-                    });
+                    // Validate credentials (simple check for demo)
+                    const isValidUser = credentials.email && credentials.password;
+
+                    if (isValidUser) {
+                        resolve({
+                            success: true,
+                            data: {
+                                user: mockUser,
+                                token: mockToken
+                            }
+                        });
+                    } else {
+                        resolve({
+                            success: false,
+                            message: 'Invalid credentials'
+                        });
+                    }
                 }, 1500);
             });
 

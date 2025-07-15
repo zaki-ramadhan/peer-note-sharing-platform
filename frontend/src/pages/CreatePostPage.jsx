@@ -41,7 +41,7 @@ const CreatePostPage = () => {
         setTags(tags.filter(tag => tag !== tagToRemove));
     };
 
-    const onSubmit = async (data) => {
+    const onSubmit = async () => {
         setSubmitting(true);
 
         // Simulate API call
