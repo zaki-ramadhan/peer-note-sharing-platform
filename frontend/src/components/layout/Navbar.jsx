@@ -118,25 +118,37 @@ const Navbar = ({ user }) => {
                                 />
                                 <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform duration-300 hidden lg:block ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
                             </button>                                {/* Profile Dropdown */}
-                                {isProfileMenuOpen && (<div className="absolute right-0 mt-2 w-56 bg-white/95 backdrop-blur-xl rounded-2xl shadow-md border border-gray-200/50 py-2  z-50">
-                                    <div className="px-4 py-3 border-b border-gray-100">
-                                        <p className="text-sm font-medium text-gray-900 truncate">{user.name}</p>
-                                        <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                                {isProfileMenuOpen && (
+                                    <div
+                                        className="absolute right-0 mt-2 w-56 bg-white/95 backdrop-blur-xl rounded-2xl shadow-md border border-gray-200/50 py-2 z-50"
+                                        data-aos="fade-down"
+                                        data-aos-duration="200"
+                                    >
+                                        <div className="px-4 py-3 border-b border-gray-100">
+                                            <p className="text-sm font-medium text-gray-900 truncate">{user.name}</p>
+                                            <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                                        </div>
+                                        <Link
+                                            to="/profile"
+                                            className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
+                                            onClick={() => setIsProfileMenuOpen(false)}
+                                        >
+                                            <User className="h-4 w-4 mr-3" />
+                                            Profile
+                                        </Link>
+                                        <Link
+                                            to="/settings"
+                                            className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
+                                            onClick={() => setIsProfileMenuOpen(false)}
+                                        >                                            <Settings className="h-4 w-4 mr-3" />
+                                            Settings
+                                        </Link>
+                                        <hr className="my-2 border-gray-100" />
+                                        <button className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50/50 transition-colors">
+                                            <LogOut className="h-4 w-4 mr-3" />
+                                            Sign out
+                                        </button>
                                     </div>
-                                    <Link to="/profile" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors">
-                                        <User className="h-4 w-4 mr-3" />
-                                        Profile
-                                    </Link>
-                                    <Link to="/settings" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors">
-                                        <Settings className="h-4 w-4 mr-3" />
-                                        Settings
-                                    </Link>
-                                    <hr className="my-2 border-gray-100" />
-                                    <button className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50/50 transition-colors">
-                                        <LogOut className="h-4 w-4 mr-3" />
-                                        Sign out
-                                    </button>
-                                </div>
                                 )}
                             </div>
                         ) : (
@@ -147,7 +159,7 @@ const Navbar = ({ user }) => {
                                     </Button>
                                 </Link>
                                 <Link to="/register">
-                                    <Button size="sm" className="font-medium">
+                                    <Button size="sm" className="font-medium min-w-fit">
                                         Sign Up
                                     </Button>
                                 </Link>

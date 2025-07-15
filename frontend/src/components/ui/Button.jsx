@@ -48,7 +48,7 @@ const Button = React.forwardRef(({
             {loading && (
                 <Loader2 className="animate-spin -ml-1 mr-3 h-4 w-4" />
             )}
-            <span className="relative z-10">{children}</span>
+            <span className="relative z-10 text-nowrap">{children}</span>
         </button>
     );
 });
