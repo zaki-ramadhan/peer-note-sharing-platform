@@ -9,7 +9,7 @@ const Footer = () => {
         easing: 'ease',
     });
     const currentYear = new Date().getFullYear(); return (
-        <footer data-aos="fade-up" data-aos-delay="500" data-aos-offset="-50" className="bg-gray-50 border-t border-gray-200 font-['Hanken_Grotesk']">
+        <footer data-aos="fade-up" data-aos-delay="500" data-aos-offset="-100" className="bg-gray-50 border-t border-gray-200 font-['Hanken_Grotesk']">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {/* Logo and Description */}

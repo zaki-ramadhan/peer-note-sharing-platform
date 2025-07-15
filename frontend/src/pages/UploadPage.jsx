@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import { Upload, FileText, X, Plus } from 'lucide-react';
 import { Layout } from '../components/layout';
 import { Card, CardContent, CardHeader, CardTitle, Button, Input, Badge } from '../components/ui';
@@ -13,6 +15,13 @@ const UploadPage = () => {
     const [uploading, setUploading] = useState(false);
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
+
+    useEffect(() => {
+        AOS.init({
+            duration: 1400,
+            easing: 'ease',
+        });
+    }, []);
 
     const subjects = [
         'Matematika', 'Fisika', 'Kimia', 'Biologi',
@@ -79,20 +88,20 @@ const UploadPage = () => {
     return (
         <Layout user={currentUser}>
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-['Hanken_Grotesk']">
-                <div className="mb-8  animate-delay-200">
-                    <h1 className="text-3xl font-bold text-gray-900">Upload Catatan</h1>
-                    <p className="text-gray-600 mt-2">
+                <div className="mb-8  ">
+                    <h1 data-aos="fade-up" className="text-3xl font-bold text-gray-900">Upload Catatan</h1>
+                    <p data-aos="fade-up" className="text-gray-600 mt-2">
                         Bagikan catatan Anda dengan komunitas dan dapatkan poin reward!
                     </p>
                 </div>
 
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+                <form data-aos="fade-up" onSubmit={handleSubmit(onSubmit)} className="space-y-8">
                     {/* File Upload */}
-                    <Card className=" animation-delay-400">
+                    <Card className=" ">
                         <CardHeader>
                             <CardTitle>File Catatan</CardTitle>
                         </CardHeader>
-                        <CardContent className=" animate-delay-200">
+                        <CardContent className=" ">
                             <div
                                 className={`relative border-2 border-dashed rounded-lg p-8 text-center transition-colors ${dragActive
                                     ? 'border-blue-400 bg-blue-50'
@@ -146,91 +155,93 @@ const UploadPage = () => {
                     </Card>
 
                     {/* Note Details */}
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Detail Catatan</CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-6">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <Input
-                                    label="Judul Catatan"
-                                    {...register('title', { required: 'Judul harus diisi' })}
-                                    error={errors.title?.message}
-                                    placeholder="Masukkan judul catatan..."
-                                />
+                    <div data-aos="fade-up">
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Detail Catatan</CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <Input
+                                        label="Judul Catatan"
+                                        {...register('title', { required: 'Judul harus diisi' })}
+                                        error={errors.title?.message}
+                                        placeholder="Masukkan judul catatan..."
+                                    />
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Mata Pelajaran
+                                        </label>
+                                        <select
+                                            {...register('subject', { required: 'Mata pelajaran harus dipilih' })}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        >
+                                            <option value="">Pilih mata pelajaran</option>
+                                            {subjects.map(subject => (
+                                                <option key={subject} value={subject}>{subject}</option>
+                                            ))}
+                                        </select>
+                                        {errors.subject && (
+                                            <p className="text-red-500 text-sm mt-1">{errors.subject.message}</p>
+                                        )}
+                                    </div>
+                                </div>
 
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        Mata Pelajaran
+                                        Deskripsi
                                     </label>
-                                    <select
-                                        {...register('subject', { required: 'Mata pelajaran harus dipilih' })}
+                                    <textarea
+                                        {...register('description', { required: 'Deskripsi harus diisi' })}
+                                        rows={4}
                                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    >
-                                        <option value="">Pilih mata pelajaran</option>
-                                        {subjects.map(subject => (
-                                            <option key={subject} value={subject}>{subject}</option>
-                                        ))}
-                                    </select>
-                                    {errors.subject && (
-                                        <p className="text-red-500 text-sm mt-1">{errors.subject.message}</p>
+                                        placeholder="Berikan deskripsi singkat tentang catatan ini..."
+                                    />
+                                    {errors.description && (
+                                        <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>
                                     )}
                                 </div>
-                            </div>
 
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Deskripsi
-                                </label>
-                                <textarea
-                                    {...register('description', { required: 'Deskripsi harus diisi' })}
-                                    rows={4}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    placeholder="Berikan deskripsi singkat tentang catatan ini..."
-                                />
-                                {errors.description && (
-                                    <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>
-                                )}
-                            </div>
-
-                            {/* Tags */}
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Tags
-                                </label>
-                                <div className="flex flex-wrap gap-2 mb-3">
-                                    {tags.map((tag, index) => (
-                                        <Badge key={index} variant="primary" className="flex items-center gap-1">
-                                            {tag}
-                                            <button
-                                                type="button"
-                                                onClick={() => removeTag(tag)}
-                                                className="ml-1 hover:text-red-600"
-                                            >
-                                                <X className="w-3 h-3" />
-                                            </button>
-                                        </Badge>
-                                    ))}
+                                {/* Tags */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Tags
+                                    </label>
+                                    <div className="flex flex-wrap gap-2 mb-3">
+                                        {tags.map((tag, index) => (
+                                            <Badge key={index} variant="primary" className="flex items-center gap-1">
+                                                {tag}
+                                                <button
+                                                    type="button"
+                                                    onClick={() => removeTag(tag)}
+                                                    className="ml-1 hover:text-red-600"
+                                                >
+                                                    <X className="w-3 h-3" />
+                                                </button>
+                                            </Badge>
+                                        ))}
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <Input
+                                            value={tagInput}
+                                            onChange={(e) => setTagInput(e.target.value)}
+                                            placeholder="Tambah tag..."
+                                            onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
+                                        />
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            onClick={addTag}
+                                            disabled={!tagInput.trim()}
+                                        >
+                                            <Plus className="w-4 h-4" />
+                                        </Button>
+                                    </div>
                                 </div>
-                                <div className="flex gap-2">
-                                    <Input
-                                        value={tagInput}
-                                        onChange={(e) => setTagInput(e.target.value)}
-                                        placeholder="Tambah tag..."
-                                        onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
-                                    />
-                                    <Button
-                                        type="button"
-                                        variant="outline"
-                                        onClick={addTag}
-                                        disabled={!tagInput.trim()}
-                                    >
-                                        <Plus className="w-4 h-4" />
-                                    </Button>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
+                            </CardContent>
+                        </Card>
+                    </div>
 
                     {/* Submit */}
                     <div className="flex justify-end space-x-4">

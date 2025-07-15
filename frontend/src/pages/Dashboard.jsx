@@ -18,7 +18,6 @@ import {
     Activity
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
-import Button from '../components/ui/Button';
 import Layout from '../components/layout/Layout';
 import { Avatar, Badge } from '../components/ui';
 import { generateDummyUsers, currentUser } from '../data/dummyData';
@@ -189,7 +188,7 @@ const Dashboard = () => {
                     Ready to continue your learning journey? Let's explore and share knowledge together.
                 </p>
             </div>{/* Stats Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-8 lg:mb-12  animation-delay-200">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-8 lg:mb-12  ">
                 <StatCard
                     title="Total Notes"
                     value={stats.totalNotes}
@@ -269,7 +268,7 @@ const Dashboard = () => {
                     </Card>
                 </div>
                 {/* Top Uploaders */}
-                <div data-aos="fade-up" data-aos-delay="400" className=" animation-delay-600">
+                <div data-aos="fade-up" data-aos-delay="400" className=" ">
                     <Card variant="elevated">
                         <CardHeader className="p-4 sm:p-6">
                             <CardTitle className="flex items-center space-x-2">
@@ -310,7 +309,7 @@ const Dashboard = () => {
                 </div>
             </div>
             {/* Quick Actions */}
-            <div data-aos="fade-up" data-aos-delay="300" className="mt-8 lg:mt-12  animation-delay-800">
+            <div data-aos="fade-up" data-aos-delay="300" className="mt-8 lg:mt-12  00">
                 <Card variant="gradient">
                     <CardHeader className="p-4 sm:p-6">
                         <CardTitle className="flex items-center space-x-2">

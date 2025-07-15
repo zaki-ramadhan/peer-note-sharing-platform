@@ -3,6 +3,8 @@ import { MessageSquare, Plus, Search, TrendingUp, Clock, ThumbsUp, Reply } from 
 import { Layout } from '../components/layout';
 import { Card, CardContent, CardHeader, CardTitle, Button, Input, Badge, Avatar } from '../components/ui';
 import { generateDummyForumPosts, currentUser } from '../data/dummyData';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const ForumPage = () => {
     const [posts, setPosts] = useState([]);
@@ -18,6 +20,10 @@ const ForumPage = () => {
     ];
 
     useEffect(() => {
+        AOS.init({
+            duration: 1400,
+            easing: 'ease',
+        })
         // Simulate API call
         const forumPosts = [
             ...generateDummyForumPosts(),
@@ -170,7 +176,7 @@ const ForumPage = () => {
         <Layout user={currentUser}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-['Hanken_Grotesk']">
                 {/* Header */}
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
+                <div data-aos="fade-up" className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
                     <div>
                         <h1 className="text-3xl font-bold text-gray-900">Forum Diskusi</h1>
                         <p className="text-gray-600 mt-2">
@@ -185,7 +191,7 @@ const ForumPage = () => {
 
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                     {/* Main Content */}
-                    <div className="lg:col-span-3 space-y-6">
+                    <div data-aos="fade-up" data-aos-delay="300" className="lg:col-span-3 space-y-6">
                         {/* Search and Filters */}
                         <Card>
                             <CardContent className="p-4">
@@ -243,7 +249,7 @@ const ForumPage = () => {
                     </div>
 
                     {/* Sidebar */}
-                    <div className="space-y-6">
+                    <div data-aos="fade-up" data-aos-delay="300" className="space-y-6">
                         {/* Categories */}
                         <Card>
                             <CardHeader>

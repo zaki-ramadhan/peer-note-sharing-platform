@@ -6,6 +6,8 @@ import Button from '../components/ui/Button';
 import { Card, CardContent } from '../components/ui/Card';
 import { Badge } from '../components/ui';
 import { generateDummyNotes, currentUser } from '../data/dummyData';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const NotesPage = () => {
     const [notes, setNotes] = useState([]);
@@ -51,6 +53,10 @@ const NotesPage = () => {
     ];
 
     useEffect(() => {
+        AOS.init({
+            duration: 1400,
+            easing: 'ease',
+        })
         // Simulate loading with dummy data
         setTimeout(() => {
             const dummyNotes = generateDummyNotes();
@@ -277,244 +283,250 @@ const NotesPage = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 font-['Hanken_Grotesk']">
                 {/* Hero Header */}
                 <div className="text-center mb-12 ">
-                    <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-full px-4 py-2 mb-6">
-                        <Sparkles className="w-4 h-4 text-blue-600" />
-                        <span className="text-sm font-medium text-blue-700">Discover Quality Notes</span>
+                    <div data-aos="fade-up">
+                        <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-full px-4 py-2 mb-6">
+                            <Sparkles className="w-4 h-4 text-blue-600" />
+                            <span className="text-sm font-medium text-blue-700">Discover Quality Notes</span>
+                        </div>
+                        <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent mb-4">
+                            Explore {filteredNotes.length} Premium Notes
+                        </h1>
+                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                            Find high-quality study materials curated by our community of learners
+                        </p>
                     </div>
-                    <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent mb-4">
-                        Explore {filteredNotes.length} Premium Notes
-                    </h1>
-                    <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                        Find high-quality study materials curated by our community of learners
-                    </p>
                 </div>
 
                 {/* Enhanced Search and Filter Bar */}
-                <Card variant="glass" className="mb-8  animation-delay-200">
-                    <CardContent className="p-6">
-                        {/* Main Search Row */}
-                        <div className="flex flex-col lg:flex-row gap-4 mb-4">
-                            {/* Search Input */}
-                            <div className="flex-1 relative">
-                                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />                                <input
-                                    type="text"
-                                    placeholder="Search by title, description, or tags..."
-                                    value={filters.search}
-                                    onChange={(e) => handleSearchChange(e.target.value)}
-                                    onKeyDown={(e) => {
-                                        if (e.key === 'Enter') {
-                                            handleSearchSubmit(filters.search);
-                                        }
-                                    }}
-                                    onFocus={() => generateSearchSuggestions(filters.search)}
-                                    onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-                                    className="w-full pl-12 pr-4 py-4 bg-white/50 border border-gray-200/50 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300"
-                                />
+                <div data-aos="fade-up">
+                    <Card variant="glass" className="mb-8  ">
+                        <CardContent className="p-6">
+                            {/* Main Search Row */}
+                            <div className="flex flex-col lg:flex-row gap-4 mb-4">
+                                {/* Search Input */}
+                                <div className="flex-1 relative">
+                                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />                                <input
+                                        type="text"
+                                        placeholder="Search by title, description, or tags..."
+                                        value={filters.search}
+                                        onChange={(e) => handleSearchChange(e.target.value)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                handleSearchSubmit(filters.search);
+                                            }
+                                        }}
+                                        onFocus={() => generateSearchSuggestions(filters.search)}
+                                        onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+                                        className="w-full pl-12 pr-4 py-4 bg-white/50 border border-gray-200/50 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300"
+                                    />
 
-                                {/* Search Suggestions Dropdown */}
-                                {showSuggestions && searchSuggestions.length > 0 && (
-                                    <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-lg border border-gray-200/50 rounded-xl shadow-md z-50 max-h-60 overflow-y-auto">
-                                        {searchSuggestions.map((suggestion, index) => (
-                                            <button
-                                                key={index}
-                                                onClick={() => handleSuggestionClick(suggestion)}
-                                                className="w-full px-4 py-3 text-left hover:bg-blue-50/50 transition-colors flex items-center justify-between group"
-                                            >
-                                                <div className="flex items-center space-x-3">
-                                                    <div className={`w-2 h-2 rounded-full ${suggestion.type === 'title' ? 'bg-blue-500' : 'bg-purple-500'}`}></div>
-                                                    <span className="text-sm text-gray-700 group-hover:text-blue-600">{suggestion.text}</span>
-                                                </div>
-                                                <Badge variant="secondary" className="text-xs">
-                                                    {suggestion.count} {suggestion.count === 1 ? 'note' : 'notes'}
-                                                </Badge>
-                                            </button>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>                            {/* Enhanced View Toggle */}
-                            <div className="flex items-center space-x-2">
-                                <div className="flex rounded-xl border border-gray-200/50 p-1 bg-white/50 gap-2">
-                                    {viewOptions.map((option) => {
-                                        const Icon = option.icon;
-                                        return (
-                                            <button
-                                                key={option.key}
-                                                onClick={() => setCurrentView(option.key)}
-                                                className={`p-2 rounded-lg transition-all duration-300 ${currentView === option.key
-                                                    ? 'bg-blue-600 text-white shadow-md'
-                                                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50/50'
-                                                    }`}
-                                                title={option.label}
-                                            >
-                                                <Icon className="w-5 h-5 " />
-                                            </button>
-                                        );
-                                    })}
-                                </div>
-
-                                <Button
-                                    variant="outline"
-                                    onClick={() => setShowFilters(!showFilters)}
-                                    className="flex flex-nowrap items-center space-x-2"
-                                >
-                                    <SlidersHorizontal className="w-4 h-4 inline mr-2" />
-                                    <span className='inline'>Filters</span>
-                                </Button>
-                            </div>
-                        </div>
-
-                        {/* Expandable Filters */}
-                        {showFilters && (
-                            <div className="border-t border-gray-200/50 pt-6 space-y-6 ">                                {/* Subject Filter with Multi-select */}
-                                <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-3">
-                                        Subject Categories
-                                        {selectedCategories.length > 0 && (
-                                            <span className="ml-2 text-xs text-blue-600">
-                                                ({selectedCategories.length} selected)
-                                            </span>
-                                        )}
-                                    </label>
-                                    <div className="flex flex-wrap gap-2">
-                                        {subjects.map((subject) => {
-                                            const isSelected = subject === 'All'
-                                                ? selectedCategories.length === 0
-                                                : selectedCategories.includes(subject);
-
-                                            return (
+                                    {/* Search Suggestions Dropdown */}
+                                    {showSuggestions && searchSuggestions.length > 0 && (
+                                        <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-lg border border-gray-200/50 rounded-xl shadow-md z-50 max-h-60 overflow-y-auto">
+                                            {searchSuggestions.map((suggestion, index) => (
                                                 <button
-                                                    key={subject}
-                                                    onClick={() => {
-                                                        if (subject === 'All') {
-                                                            setSelectedCategories([]);
-                                                            handleFilterChange('subject', '');
-                                                        } else {
-                                                            const newSelected = isSelected
-                                                                ? selectedCategories.filter(cat => cat !== subject)
-                                                                : [...selectedCategories, subject];
-                                                            setSelectedCategories(newSelected);
-                                                            handleFilterChange('subject', newSelected.join(','));
-                                                        }
-                                                    }}
-                                                    className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${isSelected
-                                                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md'
-                                                        : 'bg-white/50 text-gray-700 border border-gray-200/50 hover:bg-blue-50/50 hover:text-blue-600 hover:border-blue-200/50'
-                                                        }`}
+                                                    key={index}
+                                                    onClick={() => handleSuggestionClick(suggestion)}
+                                                    className="w-full px-4 py-3 text-left hover:bg-blue-50/50 transition-colors flex items-center justify-between group"
                                                 >
-                                                    {subject}
-                                                    {isSelected && subject !== 'All' && (
-                                                        <span className="ml-2 text-xs">✓</span>
-                                                    )}
+                                                    <div className="flex items-center space-x-3">
+                                                        <div className={`w-2 h-2 rounded-full ${suggestion.type === 'title' ? 'bg-blue-500' : 'bg-purple-500'}`}></div>
+                                                        <span className="text-sm text-gray-700 group-hover:text-blue-600">{suggestion.text}</span>
+                                                    </div>
+                                                    <Badge variant="secondary" className="text-xs">
+                                                        {suggestion.count} {suggestion.count === 1 ? 'note' : 'notes'}
+                                                    </Badge>
                                                 </button>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-
-                                {/* Sort Options */}
-                                <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-3">
-                                        Sort By
-                                    </label>
-                                    <div className="flex flex-wrap gap-3">
-                                        {sortOptions.map((option) => {
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>                            {/* Enhanced View Toggle */}
+                                <div className="flex items-center space-x-2">
+                                    <div className="flex rounded-xl border border-gray-200/50 p-1 bg-white/50 gap-2">
+                                        {viewOptions.map((option) => {
                                             const Icon = option.icon;
                                             return (
                                                 <button
-                                                    key={option.value}
-                                                    onClick={() => handleFilterChange('sort', option.value)} className={`flex items-center space-x-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${filters.sort === option.value
-                                                        ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-md'
-                                                        : 'bg-white/50 text-gray-700 border border-gray-200/50 hover:bg-purple-50/50 hover:text-purple-600 hover:border-purple-200/50'
+                                                    key={option.key}
+                                                    onClick={() => setCurrentView(option.key)}
+                                                    className={`p-2 rounded-lg transition-all duration-300 ${currentView === option.key
+                                                        ? 'bg-blue-600 text-white shadow-md'
+                                                        : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50/50'
                                                         }`}
+                                                    title={option.label}
                                                 >
-                                                    <Icon className="w-4 h-4" />
-                                                    <span>{option.label}</span>
+                                                    <Icon className="w-5 h-5 " />
                                                 </button>
                                             );
                                         })}
                                     </div>
-                                </div>
 
-                                {/* Popular Tags Quick Filter */}
-                                <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-3">
-                                        Popular Tags
-                                    </label>
-                                    <div className="flex flex-wrap gap-2">
-                                        {popularTags.map((tag) => (
-                                            <button
-                                                key={tag}
-                                                onClick={() => handleFilterChange('search', tag)}
-                                                className="px-3 py-1.5 rounded-lg text-xs font-medium bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 border border-gray-200/50 hover:from-blue-100 hover:to-indigo-100 hover:text-blue-700 hover:border-blue-200/50 transition-all duration-300"
-                                            >
-                                                #{tag}
-                                            </button>
-                                        ))}
-                                    </div>
+                                    <Button
+                                        variant="outline"
+                                        onClick={() => setShowFilters(!showFilters)}
+                                        className="flex flex-nowrap items-center space-x-2"
+                                    >
+                                        <SlidersHorizontal className="w-4 h-4 inline mr-2" />
+                                        <span className='inline'>Filters</span>
+                                    </Button>
                                 </div>
+                            </div>
 
-                                {/* Recent Searches */}
-                                {recentSearches.length > 0 && (
+                            {/* Expandable Filters */}
+                            {showFilters && (
+                                <div className="border-t border-gray-200/50 pt-6 space-y-6 ">                                {/* Subject Filter with Multi-select */}
                                     <div>
                                         <label className="block text-sm font-semibold text-gray-700 mb-3">
-                                            Recent Searches
+                                            Subject Categories
+                                            {selectedCategories.length > 0 && (
+                                                <span className="ml-2 text-xs text-blue-600">
+                                                    ({selectedCategories.length} selected)
+                                                </span>
+                                            )}
                                         </label>
                                         <div className="flex flex-wrap gap-2">
-                                            {recentSearches.map((search, index) => (
+                                            {subjects.map((subject) => {
+                                                const isSelected = subject === 'All'
+                                                    ? selectedCategories.length === 0
+                                                    : selectedCategories.includes(subject);
+
+                                                return (
+                                                    <button
+                                                        key={subject}
+                                                        onClick={() => {
+                                                            if (subject === 'All') {
+                                                                setSelectedCategories([]);
+                                                                handleFilterChange('subject', '');
+                                                            } else {
+                                                                const newSelected = isSelected
+                                                                    ? selectedCategories.filter(cat => cat !== subject)
+                                                                    : [...selectedCategories, subject];
+                                                                setSelectedCategories(newSelected);
+                                                                handleFilterChange('subject', newSelected.join(','));
+                                                            }
+                                                        }}
+                                                        className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${isSelected
+                                                            ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md'
+                                                            : 'bg-white/50 text-gray-700 border border-gray-200/50 hover:bg-blue-50/50 hover:text-blue-600 hover:border-blue-200/50'
+                                                            }`}
+                                                    >
+                                                        {subject}
+                                                        {isSelected && subject !== 'All' && (
+                                                            <span className="ml-2 text-xs">✓</span>
+                                                        )}
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+
+                                    {/* Sort Options */}
+                                    <div>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-3">
+                                            Sort By
+                                        </label>
+                                        <div className="flex flex-wrap gap-3">
+                                            {sortOptions.map((option) => {
+                                                const Icon = option.icon;
+                                                return (
+                                                    <button
+                                                        key={option.value}
+                                                        onClick={() => handleFilterChange('sort', option.value)} className={`flex items-center space-x-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${filters.sort === option.value
+                                                            ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-md'
+                                                            : 'bg-white/50 text-gray-700 border border-gray-200/50 hover:bg-purple-50/50 hover:text-purple-600 hover:border-purple-200/50'
+                                                            }`}
+                                                    >
+                                                        <Icon className="w-4 h-4" />
+                                                        <span>{option.label}</span>
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+
+                                    {/* Popular Tags Quick Filter */}
+                                    <div>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-3">
+                                            Popular Tags
+                                        </label>
+                                        <div className="flex flex-wrap gap-2">
+                                            {popularTags.map((tag) => (
                                                 <button
-                                                    key={index}
-                                                    onClick={() => handleFilterChange('search', search)}
-                                                    className="px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-100 text-gray-600 border border-gray-200/50 hover:bg-blue-100 hover:text-blue-600 hover:border-blue-200/50 transition-all duration-300"
+                                                    key={tag}
+                                                    onClick={() => handleFilterChange('search', tag)}
+                                                    className="px-3 py-1.5 rounded-lg text-xs font-medium bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 border border-gray-200/50 hover:from-blue-100 hover:to-indigo-100 hover:text-blue-700 hover:border-blue-200/50 transition-all duration-300"
                                                 >
-                                                    {search}
+                                                    #{tag}
                                                 </button>
                                             ))}
                                         </div>
                                     </div>
-                                )}
 
-                                {/* Clear All Filters */}
-                                {(filters.search || filters.subject) && (
-                                    <div className="pt-4 border-t border-gray-200/50">
-                                        <Button
-                                            variant="outline"
-                                            onClick={clearAllFilters}
-                                            className="w-full bg-red-50/50 text-red-600 border-red-200/50 hover:bg-red-100/50 hover:text-red-700"
-                                        >
-                                            Clear All Filters
-                                        </Button>
-                                    </div>)}
-                            </div>
-                        )}
-
-                        {/* Filter Statistics */}
-                        {filterStats.total > 0 && (
-                            <div className="border-t border-gray-200/50 pt-4 mt-4">
-                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                                    <div className="bg-blue-50/50 rounded-lg p-3">
-                                        <div className="text-lg font-bold text-blue-600">{filterStats.filtered}</div>
-                                        <div className="text-xs text-blue-700">Results</div>
-                                    </div>
-                                    <div className="bg-green-50/50 rounded-lg p-3">
-                                        <div className="text-lg font-bold text-green-600">{filterStats.total}</div>
-                                        <div className="text-xs text-green-700">Total Notes</div>
-                                    </div>
-                                    <div className="bg-purple-50/50 rounded-lg p-3">
-                                        <div className="text-lg font-bold text-purple-600">{filterStats.avgRating}</div>
-                                        <div className="text-xs text-purple-700">Avg Rating</div>
-                                    </div>
-                                    <div className="bg-orange-50/50 rounded-lg p-3">
-                                        <div className="text-lg font-bold text-orange-600">
-                                            {Object.keys(filterStats.bySubject || {}).length}
+                                    {/* Recent Searches */}
+                                    {recentSearches.length > 0 && (
+                                        <div>
+                                            <label className="block text-sm font-semibold text-gray-700 mb-3">
+                                                Recent Searches
+                                            </label>
+                                            <div className="flex flex-wrap gap-2">
+                                                {recentSearches.map((search, index) => (
+                                                    <button
+                                                        key={index}
+                                                        onClick={() => handleFilterChange('search', search)}
+                                                        className="px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-100 text-gray-600 border border-gray-200/50 hover:bg-blue-100 hover:text-blue-600 hover:border-blue-200/50 transition-all duration-300"
+                                                    >
+                                                        {search}
+                                                    </button>
+                                                ))}
+                                            </div>
                                         </div>
-                                        <div className="text-xs text-orange-700">Categories</div>
+                                    )}
+
+                                    {/* Clear All Filters */}
+                                    {(filters.search || filters.subject) && (
+                                        <div className="pt-4 border-t border-gray-200/50">
+                                            <Button
+                                                variant="outline"
+                                                onClick={clearAllFilters}
+                                                className="w-full bg-red-50/50 text-red-600 border-red-200/50 hover:bg-red-100/50 hover:text-red-700"
+                                            >
+                                                Clear All Filters
+                                            </Button>
+                                        </div>)}
+                                </div>
+                            )}
+
+                            {/* Filter Statistics */}
+                            {filterStats.total > 0 && (
+                                <div className="border-t border-gray-200/50 pt-4 mt-4">
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                                        <div className="bg-blue-50/50 rounded-lg p-3">
+                                            <div className="text-lg font-bold text-blue-600">{filterStats.filtered}</div>
+                                            <div className="text-xs text-blue-700">Results</div>
+                                        </div>
+                                        <div className="bg-green-50/50 rounded-lg p-3">
+                                            <div className="text-lg font-bold text-green-600">{filterStats.total}</div>
+                                            <div className="text-xs text-green-700">Total Notes</div>
+                                        </div>
+                                        <div className="bg-purple-50/50 rounded-lg p-3">
+                                            <div className="text-lg font-bold text-purple-600">{filterStats.avgRating}</div>
+                                            <div className="text-xs text-purple-700">Avg Rating</div>
+                                        </div>
+                                        <div className="bg-orange-50/50 rounded-lg p-3">
+                                            <div className="text-lg font-bold text-orange-600">
+                                                {Object.keys(filterStats.bySubject || {}).length}
+                                            </div>
+                                            <div className="text-xs text-orange-700">Categories</div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        )}
-                    </CardContent>
-                </Card>{/* Quick Filters Bar */}
-                <div className="mb-8  animation-delay-100">
+                            )}
+                        </CardContent>
+                    </Card>
+                </div>
+
+                {/* Quick Filters Bar */}
+                <div data-aos="fade-up" data-aos-delay="300" className="mb-8  ">
                     <div className="flex items-center justify-between mb-4">
                         <h3 className="text-lg font-semibold text-gray-900">Quick Filters</h3>
                         <Button
@@ -553,8 +565,10 @@ const NotesPage = () => {
                             );
                         })}
                     </div>
-                </div>                {/* Quick Stats Bar */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8  animation-delay-300">
+                </div>                
+
+                {/* Quick Stats Bar */}
+                <div data-aos="fade-up" data-aos-delay="500" className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8  ">
                     <Card className="p-4 text-center bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200/50">
                         <div className="text-2xl font-bold text-blue-600">{notes.length}</div>
                         <div className="text-sm text-blue-700">Total Notes</div>
@@ -577,8 +591,10 @@ const NotesPage = () => {
                         </div>
                         <div className="text-sm text-orange-700">Avg Rating</div>
                     </Card>
-                </div>                {/* Upload CTA and Results Info */}
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                </div>
+
+                {/* Upload CTA and Results Info */}
+                <div data-aos="fade-up" data-aos-delay="500" className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
                     <div className="flex items-center space-x-4">
                         <Badge variant="gradient" className="px-4 py-2 text-sm font-semibold">
                             {filteredNotes.length} Results
@@ -619,8 +635,8 @@ const NotesPage = () => {
                             }
                         </p>                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <a href="/upload">
-                                <Button variant="gradient" size="lg" className="px-8 py-4">
-                                    <Plus className="w-5 h-5 mr-2" />
+                                <Button variant="gradient" size="lg" className="inline px-8 py-4">
+                                    <Plus className="w-5 h-5 mr-2 inline" />
                                     Upload First Note
                                 </Button>
                             </a>
@@ -635,7 +651,7 @@ const NotesPage = () => {
                             )}
                         </div>
                     </div>) : (
-                    <div className={` animation-delay-400 ${currentView === 'grid'
+                    <div className={`  ${currentView === 'grid'
                         ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'
                         : currentView === 'list'
                             ? 'space-y-6'
@@ -646,7 +662,7 @@ const NotesPage = () => {
                         {filteredNotes.map((note, index) => (
                             <div
                                 key={note.id}
-                                className=""
+                                data-aos="fade-up" data-aos-delay="500"
                                 style={{ animationDelay: `${index * 100}ms` }}
                             >
                                 <NoteCard

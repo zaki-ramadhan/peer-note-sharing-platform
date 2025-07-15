@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Trophy, Crown, Medal, Award, Star, TrendingUp, Users, Upload } from 'lucide-react';
 import { Layout } from '../components/layout';
 import { Card, CardContent, CardHeader, CardTitle, Avatar, Badge } from '../components/ui';
 import { generateDummyUsers, currentUser } from '../data/dummyData';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const LeaderboardPage = () => {
     const [leaderboardData, setLeaderboardData] = useState([]);
@@ -10,6 +12,11 @@ const LeaderboardPage = () => {
     const [category, setCategory] = useState('points');
 
     useEffect(() => {
+        AOS.init({
+            duration: 1400,
+            easing: 'ease',
+        });
+
         // Simulate API call
         const users = generateDummyUsers();
 
@@ -115,7 +122,7 @@ const LeaderboardPage = () => {
         <Layout user={currentUser}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-['Hanken_Grotesk']">
                 {/* Header */}
-                <div className="text-center mb-8">
+                <div data-aos="fade-up" className="text-center mb-8">
                     <h1 className="text-4xl font-bold text-slate-800 mb-4">
                         🏆 Leaderboard
                     </h1>
@@ -125,7 +132,7 @@ const LeaderboardPage = () => {
                 </div>
 
                 {/* Filters */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                <div data-aos="fade-up" data-aos-delay="300" className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                     <div className="flex gap-2">
                         {['all-time', 'this-month', 'this-week'].map((period) => (
                             <button
@@ -161,74 +168,76 @@ const LeaderboardPage = () => {
                 </div>
 
                 {/* Top 3 */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <div data-aos="fade-up" data-aos-delay="500" className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                     {leaderboardData.slice(0, 3).map((user, index) => (
                         <TopPerformer key={user.id} user={user} rank={index + 1} />
                     ))}
                 </div>
 
                 {/* Rest of Leaderboard */}
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="flex items-center">
-                            <Users className="w-5 h-5 mr-2" />
-                            Peringkat Lengkap
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="space-y-4">
-                            {leaderboardData.slice(3).map((user) => (
-                                <div
-                                    key={user.id}
-                                    className={`flex items-center space-x-4 p-4 rounded-lg transition-colors ${user.id === currentUser.id ? 'bg-blue-50 border border-blue-200' : 'hover:bg-slate-50'
-                                        }`}
-                                >
-                                    <div className="flex-shrink-0 w-8 text-center">
-                                        {getRankIcon(user.rank)}
-                                    </div>
+                <div data-aos="fade-up" data-aos-delay="600">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center">
+                                <Users className="w-5 h-5 mr-2" />
+                                Peringkat Lengkap
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="space-y-4">
+                                {leaderboardData.slice(3).map((user) => (
+                                    <div
+                                        key={user.id}
+                                        className={`flex items-center space-x-4 p-4 rounded-lg transition-colors ${user.id === currentUser.id ? 'bg-blue-50 border border-blue-200' : 'hover:bg-slate-50'
+                                            }`}
+                                    >
+                                        <div className="flex-shrink-0 w-8 text-center">
+                                            {getRankIcon(user.rank)}
+                                        </div>
 
-                                    <Avatar
-                                        src={user.avatar}
-                                        alt={user.name}
-                                        size="md"
-                                        initials={user.name?.split(' ').map(n => n[0]).join('')}
-                                    />
+                                        <Avatar
+                                            src={user.avatar}
+                                            alt={user.name}
+                                            size="md"
+                                            initials={user.name?.split(' ').map(n => n[0]).join('')}
+                                        />
 
-                                    <div className="flex-1 min-w-0">
-                                        <div className="flex items-center space-x-2">
-                                            <p className="text-sm font-medium text-slate-900 truncate">
-                                                {user.name}
-                                                {user.id === currentUser.id && (
-                                                    <Badge variant="primary" size="sm" className="ml-2">Anda</Badge>
-                                                )}
-                                            </p>
-                                            {getChangeIndicator(user.change)}
+                                        <div className="flex-1 min-w-0">
+                                            <div className="flex items-center space-x-2">
+                                                <p className="text-sm font-medium text-slate-900 truncate">
+                                                    {user.name}
+                                                    {user.id === currentUser.id && (
+                                                        <Badge variant="primary" size="sm" className="ml-2">Anda</Badge>
+                                                    )}
+                                                </p>
+                                                {getChangeIndicator(user.change)}
+                                            </div>
+                                            <p className="text-xs text-slate-500 truncate">{user.university}</p>
                                         </div>
-                                        <p className="text-xs text-slate-500 truncate">{user.university}</p>
-                                    </div>
 
-                                    <div className="flex items-center space-x-6 text-sm">
-                                        <div className="text-center">
-                                            <p className="font-bold text-slate-900">{user.points}</p>
-                                            <p className="text-xs text-slate-500">Poin</p>
-                                        </div>
-                                        <div className="text-center">
-                                            <p className="font-bold text-slate-900">{user.uploadCount}</p>
-                                            <p className="text-xs text-slate-500">Upload</p>
-                                        </div>
-                                        <div className="text-center">
-                                            <p className="font-bold text-slate-900">{user.downloadCount}</p>
-                                            <p className="text-xs text-slate-500">Download</p>
+                                        <div className="flex items-center space-x-6 text-sm">
+                                            <div className="text-center">
+                                                <p className="font-bold text-slate-900">{user.points}</p>
+                                                <p className="text-xs text-slate-500">Poin</p>
+                                            </div>
+                                            <div className="text-center">
+                                                <p className="font-bold text-slate-900">{user.uploadCount}</p>
+                                                <p className="text-xs text-slate-500">Upload</p>
+                                            </div>
+                                            <div className="text-center">
+                                                <p className="font-bold text-slate-900">{user.downloadCount}</p>
+                                                <p className="text-xs text-slate-500">Download</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
-                        </div>
-                    </CardContent>
-                </Card>
+                                ))}
+                            </div>
+                        </CardContent>
+                    </Card>
+                </div>
 
                 {/* Achievement System Info */}
-                <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div data-aos="fade-up" data-aos-delay="800" data-aos-offset="200" className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
                     <Card>
                         <CardHeader>
                             <CardTitle>🎯 Cara Mendapat Poin</CardTitle>
