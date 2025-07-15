@@ -94,3 +94,11 @@ export const showShareErrorToast = () => {
         autoClose: 2000,
     });
 };
+
+// Generic success notification
+export const showSuccessToast = (message) => {
+    toast.success(`✅ ${message}`, {
+        position: "top-right",
+        autoClose: 3000,
+    });
+};

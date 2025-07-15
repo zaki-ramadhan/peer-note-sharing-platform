@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router';
-import { showSearchToast } from '../../utils/toastUtils';
 import {
     BookOpen,
     Home,
@@ -17,18 +16,20 @@ import {
     LogOut,
     ChevronDown
 } from 'lucide-react';
-import { Button, Avatar, Badge, ConfirmationModal, SearchDropdown } from '../ui';
+import { Button, Avatar, Badge, ConfirmationModal, SearchDropdown, NotificationDropdown } from '../ui';
 import { useAuth } from '../../contexts/AuthContext';
+import { useNotifications } from '../../hooks/useNotifications';
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const [showLogoutModal, setShowLogoutModal] = useState(false);
-    const [searchQuery, setSearchQuery] = useState('');
+    const [showLogoutModal, setShowLogoutModal] = useState(false); const [searchQuery, setSearchQuery] = useState('');
     const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [isNotificationOpen, setIsNotificationOpen] = useState(false);
     const location = useLocation();
     const { user, logout, loading: authLoading } = useAuth();
+    const { unreadCount } = useNotifications();
 
     const navigationItems = [
         { name: 'Dashboard', href: '/dashboard', icon: Home },
@@ -37,18 +38,9 @@ const Navbar = () => {
         { name: 'Forum', href: '/forum', icon: MessageSquare },
         { name: 'Leaderboard', href: '/leaderboard', icon: TrendingUp }
     ]; const isActive = (path) => location.pathname === path; const handleLogout = async () => {
-        const result = await logout();
-
-        if (result.success) {
+        const result = await logout(); if (result.success) {
             setShowLogoutModal(false);
             setIsProfileMenuOpen(false);
-        }
-    }; const handleSearchNavigation = (query) => {
-        if (query.trim()) {
-            showSearchToast(query);
-            setIsSearchOpen(false);
-            setIsMobileMenuOpen(false);
-            window.location.href = `/notes?search=${encodeURIComponent(query)}`;
         }
     };
 
@@ -67,11 +59,12 @@ const Navbar = () => {
             if (isSearchOpen && !event.target.closest('.search-container')) {
                 setIsSearchOpen(false);
             }
-        };
-
-        document.addEventListener('mousedown', handleClickOutside);
+            if (isNotificationOpen && !event.target.closest('.notification-container')) {
+                setIsNotificationOpen(false);
+            }
+        }; document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [isProfileMenuOpen, isSearchOpen]); return (
+    }, [isProfileMenuOpen, isSearchOpen, isNotificationOpen]); return (
         <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-['Hanken_Grotesk'] ${scrolled
             ? 'backdrop-blur-xl bg-white/80 border-b border-white/20 shadow-md shadow-gray-200/20'
             : 'backdrop-blur-lg bg-white/60 border-b border-white/10'
@@ -137,13 +130,24 @@ const Navbar = () => {
                                     setSearchQuery('');
                                 }}
                             />
-                        </div>{/* Notifications */}
-                        <button className="relative p-2 lg:p-2.5 text-gray-600 hover:text-blue-600 hover:bg-blue-50/50 rounded-xl transition-all duration-300 group">
-                            <Bell className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
-                            <span className="absolute -top-0.5 -right-0.5 h-4 w-4 lg:h-5 lg:w-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center animate-pulse font-medium">
-                                3
-                            </span>
-                        </button>{/* User Menu */}                        {user ? (
+                        </div>                        {/* Notifications */}
+                        <div className="relative notification-container">
+                            <button
+                                onClick={() => setIsNotificationOpen(!isNotificationOpen)}
+                                className="relative p-2 lg:p-2.5 text-gray-600 hover:text-blue-600 hover:bg-blue-50/50 rounded-xl transition-all duration-300 group"
+                            >
+                                <Bell className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
+                                {unreadCount > 0 && (
+                                    <span className="absolute -top-0.5 -right-0.5 h-4 w-4 lg:h-5 lg:w-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center animate-pulse font-medium">
+                                        {unreadCount > 9 ? '9+' : unreadCount}
+                                    </span>
+                                )}
+                            </button>
+                            <NotificationDropdown
+                                isOpen={isNotificationOpen}
+                                onClose={() => setIsNotificationOpen(false)}
+                            />
+                        </div>{/* User Menu */}                        {user ? (
                             <div className="relative profile-menu-container"><button
                                 onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
                                 className="flex items-center space-x-2 lg:space-x-3 p-2 rounded-xl hover:bg-gray-50/50 transition-all duration-300 group"

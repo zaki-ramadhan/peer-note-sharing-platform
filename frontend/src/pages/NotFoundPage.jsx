@@ -60,13 +60,13 @@ const NotFoundPage = () => {
                                 variant="outline"
                                 className="flex items-center gap-2"
                             >
-                                <ArrowLeft className="w-4 h-4" />
+                                <ArrowLeft className="w-4 h-4 inline mr-2 -mt-0.5" />
                                 Kembali
                             </Button>
 
                             <Link to="/">
                                 <Button className="flex items-center gap-2 w-full sm:w-auto">
-                                    <Home className="w-4 h-4" />
+                                    <Home className="w-4 h-4 inline mr-2 -mt-0.5" />
                                     Halaman Utama
                                 </Button>
                             </Link>
@@ -76,7 +76,7 @@ const NotFoundPage = () => {
                                     variant="ghost"
                                     className="flex items-center gap-2 w-full sm:w-auto"
                                 >
-                                    <Search className="w-4 h-4" />
+                                    <Search className="w-4 h-4 inline mr-2 -mt-0.5" />
                                     Cari Catatan
                                 </Button>
                             </Link>

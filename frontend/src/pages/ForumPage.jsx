@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router';
 import { MessageSquare, Plus, Search, TrendingUp, Clock, ThumbsUp, Reply } from 'lucide-react';
 import { Layout } from '../components/layout';
 import { Card, CardContent, CardHeader, CardTitle, Button, Input, Badge, Avatar } from '../components/ui';
@@ -181,12 +182,13 @@ const ForumPage = () => {
                         <h1 className="text-3xl font-bold text-gray-900">Forum Diskusi</h1>
                         <p className="text-gray-600 mt-2">
                             Berdiskusi, bertanya, dan berbagi pengalaman dengan komunitas
-                        </p>
-                    </div>
-                    <Button className="mt-4 sm:mt-0 flex">
-                        <Plus className="inline w-4 h-4 mr-2" />
-                        Buat Post Baru
-                    </Button>
+                        </p>                    </div>
+                    <Link to="/forum/create">
+                        <Button className="mt-4 sm:mt-0 flex">
+                            <Plus className="inline w-4 h-4 mr-2" />
+                            Buat Post Baru
+                        </Button>
+                    </Link>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -262,8 +264,8 @@ const ForumPage = () => {
                                             key={category}
                                             onClick={() => setSelectedCategory(category === selectedCategory ? '' : category)}
                                             className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${selectedCategory === category
-                                                    ? 'bg-blue-50 text-blue-600 font-medium'
-                                                    : 'text-gray-600 hover:bg-gray-50'
+                                                ? 'bg-blue-50 text-blue-600 font-medium'
+                                                : 'text-gray-600 hover:bg-gray-50'
                                                 }`}
                                         >
                                             {category}
