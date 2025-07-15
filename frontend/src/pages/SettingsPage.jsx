@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Layout from '../components/layout/Layout';
+import { ConfirmationModal } from '../components/ui';
 import {
     User,
     Lock,
@@ -35,9 +36,7 @@ const SettingsPage = () => {
         showLocation: true,
         allowMessages: true,
         showActivity: true
-    });
-
-    const [notificationSettings, setNotificationSettings] = useState({
+    }); const [notificationSettings, setNotificationSettings] = useState({
         emailNotifications: true,
         pushNotifications: true,
         newDownloads: true,
@@ -47,16 +46,85 @@ const SettingsPage = () => {
         weeklyDigest: false
     });
 
+    // Modal states
+    const [showPasswordModal, setShowPasswordModal] = useState(false);
+    const [show2FAModal, setShow2FAModal] = useState(false);
+    const [showRevokeModal, setShowRevokeModal] = useState(false);
+    const [showExportModal, setShowExportModal] = useState(false);
+    const [showDeactivateModal, setShowDeactivateModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [modalLoading, setModalLoading] = useState(false);
+    const [selectedSessionId, setSelectedSessionId] = useState(null);
+
     const handleProfileSubmit = (e) => {
         e.preventDefault();
         // Handle profile update
         console.log('Profile updated:', profileData);
+    }; const handlePasswordSubmit = (e) => {
+        e.preventDefault();
+        setShowPasswordModal(true);
     };
 
-    const handlePasswordSubmit = (e) => {
-        e.preventDefault();
-        // Handle password change
-        console.log('Password change requested');
+    const handlePasswordChange = async () => {
+        setModalLoading(true);
+        // Simulate password change
+        setTimeout(() => {
+            setModalLoading(false);
+            setShowPasswordModal(false);
+            alert('Password berhasil diubah!');
+        }, 2000);
+    };
+
+    const handleEnable2FA = async () => {
+        setModalLoading(true);
+        // Simulate 2FA setup
+        setTimeout(() => {
+            setModalLoading(false);
+            setShow2FAModal(false);
+            alert('2FA berhasil diaktifkan!');
+        }, 1500);
+    }; const handleRevokeSession = async () => {
+        setModalLoading(true);
+        // Simulate session revocation
+        console.log('Revoking session:', selectedSessionId);
+        setTimeout(() => {
+            setModalLoading(false);
+            setShowRevokeModal(false);
+            setSelectedSessionId(null);
+            alert('Session berhasil dicabut!');
+        }, 1000);
+    };
+
+    const handleExportData = async () => {
+        setModalLoading(true);
+        // Simulate data export
+        setTimeout(() => {
+            setModalLoading(false);
+            setShowExportModal(false);
+            alert('Request export data berhasil dikirim! Anda akan mendapat email konfirmasi.');
+        }, 2000);
+    };
+
+    const handleDeactivateAccount = async () => {
+        setModalLoading(true);
+        // Simulate account deactivation
+        setTimeout(() => {
+            setModalLoading(false);
+            setShowDeactivateModal(false);
+            alert('Akun berhasil dinonaktifkan. Anda akan diarahkan ke halaman login.');
+            // In real app, redirect to login
+        }, 2000);
+    };
+
+    const handleDeleteAccount = async () => {
+        setModalLoading(true);
+        // Simulate account deletion
+        setTimeout(() => {
+            setModalLoading(false);
+            setShowDeleteModal(false);
+            alert('Akun berhasil dihapus secara permanen.');
+            // In real app, redirect to home
+        }, 2000);
     };
 
     const tabs = [
@@ -291,8 +359,10 @@ const SettingsPage = () => {
                                             <div>
                                                 <p className="font-medium text-gray-900">SMS Authentication</p>
                                                 <p className="text-sm text-gray-600">Secure your account with SMS verification</p>
-                                            </div>
-                                            <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors">
+                                            </div>                                            <button
+                                                onClick={() => setShow2FAModal(true)}
+                                                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors"
+                                            >
                                                 Enable
                                             </button>
                                         </div>
@@ -316,8 +386,13 @@ const SettingsPage = () => {
                                                 <div>
                                                     <p className="font-medium text-gray-900">Mobile App</p>
                                                     <p className="text-sm text-gray-600">Android • Last seen 2 hours ago</p>
-                                                </div>
-                                                <button className="text-red-600 hover:text-red-700 text-sm font-medium">
+                                                </div>                                                <button
+                                                    onClick={() => {
+                                                        setSelectedSessionId('mobile-session-1');
+                                                        setShowRevokeModal(true);
+                                                    }}
+                                                    className="text-red-600 hover:text-red-700 text-sm font-medium"
+                                                >
                                                     Revoke
                                                 </button>
                                             </div>
@@ -415,7 +490,7 @@ const SettingsPage = () => {
                                     </div>
                                 </div>
                             </div>
-                        )}                        
+                        )}
 
                         {/* Privacy Settings */}
                         {activeTab === 'privacy' && (
@@ -510,8 +585,10 @@ const SettingsPage = () => {
                                     <h3 className="text-xl font-semibold text-gray-900 mb-4">Export Your Data</h3>
                                     <p className="text-gray-600 mb-6">
                                         Download a copy of all your data including notes, comments, and profile information.
-                                    </p>
-                                    <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors">
+                                    </p>                                    <button
+                                        onClick={() => setShowExportModal(true)}
+                                        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors"
+                                    >
                                         Request Data Export
                                     </button>
                                 </div>                                {/* Deactivate Account */}
@@ -523,8 +600,10 @@ const SettingsPage = () => {
                                     <h3 className="text-xl font-semibold text-gray-900 mb-4">Deactivate Account</h3>
                                     <p className="text-gray-600 mb-6">
                                         Temporarily deactivate your account. You can reactivate it anytime by logging in.
-                                    </p>
-                                    <button className="bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-3 rounded-lg transition-colors">
+                                    </p>                                    <button
+                                        onClick={() => setShowDeactivateModal(true)}
+                                        className="bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-3 rounded-lg transition-colors"
+                                    >
                                         Deactivate Account
                                     </button>
                                 </div>                                {/* Delete Account */}
@@ -536,17 +615,98 @@ const SettingsPage = () => {
                                     <h3 className="text-xl font-semibold text-red-600 mb-4">Danger Zone</h3>
                                     <p className="text-gray-600 mb-6">
                                         Once you delete your account, there is no going back. Please be certain.
-                                    </p>
-                                    <button className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg transition-colors">
+                                    </p>                                    <button
+                                        onClick={() => setShowDeleteModal(true)}
+                                        className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg transition-colors"
+                                    >
                                         <Trash2 className="w-4 h-4" />
                                         Delete Account Permanently
                                     </button>
                                 </div>
                             </div>
                         )}
-                    </div>
-                </div>
+                    </div>                </div>
             </div>
+
+            {/* Confirmation Modals */}
+
+            {/* Password Change Modal */}
+            <ConfirmationModal
+                isOpen={showPasswordModal}
+                onClose={() => setShowPasswordModal(false)}
+                onConfirm={handlePasswordChange}
+                title="Konfirmasi Ubah Password"
+                message="Apakah Anda yakin ingin mengubah password? Pastikan Anda telah mengisi form dengan benar."
+                type="info"
+                confirmText="Ya, Ubah Password"
+                cancelText="Batal"
+                loading={modalLoading}
+            />
+
+            {/* 2FA Enable Modal */}
+            <ConfirmationModal
+                isOpen={show2FAModal}
+                onClose={() => setShow2FAModal(false)}
+                onConfirm={handleEnable2FA}
+                title="Aktifkan Two-Factor Authentication"
+                message="Anda akan diminta untuk verifikasi nomor telepon. Pastikan nomor yang terdaftar benar dan dapat menerima SMS."
+                type="info"
+                confirmText="Ya, Aktifkan 2FA"
+                cancelText="Batal"
+                loading={modalLoading}
+            />
+
+            {/* Revoke Session Modal */}
+            <ConfirmationModal
+                isOpen={showRevokeModal}
+                onClose={() => setShowRevokeModal(false)}
+                onConfirm={handleRevokeSession}
+                title="Cabut Akses Session"
+                message="Apakah Anda yakin ingin mencabut akses session ini? Device tersebut akan logout secara otomatis."
+                type="warning"
+                confirmText="Ya, Cabut Akses"
+                cancelText="Batal"
+                loading={modalLoading}
+            />
+
+            {/* Export Data Modal */}
+            <ConfirmationModal
+                isOpen={showExportModal}
+                onClose={() => setShowExportModal(false)}
+                onConfirm={handleExportData}
+                title="Request Export Data"
+                message="Kami akan memproses permintaan export data Anda. Proses ini mungkin membutuhkan waktu beberapa menit hingga beberapa jam tergantung jumlah data."
+                type="info"
+                confirmText="Ya, Export Data"
+                cancelText="Batal"
+                loading={modalLoading}
+            />
+
+            {/* Deactivate Account Modal */}
+            <ConfirmationModal
+                isOpen={showDeactivateModal}
+                onClose={() => setShowDeactivateModal(false)}
+                onConfirm={handleDeactivateAccount}
+                title="Nonaktifkan Akun"
+                message="Akun Anda akan dinonaktifkan sementara. Data Anda akan tetap aman dan Anda dapat mengaktifkan kembali akun kapan saja dengan login."
+                type="warning"
+                confirmText="Ya, Nonaktifkan"
+                cancelText="Batal"
+                loading={modalLoading}
+            />
+
+            {/* Delete Account Modal */}
+            <ConfirmationModal
+                isOpen={showDeleteModal}
+                onClose={() => setShowDeleteModal(false)}
+                onConfirm={handleDeleteAccount}
+                title="Hapus Akun Permanen"
+                message="PERINGATAN: Tindakan ini tidak dapat dibatalkan! Semua data Anda termasuk catatan, komentar, dan informasi profil akan dihapus permanen dari sistem kami."
+                type="danger"
+                confirmText="Ya, Hapus Permanen"
+                cancelText="Batal"
+                loading={modalLoading}
+            />
         </Layout>
     );
 };

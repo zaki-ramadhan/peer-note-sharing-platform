@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import {
     BookOpen,
     Home,
@@ -16,13 +16,16 @@ import {
     LogOut,
     ChevronDown
 } from 'lucide-react';
-import { Button, Avatar, Badge } from '../ui';
+import { Button, Avatar, Badge, ConfirmationModal } from '../ui';
 
 const Navbar = ({ user }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
+    const [logoutLoading, setLogoutLoading] = useState(false);
     const location = useLocation();
+    const navigate = useNavigate();
 
     const navigationItems = [
         { name: 'Dashboard', href: '/dashboard', icon: Home },
@@ -30,9 +33,20 @@ const Navbar = ({ user }) => {
         { name: 'Upload', href: '/upload', icon: Upload },
         { name: 'Forum', href: '/forum', icon: MessageSquare },
         { name: 'Leaderboard', href: '/leaderboard', icon: TrendingUp }
-    ];
+    ]; const isActive = (path) => location.pathname === path;
 
-    const isActive = (path) => location.pathname === path;
+    const handleLogout = async () => {
+        setLogoutLoading(true);
+
+        // Simulate logout process
+        setTimeout(() => {
+            setLogoutLoading(false);
+            setShowLogoutModal(false);
+            setIsProfileMenuOpen(false);
+            // In real app, clear user session/token here
+            navigate('/');
+        }, 1000);
+    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -143,8 +157,13 @@ const Navbar = ({ user }) => {
                                         >                                            <Settings className="h-4 w-4 mr-3" />
                                             Settings
                                         </Link>
-                                        <hr className="my-2 border-gray-100" />
-                                        <button className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50/50 transition-colors">
+                                        <hr className="my-2 border-gray-100" />                                        <button
+                                            onClick={() => {
+                                                setIsProfileMenuOpen(false);
+                                                setShowLogoutModal(true);
+                                            }}
+                                            className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50/50 transition-colors"
+                                        >
                                             <LogOut className="h-4 w-4 mr-3" />
                                             Sign out
                                         </button>
@@ -207,10 +226,22 @@ const Navbar = ({ user }) => {
                                     {item.name}
                                 </Link>
                             );
-                        })}
-                    </div>
+                        })}                    </div>
                 </div>
             )}
+
+            {/* Logout Confirmation Modal */}
+            <ConfirmationModal
+                isOpen={showLogoutModal}
+                onClose={() => setShowLogoutModal(false)}
+                onConfirm={handleLogout}
+                title="Konfirmasi Logout"
+                message="Apakah Anda yakin ingin keluar dari akun Anda? Anda perlu login kembali untuk mengakses fitur platform."
+                type="warning"
+                confirmText="Ya, Logout"
+                cancelText="Batal"
+                loading={logoutLoading}
+            />
         </nav>
     );
 };

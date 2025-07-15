@@ -9,6 +9,7 @@ import ForumPage from './pages/ForumPage';
 import LeaderboardPage from './pages/LeaderboardPage';
 import ProfilePage from './pages/ProfilePage';
 import SettingsPage from './pages/SettingsPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (
@@ -24,10 +25,8 @@ function App() {
         <Route path="/forum" element={<ForumPage />} />
         <Route path="/leaderboard" element={<LeaderboardPage />} />
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/settings" element={<SettingsPage />} />
-
-        {/* Redirect any unknown routes to landing page */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/settings" element={<SettingsPage />} />        {/* Redirect any unknown routes to 404 page */}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );

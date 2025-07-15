@@ -4,4 +4,5 @@ export { Card, CardHeader, CardContent, CardFooter, CardTitle, CardDescription }
 export { default as Input } from './Input';
 export { default as Badge } from './Badge';
 export { Modal, ModalHeader, ModalContent, ModalFooter } from './Modal';
+export { default as ConfirmationModal } from './ConfirmationModal';
 export { default as Avatar } from './Avatar';
