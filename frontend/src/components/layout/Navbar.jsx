@@ -42,7 +42,7 @@ const Navbar = ({ user }) => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []); return (
         <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-['Hanken_Grotesk'] ${scrolled
-            ? 'backdrop-blur-xl bg-white/80 border-b border-white/20 shadow-lg shadow-gray-200/20'
+            ? 'backdrop-blur-xl bg-white/80 border-b border-white/20 shadow-md shadow-gray-200/20'
             : 'backdrop-blur-lg bg-white/60 border-b border-white/10'
             }`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -50,7 +50,7 @@ const Navbar = ({ user }) => {
                     {/* Logo and Desktop Navigation */}
                     <div className="flex items-center">
                         <Link to="/" className="flex items-center space-x-3 group">
-                            <div className="relative">                                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                            <div className="relative">                                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-md group- transition-all duration-300 group-hover:scale-110">
                                 <BookOpen className="h-6 w-6 text-white" />
                             </div>
                                 <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl opacity-30 blur-lg group-hover:opacity-60 transition-opacity duration-300"></div>
@@ -67,7 +67,7 @@ const Navbar = ({ user }) => {
                                     <Link
                                         key={item.name}
                                         to={item.href}
-                                        className={`group relative inline-flex items-center px-4 py-2 text-sm font-medium rounded-xl transition-all duration-300 ${isActive(item.href)
+                                        className={`group relative inline-flex items-center px-4 py-2 text-sm font-medium rounded-xl transition-all duration-300 text-nowrap ${isActive(item.href)
                                             ? 'text-blue-600 bg-blue-50/50'
                                             : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50/50'
                                             }`}
@@ -86,11 +86,11 @@ const Navbar = ({ user }) => {
                         {/* Search Bar */}
                         <div className="hidden md:block relative">
                             <div className="relative">
-                                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-900" />
                                 <input
                                     type="text"
                                     placeholder="Search notes..."
-                                    className="pl-10 pr-4 py-2.5 w-40 lg:w-48 xl:w-64 bg-white/50 backdrop-blur-sm border border-gray-200/50 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 hover:bg-white/70"
+                                    className="pl-10 pr-4 py-2.5 w-40 lg:w-44 bg-white/50 backdrop-blur-sm border border-gray-200/50 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 hover:bg-white/70"
                                 />
                             </div>
                         </div>                        {/* Notifications */}
@@ -118,7 +118,7 @@ const Navbar = ({ user }) => {
                                 />
                                 <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform duration-300 hidden lg:block ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
                             </button>                                {/* Profile Dropdown */}
-                                {isProfileMenuOpen && (<div className="absolute right-0 mt-2 w-56 bg-white/95 backdrop-blur-xl rounded-2xl shadow-lg border border-gray-200/50 py-2 animate-fade-in-up z-50">
+                                {isProfileMenuOpen && (<div className="absolute right-0 mt-2 w-56 bg-white/95 backdrop-blur-xl rounded-2xl shadow-md border border-gray-200/50 py-2 animate-fade-in-up z-50">
                                     <div className="px-4 py-3 border-b border-gray-100">
                                         <p className="text-sm font-medium text-gray-900 truncate">{user.name}</p>
                                         <p className="text-xs text-gray-500 truncate">{user.email}</p>
@@ -204,3 +204,5 @@ const Navbar = ({ user }) => {
 };
 
 export default Navbar;
+
+

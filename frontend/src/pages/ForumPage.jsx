@@ -103,7 +103,7 @@ const ForumPage = () => {
     };
 
     const PostCard = ({ post }) => (
-        <Card className="hover:shadow-md transition-shadow">
+        <Card className=" transition-shadow">
             <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
                     <Avatar
@@ -313,3 +313,4 @@ const ForumPage = () => {
 };
 
 export default ForumPage;
+

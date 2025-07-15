@@ -28,7 +28,7 @@ const Modal = ({
                 />
 
                 {/* Modal content */}                <div className={clsx(
-                    'relative transform overflow-hidden rounded-xl bg-white text-left shadow-xl transition-all font-["Hanken_Grotesk"]',
+                    'relative transform overflow-hidden rounded-xl bg-white text-left shadow-md transition-all font-["Hanken_Grotesk"]',
                     sizes[size],
                     'w-full',
                     className
@@ -71,3 +71,5 @@ const ModalFooter = ({ children, className }) => (
 );
 
 export { Modal, ModalHeader, ModalContent, ModalFooter };
+
+

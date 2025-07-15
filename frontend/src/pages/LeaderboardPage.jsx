@@ -60,7 +60,7 @@ const LeaderboardPage = () => {
     };
 
     const TopPerformer = ({ user, rank }) => (
-        <Card className="relative overflow-hidden bg-gradient-to-br from-white to-slate-50 border-2 border-blue-100 hover:shadow-xl transition-all duration-300">
+        <Card className="relative overflow-hidden bg-gradient-to-br from-white to-slate-50 border-2 border-blue-100  transition-all duration-300">
             <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${rank === 1 ? 'from-yellow-400 to-yellow-600' :
                 rank === 2 ? 'from-gray-300 to-gray-500' :
                     'from-orange-400 to-orange-600'
@@ -76,7 +76,7 @@ const LeaderboardPage = () => {
                     alt={user.name}
                     size="xl"
                     initials={user.name?.split(' ').map(n => n[0]).join('')}
-                    className="mx-auto mb-4 border-4 border-white shadow-lg"
+                    className="mx-auto mb-4 border-4 border-white shadow-md"
                 />
 
                 <h3 className="text-lg font-bold text-slate-800 mb-1">{user.name}</h3>
@@ -311,3 +311,5 @@ const LeaderboardPage = () => {
 };
 
 export default LeaderboardPage;
+
+

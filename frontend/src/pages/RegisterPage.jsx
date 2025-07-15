@@ -44,7 +44,7 @@ const RegisterPage = () => {
                 {/* Logo */}
                 <div className="text-center mb-8">
                     <Link to="/" className="inline-flex items-center space-x-3 group">
-                        <div className="p-3 bg-blue-600 rounded-xl shadow-lg group-hover:shadow-xl transition-shadow">
+                        <div className="p-3 bg-blue-600 rounded-xl shadow-md group- transition-shadow">
                             <BookOpen className="h-8 w-8 text-white" />
                         </div>
                         <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
@@ -54,7 +54,7 @@ const RegisterPage = () => {
                 </div>
 
                 {/* Register Card */}
-                <Card className="backdrop-blur-sm bg-white/80 border-0 shadow-2xl">
+                <Card className="backdrop-blur-sm bg-white/80 border-0 shadow-md">
                     <CardContent className="p-8">
                         <div className="text-center mb-8">
                             <h1 className="text-3xl font-bold text-slate-800 mb-2">
@@ -161,7 +161,7 @@ const RegisterPage = () => {
 
                             <Button
                                 type="submit"
-                                className="w-full h-12 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all duration-200"
+                                className="w-full h-12 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-md  transition-all duration-200"
                                 loading={loading}
                             >
                                 {loading ? 'Mendaftar...' : (
@@ -188,3 +188,5 @@ const RegisterPage = () => {
 };
 
 export default RegisterPage;
+
+

@@ -105,7 +105,7 @@ const LandingPage = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16 items-center">
                         <Link to="/" className="flex items-center space-x-3 group">
-                            <div className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-lg group-hover:shadow-xl transition-shadow">
+                            <div className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-md groupmd transition-shadow">
                                 <BookOpen className="h-6 w-6 text-white" />
                             </div>                            <span className="text-xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent font-['Hanken_Grotesk']">
                                 NoteShare
@@ -121,7 +121,7 @@ const LandingPage = () => {
                                 <Button variant="ghost" className="font-medium">Login</Button>
                             </Link>
                             <Link to="/register">
-                                <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg">
+                                <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-md">
                                     Get Started
                                 </Button>
                             </Link>
@@ -167,14 +167,14 @@ const LandingPage = () => {
                         </p>                        {/* CTA Buttons */}
                         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
                             <Link to="/register">
-                                <Button size="xl" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+                                <Button size="xl" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold px-8 py-4 rounded-xl shadow-md transform  transition-all duration-200">
                                     <Rocket className="inline mr-2 h-5 w-5" />
                                     Mulai Gratis
                                     <ArrowRight className="inline ml-2 w-5 h-5" />
                                 </Button>
                             </Link>
                             <Link to="/notes">
-                                <Button variant="outline" size="xl" className="border-2 border-slate-300 text-slate-700 hover:border-blue-500 hover:text-blue-600 font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+                                <Button variant="outline" size="xl" className="border-2 border-slate-300 text-slate-700 hover:border-blue-500 hover:text-blue-600 font-semibold px-8 py-4 rounded-xl shadow-md transform  transition-all duration-200">
                                     Jelajahi Catatan
                                 </Button>
                             </Link>
@@ -186,7 +186,7 @@ const LandingPage = () => {
                                 const Icon = stat.icon;
                                 return (
                                     <div key={index} className="group">
-                                        <div className="p-6 rounded-2xl bg-white/70 backdrop-blur-sm border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                                        <div className="p-6 rounded-2xl bg-white/70 backdrop-blur-sm border border-white/20 shadow-md transition-all duration-300 group-">
                                             <Icon className="w-8 h-8 text-blue-600 mx-auto mb-3" />
                                             <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
                                                 {stat.value}
@@ -225,9 +225,9 @@ const LandingPage = () => {
                         {features.map((feature, index) => {
                             const Icon = feature.icon;
                             return (
-                                <Card key={index} className="group hover:shadow-2xl transition-all duration-300 border-0 bg-white overflow-hidden">
+                                <Card key={index} className="group  transition-all duration-300 border-0 bg-white overflow-hidden">
                                     <CardContent className="p-8 text-center">
-                                        <div className={`w-16 h-16 bg-gradient-to-r ${feature.gradient} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                                        <div className={`w-16 h-16 bg-gradient-to-r ${feature.gradient} rounded-2xl flex items-center justify-center mx-auto mb-6 group- transition-transform duration-300 shadow-md`}>
                                             <Icon className="w-8 h-8 text-white" />
                                         </div>
                                         <h3 className="text-xl font-bold text-slate-800 mb-4 group-hover:text-blue-600 transition-colors">
@@ -279,7 +279,7 @@ const LandingPage = () => {
                             }
                         ].map((item, index) => (
                             <div key={index} className="text-center group">
-                                <div className={`w-20 h-20 bg-gradient-to-r ${item.gradient} text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-xl group-hover:scale-110 transition-transform duration-300`}>
+                                <div className={`w-20 h-20 bg-gradient-to-r ${item.gradient} text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-md group- transition-transform duration-300`}>
                                     {item.step}
                                 </div>
                                 <h3 className="text-2xl font-bold text-slate-800 mb-4">
@@ -309,9 +309,9 @@ const LandingPage = () => {
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         {subjects.map((subject, index) => (
-                            <Card key={index} className="group hover:shadow-xl transition-all duration-300 cursor-pointer border-0 bg-white overflow-hidden">
+                            <Card key={index} className="md transition-all duration-300 cursor-pointer border-0 bg-white overflow-hidden">
                                 <CardContent className="p-6 text-center">
-                                    <div className="text-4xl mb-4 group-hover:scale-110 transition-transform">
+                                    <div className="text-4xl mb-4 group- transition-transform">
                                         {subject.icon}
                                     </div>
                                     <h3 className="font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">
@@ -340,7 +340,7 @@ const LandingPage = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {testimonials.map((testimonial, index) => (
-                            <Card key={index} className="border-0 bg-gradient-to-br from-white to-slate-50 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                            <Card key={index} className="border-0 bg-gradient-to-br from-white to-slate-50 shadow-md  transition-shadow duration-300">
                                 <CardContent className="p-8">
                                     <div className="flex items-center mb-6">
                                         {[...Array(testimonial.rating)].map((_, i) => (
@@ -377,13 +377,13 @@ const LandingPage = () => {
                         Mulai berbagi catatan dan bangun network pembelajaran yang kuat bersama ribuan mahasiswa lainnya.
                     </p>                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Link to="/register">
-                            <Button size="xl" className="bg-white text-blue-600 hover:bg-gray-50 font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+                            <Button size="xl" className="bg-white text-blue-600 hover:bg-gray-50 font-semibold px-8 py-4 rounded-xl shadow-md transform  transition-all duration-200">
                                 <Zap className="mr-2 h-5 w-5" />
                                 Daftar Sekarang - Gratis!
                             </Button>
                         </Link>
                         <Link to="/notes">
-                            <Button size="xl" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-blue-600 font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+                            <Button size="xl" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-blue-600 font-semibold px-8 py-4 rounded-xl shadow-md transform  transition-all duration-200">
                                 Lihat Catatan Tersedia
                             </Button>
                         </Link>
@@ -439,3 +439,5 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
+
+

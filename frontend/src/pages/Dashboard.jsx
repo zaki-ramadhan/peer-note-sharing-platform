@@ -102,7 +102,7 @@ const Dashboard = () => {
         };
 
         return (
-            <Card className="relative overflow-hidden group hover:shadow-lg transition-all duration-300 bg-white border border-gray-100">
+            <Card className="relative overflow-hidden group  transition-all duration-300 bg-white border border-gray-100">
                 <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                         <div className="space-y-2 flex-1">
@@ -115,7 +115,7 @@ const Dashboard = () => {
                                     <span className="text-gray-500 hidden sm:inline">vs last month</span>
                                 </div>
                             )}
-                        </div>                        <div className={`relative p-3 lg:p-4 ${colorVariants[color]} rounded-2xl shadow-md group-hover:shadow-lg transition-all duration-300 flex-shrink-0`}>
+                        </div>                        <div className={`relative p-3 lg:p-4 ${colorVariants[color]} rounded-2xl shadow-md transition-all duration-300 flex-shrink-0`}>
                             <Icon className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
                             <div className={`absolute inset-0 ${glowVariants[color]} rounded-2xl opacity-20 blur-xl group-hover:opacity-40 transition-opacity duration-300`}></div>
                         </div>
@@ -177,7 +177,7 @@ const Dashboard = () => {
                     <span className="text-sm font-medium text-blue-700">Welcome back!</span>
                 </div>
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent mb-4">
-                    Hello, {currentUser.name}! 👋
+                    Hello, {currentUser.name}!
                 </h1>
                 <p className="text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto px-4">
                     Ready to continue your learning journey? Let's explore and share knowledge together.
@@ -322,9 +322,9 @@ const Dashboard = () => {
                             return (
                                 <a
                                     key={index}
-                                    href={action.href} className="group relative flex flex-col items-center p-4 sm:p-6 bg-white/50 backdrop-blur-sm border border-gray-200/50 rounded-2xl hover:bg-white/70 hover:shadow-md transition-all duration-300 hover:scale-105"
+                                    href={action.href} className="group relative flex flex-col items-center p-4 sm:p-6 bg-white/50 backdrop-blur-sm border border-gray-200/50 rounded-2xl hover:bg-white/70 transition-all duration-300"
                                 >
-                                    <div className={`w-12 h-12 sm:w-14 sm:h-14 ${colorVariants[action.color]} rounded-2xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 mb-3 sm:mb-4`}>
+                                    <div className={`w-12 h-12 sm:w-14 sm:h-14 ${colorVariants[action.color]} rounded-2xl flex items-center justify-center shadow-md transition-all duration-300 mb-3 sm:mb-4`}>
                                         <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                                     </div>                            <h3 className="font-semibold text-gray-900 mb-1 text-center text-sm sm:text-base">
                                         {action.title}
@@ -346,3 +346,5 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+

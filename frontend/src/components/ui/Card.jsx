@@ -4,15 +4,15 @@ import { clsx } from 'clsx';
 const Card = React.forwardRef(({ className, children, variant = 'default', ...props }, ref) => {
     const variants = {
         default: 'bg-white shadow-sm border border-gray-200/50 hover:shadow-md hover:shadow-gray-200/20',
-        glass: 'backdrop-blur-lg bg-white/70 border border-white/20 shadow-lg',
+        glass: 'backdrop-blur-lg bg-white/70 border border-white/20 shadow-md',
         gradient: 'bg-gradient-to-br from-white to-gray-50 shadow-md border border-gray-200/50',
-        elevated: 'bg-white shadow-lg border-0 hover:shadow-xl'
+        elevated: 'bg-white shadow-md border-0 hover:shadow-md'
     };
 
     return (<div
         ref={ref}
         className={clsx(
-            'rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] font-["Hanken_Grotesk"]',
+            'rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-md font-["Hanken_Grotesk"]',
             variants[variant],
             className
         )}

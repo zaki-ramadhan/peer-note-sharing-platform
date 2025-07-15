@@ -340,7 +340,7 @@ const NotesPage = () => {
 
                                 {/* Search Suggestions Dropdown */}
                                 {showSuggestions && searchSuggestions.length > 0 && (
-                                    <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-lg border border-gray-200/50 rounded-xl shadow-lg z-50 max-h-60 overflow-y-auto">
+                                    <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-lg border border-gray-200/50 rounded-xl shadow-md z-50 max-h-60 overflow-y-auto">
                                         {searchSuggestions.map((suggestion, index) => (
                                             <button
                                                 key={index}
@@ -360,7 +360,7 @@ const NotesPage = () => {
                                 )}
                             </div>                            {/* Enhanced View Toggle */}
                             <div className="flex items-center space-x-2">
-                                <div className="flex rounded-xl border border-gray-200/50 p-1 bg-white/50">
+                                <div className="flex rounded-xl border border-gray-200/50 p-1 bg-white/50 gap-2">
                                     {viewOptions.map((option) => {
                                         const Icon = option.icon;
                                         return (
@@ -373,7 +373,7 @@ const NotesPage = () => {
                                                     }`}
                                                 title={option.label}
                                             >
-                                                <Icon className="w-4 h-4" />
+                                                <Icon className="w-5 h-5 " />
                                             </button>
                                         );
                                     })}
@@ -382,10 +382,10 @@ const NotesPage = () => {
                                 <Button
                                     variant="outline"
                                     onClick={() => setShowFilters(!showFilters)}
-                                    className="flex items-center space-x-2"
+                                    className="flex flex-nowrap items-center space-x-2"
                                 >
-                                    <SlidersHorizontal className="w-4 h-4" />
-                                    <span>Filters</span>
+                                    <SlidersHorizontal className="w-4 h-4 inline mr-2"/>
+                                    <span className='inline'>Filters</span>
                                 </Button>
                             </div>
                         </div>
@@ -621,9 +621,9 @@ const NotesPage = () => {
                             </Badge>
                         )}
                     </div>                    <a href="/upload">
-                        <Button variant="gradient" className="flex items-center space-x-2 shadow-md hover:shadow-lg">
-                            <Plus className="w-4 h-4" />
-                            <span>Upload Note</span>
+                        <Button variant="gradient" className="flex items-center shadow-md ">
+                            <Plus className="inline w-4 h-4" />
+                            <span className='ml-2'>Upload Note</span>
                         </Button>
                     </a>
                 </div>                {/* Notes Grid/List */}
@@ -715,7 +715,7 @@ const NotesPage = () => {
                 <div className="fixed bottom-8 right-8 z-50">
                     <a href="/upload">                        <Button
                         variant="gradient"
-                        className="w-14 h-14 rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300"
+                        className="w-14 h-14 rounded-full shadow-md transform transition-all duration-300"
                         title="Upload New Note"
                     >
                         <Plus className="w-6 h-6" />
@@ -727,3 +727,5 @@ const NotesPage = () => {
 };
 
 export default NotesPage;
+
+

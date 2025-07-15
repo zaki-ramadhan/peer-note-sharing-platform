@@ -77,10 +77,10 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false }) =
 
     if (mini) {
         return (
-            <Card variant="glass" className="hover:shadow-md transition-all duration-300 border border-white/20 font-['Hanken_Grotesk']">
+            <Card variant="glass" className=" transition-all duration-300 border border-white/20 font-['Hanken_Grotesk']">
                 <CardContent className="p-3">
                     <div className="text-center">
-                        <div className={`w-10 h-10 bg-gradient-to-br ${getSubjectGradient(subject)} rounded-lg flex items-center justify-center shadow-sm mx-auto mb-2`}>
+                        <div className={`w-10 h-10 bg-gradient-to-br ${getSubjectGradient(subject)} rounded-lg flex items-center justify-center shadow-md mx-auto mb-2`}>
                             <FileText className="w-5 h-5 text-white" />
                         </div>
                         <Link to={`/notes/${id}`} className="group">
@@ -110,7 +110,7 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false }) =
 
     if (compact) {
         return (
-            <Card variant="glass" className="hover:shadow-lg transition-all duration-300 border border-white/20 font-['Hanken_Grotesk']">
+            <Card variant="glass" className=" transition-all duration-300 border border-white/20 font-['Hanken_Grotesk']">
                 <CardContent className="p-5">
                     <div className="flex items-start space-x-4">
                         <div className="flex-shrink-0">                            <div className={`w-14 h-14 bg-gradient-to-br ${getSubjectGradient(subject)} rounded-xl flex items-center justify-center shadow-md`}>
@@ -146,7 +146,7 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false }) =
             </Card>
         );
     } return (
-        <Card variant="elevated" className="group hover:shadow-xl transition-all duration-500 overflow-hidden font-['Hanken_Grotesk']">
+        <Card variant="elevated" className="group  transition-all duration-500 overflow-hidden font-['Hanken_Grotesk']">
             {/* Header with gradient and thumbnail */}
             <div className="relative">
                 <div className={`h-48 bg-gradient-to-br ${getSubjectGradient(subject)} relative overflow-hidden`}>
@@ -176,7 +176,7 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false }) =
 
                     {/* File Type Badge */}
                     <div className="absolute top-4 right-4">
-                        <Badge className="bg-black/20 backdrop-blur-sm text-white border-white/30 font-medium">
+                        <Badge className="bg-white/20 backdrop-blur-sm text-white border-white/30 font-medium">
                             {fileType?.toUpperCase() || 'PDF'}
                         </Badge>
                     </div>
@@ -278,7 +278,7 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false }) =
                         size="md"
                         onClick={() => onDownload?.(note)}
                     >
-                        <Download className="w-4 h-4 mr-2" />
+                        <Download className="w-4 h-4 inline mr-2" />
                         Download
                     </Button>
                     <Button
@@ -301,3 +301,5 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false }) =
 };
 
 export default NoteCard;
+
+
