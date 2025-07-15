@@ -88,20 +88,18 @@ const AdminContent = () => {
     ]); const tabs = [
         { id: 'notes', name: 'Notes', icon: FileText, count: notes.length },
         { id: 'posts', name: 'Forum Posts', icon: MessageSquare, count: posts.length }
-    ];
-
-    const getStatusColor = (status) => {
+    ]; const getStatusColor = (status) => {
         switch (status) {
             case 'approved':
-                return 'bg-green-100 text-green-800';
+                return 'bg-green-900/50 text-green-300 border border-green-600/30';
             case 'pending':
-                return 'bg-yellow-100 text-yellow-800';
+                return 'bg-yellow-900/50 text-yellow-300 border border-yellow-600/30';
             case 'rejected':
-                return 'bg-red-100 text-red-800';
+                return 'bg-red-900/50 text-red-300 border border-red-600/30';
             case 'flagged':
-                return 'bg-orange-100 text-orange-800';
+                return 'bg-orange-900/50 text-orange-300 border border-orange-600/30';
             default:
-                return 'bg-gray-100 text-gray-800';
+                return 'bg-gray-800/50 text-gray-300 border border-gray-600/30';
         }
     };
 
@@ -129,79 +127,75 @@ const AdminContent = () => {
                 post.author.toLowerCase().includes(searchTerm.toLowerCase());
             const matchesStatus = statusFilter === 'all' || post.status === statusFilter;
             return matchesSearch && matchesStatus;
-        });
-
-    const ContentActions = ({ item, type }) => (
-        <div className="flex space-x-2">            <button
-            className="p-1 text-blue-600 hover:bg-blue-50 rounded"
-            title="View"
-        >
-            <Eye className="h-4 w-4" />
-        </button>
-            {item.status === 'pending' && (
-                <>                    <button
-                    onClick={() => handleContentAction(type, item.id, 'approved')}
-                    className="p-1 text-green-600 hover:bg-green-50 rounded"
-                    title="Approve"
+        }); const ContentActions = ({ item, type }) => (
+            <div className="flex space-x-2">
+                <button
+                    className="p-1 text-blue-400 hover:bg-blue-900/30 rounded"
+                    title="View"
                 >
-                    <Check className="h-4 w-4" />
-                </button><button
-                    onClick={() => handleContentAction(type, item.id, 'rejected')}
-                    className="p-1 text-red-600 hover:bg-red-50 rounded"
-                    title="Reject"
-                >
-                        <X className="h-4 w-4" />
+                    <Eye className="h-4 w-4" />
+                </button>
+                {item.status === 'pending' && (
+                    <>
+                        <button
+                            onClick={() => handleContentAction(type, item.id, 'approved')}
+                            className="p-1 text-green-400 hover:bg-green-900/30 rounded"
+                            title="Approve"
+                        >
+                            <Check className="h-4 w-4" />
+                        </button>
+                        <button
+                            onClick={() => handleContentAction(type, item.id, 'rejected')}
+                            className="p-1 text-red-400 hover:bg-red-900/30 rounded"
+                            title="Reject"
+                        >
+                            <X className="h-4 w-4" />
+                        </button>
+                    </>
+                )}            {item.reports > 0 && (
+                    <button
+                        className="p-1 text-orange-400 hover:bg-orange-900/30 rounded"
+                        title="View Reports"
+                    >
+                        <AlertTriangle className="h-4 w-4" />
                     </button>
-                </>
-            )}
-            {item.reports > 0 && (<button
-                className="p-1 text-orange-600 hover:bg-orange-50 rounded"
-                title="View Reports"
-            >
-                <AlertTriangle className="h-4 w-4" />
-            </button>
-            )}
-        </div>
-    );
+                )}
+            </div>
+        );
 
     return (
         <div className="space-y-6">
             {/* Header */}
             <div className="md:flex md:items-center md:justify-between">
-                <div className="min-w-0 flex-1">
-                    <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
-                        Content Management
-                    </h2>
-                    <p className="mt-1 text-sm text-gray-500">
+                <div className="min-w-0 flex-1">                    <h2 className="text-2xl font-bold leading-7 text-white sm:truncate sm:text-3xl sm:tracking-tight">
+                    Content Management
+                </h2>
+                    <p className="mt-1 text-sm text-gray-400">
                         Review and moderate user-generated content.
                     </p>
                 </div>
-            </div>
-
-            {/* Tabs */}
-            <div className="border-b border-gray-200">
+            </div>            {/* Tabs */}
+            <div className="border-b border-gray-700/50">
                 <nav className="-mb-px flex space-x-8">
                     {tabs.map((tab) => (
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
                             className={`flex items-center py-2 px-1 border-b-2 font-medium text-sm ${activeTab === tab.id
-                                ? 'border-blue-500 text-blue-600'
-                                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                                ? 'border-blue-400 text-blue-400'
+                                : 'border-transparent text-gray-400 hover:text-gray-300 hover:border-gray-500'
                                 }`}
                         >
                             <tab.icon className="h-5 w-5 mr-2" />
                             {tab.name}
-                            <span className="ml-2 bg-gray-100 text-gray-600 py-0.5 px-2 rounded-full text-xs">
+                            <span className="ml-2 bg-gray-700/50 text-gray-300 py-0.5 px-2 rounded-full text-xs">
                                 {tab.count}
                             </span>
                         </button>
                     ))}
                 </nav>
-            </div>
-
-            {/* Filters */}
-            <div className="bg-white p-6 rounded-lg shadow-sm">
+            </div>            {/* Filters */}
+            <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700/50">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {/* Search */}                    <div className="relative">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
@@ -210,7 +204,7 @@ const AdminContent = () => {
                             placeholder={`Search ${activeTab}...`}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full pl-10 pr-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white placeholder-gray-400"
                         />
                     </div>
 
@@ -218,7 +212,7 @@ const AdminContent = () => {
                     <select
                         value={statusFilter}
                         onChange={(e) => setStatusFilter(e.target.value)}
-                        className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white"
                     >
                         <option value="all">All Status</option>
                         <option value="pending">Pending</option>
@@ -228,39 +222,37 @@ const AdminContent = () => {
                     </select>
 
                     {/* Quick Actions */}
-                    <div className="flex space-x-2">                        <button className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                    <div className="flex space-x-2">                        <button className="inline-flex items-center px-3 py-2 border border-gray-600 rounded-lg text-sm font-medium text-gray-300 bg-gray-700/50 hover:bg-gray-600/50 transition-colors">
                         <Filter className="h-4 w-4 mr-2" />
                         Bulk Actions
                     </button>
                     </div>
                 </div>
-            </div>
-
-            {/* Content Table */}
-            <div className="bg-white shadow-sm rounded-lg overflow-hidden">
+            </div>            {/* Content Table */}
+            <div className="bg-gray-800/50 backdrop-blur-sm shadow-lg rounded-xl overflow-hidden border border-gray-700/50">
                 <div className="overflow-x-auto">
-                    <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
+                    <table className="min-w-full divide-y divide-gray-700/50">
+                        <thead className="bg-gray-900/50">
                             <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <input type="checkbox" className="rounded border-gray-300" />
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                                    <input type="checkbox" className="rounded border-gray-600 bg-gray-700 text-blue-600 focus:ring-blue-500" />
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                                     {activeTab === 'notes' ? 'Note' : 'Post'}
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                                     Author
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                                     {activeTab === 'notes' ? 'Subject' : 'Category'}
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                                     Status
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                                     Stats
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                                     Date
                                 </th>
                                 <th className="relative px-6 py-3">
@@ -268,39 +260,39 @@ const AdminContent = () => {
                                 </th>
                             </tr>
                         </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
+                        <tbody className="bg-gray-800/30 divide-y divide-gray-700/50">
                             {filteredContent.map((item) => (
-                                <tr key={item.id} className="hover:bg-gray-50">
+                                <tr key={item.id} className="hover:bg-gray-700/30">
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <input type="checkbox" className="rounded border-gray-300" />
+                                        <input type="checkbox" className="rounded border-gray-600 bg-gray-700 text-blue-600 focus:ring-blue-500" />
                                     </td>
                                     <td className="px-6 py-4">
-                                        <div className="text-sm font-medium text-gray-900">
+                                        <div className="text-sm font-medium text-white">
                                             {item.title}
                                         </div>
                                         {activeTab === 'notes' && item.size && (
-                                            <div className="text-sm text-gray-500">
+                                            <div className="text-sm text-gray-400">
                                                 {item.size}
                                             </div>
                                         )}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                                         {item.author}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                                         {activeTab === 'notes' ? item.subject : item.category}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(item.status)}`}>
                                             {item.status}
                                         </span>                                        {item.reports > 0 && (
-                                            <span className="ml-2 inline-flex items-center px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-full">
+                                            <span className="ml-2 inline-flex items-center px-2 py-1 text-xs font-medium bg-red-900/50 text-red-300 rounded-full border border-red-600/30">
                                                 <AlertTriangle className="h-3 w-3 mr-1" />
                                                 {item.reports}
                                             </span>
                                         )}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                                         {activeTab === 'notes' ? (
                                             <div>
                                                 <div>{item.downloads} downloads</div>
@@ -312,7 +304,7 @@ const AdminContent = () => {
                                             </div>
                                         )}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                                         {activeTab === 'notes' ? item.uploadDate : item.postDate}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -326,67 +318,65 @@ const AdminContent = () => {
 
                 {filteredContent.length === 0 && (
                     <div className="text-center py-12">
-                        <p className="text-gray-500">No {activeTab} found matching your criteria.</p>
+                        <p className="text-gray-400">No {activeTab} found matching your criteria.</p>
                     </div>
                 )}
-            </div>
-
-            {/* Summary Stats */}
+            </div>            {/* Summary Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div className="bg-white p-6 rounded-lg shadow-sm">
+                <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700/50">
                     <div className="flex items-center">
-                        <div className="flex-shrink-0">                            <div className="w-8 h-8 bg-yellow-500 rounded-lg flex items-center justify-center">
-                            <FileText className="h-5 w-5 text-white" />
+                        <div className="flex-shrink-0">                            <div className="w-8 h-8 bg-yellow-900/50 rounded-lg flex items-center justify-center border border-yellow-600/30">
+                            <FileText className="h-5 w-5 text-yellow-400" />
                         </div>
                         </div>
                         <div className="ml-4">
-                            <p className="text-sm font-medium text-gray-500">Pending Review</p>
-                            <p className="text-2xl font-semibold text-gray-900">
+                            <p className="text-sm font-medium text-gray-400">Pending Review</p>
+                            <p className="text-2xl font-semibold text-white">
                                 {[...notes, ...posts].filter(item => item.status === 'pending').length}
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-lg shadow-sm">
+                <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700/50">
                     <div className="flex items-center">
-                        <div className="flex-shrink-0">                            <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
-                            <Check className="h-5 w-5 text-white" />
+                        <div className="flex-shrink-0">                            <div className="w-8 h-8 bg-green-900/50 rounded-lg flex items-center justify-center border border-green-600/30">
+                            <Check className="h-5 w-5 text-green-400" />
                         </div>
                         </div>
                         <div className="ml-4">
-                            <p className="text-sm font-medium text-gray-500">Approved</p>
-                            <p className="text-2xl font-semibold text-gray-900">
+                            <p className="text-sm font-medium text-gray-400">Approved</p>
+                            <p className="text-2xl font-semibold text-white">
                                 {[...notes, ...posts].filter(item => item.status === 'approved').length}
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-lg shadow-sm">
+                <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700/50">
                     <div className="flex items-center">
-                        <div className="flex-shrink-0">                            <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center">
-                            <X className="h-5 w-5 text-white" />
+                        <div className="flex-shrink-0">                            <div className="w-8 h-8 bg-red-900/50 rounded-lg flex items-center justify-center border border-red-600/30">
+                            <X className="h-5 w-5 text-red-400" />
                         </div>
                         </div>
                         <div className="ml-4">
-                            <p className="text-sm font-medium text-gray-500">Rejected</p>
-                            <p className="text-2xl font-semibold text-gray-900">
+                            <p className="text-sm font-medium text-gray-400">Rejected</p>
+                            <p className="text-2xl font-semibold text-white">
                                 {[...notes, ...posts].filter(item => item.status === 'rejected').length}
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-lg shadow-sm">
+                <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700/50">
                     <div className="flex items-center">
-                        <div className="flex-shrink-0">                            <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
-                            <AlertTriangle className="h-5 w-5 text-white" />
+                        <div className="flex-shrink-0">                            <div className="w-8 h-8 bg-orange-900/50 rounded-lg flex items-center justify-center border border-orange-600/30">
+                            <AlertTriangle className="h-5 w-5 text-orange-400" />
                         </div>
                         </div>
                         <div className="ml-4">
-                            <p className="text-sm font-medium text-gray-500">Reported</p>
-                            <p className="text-2xl font-semibold text-gray-900">
+                            <p className="text-sm font-medium text-gray-400">Reported</p>
+                            <p className="text-2xl font-semibold text-white">
                                 {[...notes, ...posts].filter(item => item.reports > 0).length}
                             </p>
                         </div>

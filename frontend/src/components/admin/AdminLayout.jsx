@@ -10,13 +10,21 @@ import {
     Menu,
     X,
     LogOut,
-    Bell
+    Bell,
+    Search,
+    Moon,
+    Sun,
+    ChevronDown,
+    Shield
 } from 'lucide-react';
 import { showInfoToast } from '../../utils/toastUtils';
 
 const AdminLayout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
+    const [showUserDropdown, setShowUserDropdown] = useState(false);
+    const [darkMode, setDarkMode] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
     const { user, logout } = useAuth();
     const navigate = useNavigate();
 
@@ -25,11 +33,36 @@ const AdminLayout = () => {
         navigate('/login');
         return null;
     } const navigation = [
-        { name: 'Dashboard', href: '/admin', icon: Home },
-        { name: 'Users', href: '/admin/users', icon: Users },
-        { name: 'Content', href: '/admin/content', icon: FileText },
-        { name: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
-        { name: 'Settings', href: '/admin/settings', icon: Settings },
+        {
+            name: 'Dashboard',
+            href: '/admin',
+            icon: Home,
+            description: 'Overview and quick stats'
+        },
+        {
+            name: 'Users',
+            href: '/admin/users',
+            icon: Users,
+            description: 'Manage user accounts'
+        },
+        {
+            name: 'Content',
+            href: '/admin/content',
+            icon: FileText,
+            description: 'Review notes and posts'
+        },
+        {
+            name: 'Analytics',
+            href: '/admin/analytics',
+            icon: BarChart3,
+            description: 'Platform statistics'
+        },
+        {
+            name: 'Settings',
+            href: '/admin/settings',
+            icon: Settings,
+            description: 'System configuration'
+        },
     ];
 
     const handleLogout = async () => {
@@ -39,57 +72,66 @@ const AdminLayout = () => {
             navigate('/');
         }
         setShowLogoutModal(false);
-    };
-
-    const LogoutModal = () => (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 max-w-sm w-full mx-4">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Confirm Logout</h3>
-                <p className="text-gray-600 mb-6">Are you sure you want to log out from admin panel?</p>
-                <div className="flex space-x-3">
-                    <button
-                        onClick={() => setShowLogoutModal(false)}
-                        className="flex-1 px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        onClick={handleLogout}
-                        className="flex-1 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
-                    >
-                        Logout
-                    </button>
+    }; const LogoutModal = () => (
+        <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+            <div className="bg-gray-800/95 backdrop-blur-sm rounded-2xl shadow-2xl max-w-md w-full mx-4 transform transition-all border border-gray-700/50">
+                <div className="p-6">
+                    <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-red-900/30 rounded-full border border-red-600/30">
+                        <LogOut className="w-8 h-8 text-red-400" />
+                    </div>
+                    <h3 className="text-xl font-bold text-white text-center mb-2">
+                        Logout Confirmation
+                    </h3>
+                    <p className="text-gray-300 text-center mb-6">
+                        Are you sure you want to logout from the admin panel? You'll need to sign in again to access admin features.
+                    </p>
+                    <div className="flex space-x-3">
+                        <button
+                            onClick={() => setShowLogoutModal(false)}
+                            className="flex-1 px-4 py-3 text-gray-300 bg-gray-700/50 border border-gray-600 rounded-xl hover:bg-gray-600/50 focus:ring-4 focus:ring-gray-600/25 transition-all duration-200 font-medium"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            onClick={handleLogout}
+                            className="flex-1 px-4 py-3 bg-red-600 text-white rounded-xl hover:bg-red-700 focus:ring-4 focus:ring-red-500/25 transition-all duration-200 font-medium"
+                        >
+                            Yes, Logout
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    );
-
-    return (
-        <div className="h-screen flex bg-gray-100">
+    ); return (
+        <div className="h-screen flex bg-gray-900">
             {/* Mobile sidebar overlay */}
             {sidebarOpen && (
                 <div className="fixed inset-0 z-40 lg:hidden">
-                    <div className="fixed inset-0 bg-gray-600 bg-opacity-75" onClick={() => setSidebarOpen(false)} />
+                    <div className="fixed inset-0 bg-gray-900 bg-opacity-75" onClick={() => setSidebarOpen(false)} />
                 </div>
-            )}
-
-            {/* Sidebar */}
-            <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+            )}{/* Sidebar */}
+            <div className={`fixed inset-y-0 left-0 z-50 w-72 bg-gradient-to-b from-slate-900 to-slate-800 shadow-2xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
                 }`}>
-                <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200">
+                {/* Sidebar Header */}
+                <div className="flex items-center justify-between h-20 px-6 border-b border-slate-700">
                     <div className="flex items-center">
-                        <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                            <span className="text-white font-bold text-sm">NS</span>
+                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                            <Shield className="w-6 h-6 text-white" />
                         </div>
-                        <span className="ml-2 text-xl font-bold text-gray-900">Admin Panel</span>
-                    </div>                    <button
+                        <div className="ml-3">
+                            <span className="text-xl font-bold text-white">Admin Panel</span>
+                            <p className="text-xs text-slate-400">Management Console</p>
+                        </div>
+                    </div>
+                    <button
                         onClick={() => setSidebarOpen(false)}
-                        className="lg:hidden p-1 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100"
+                        className="lg:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
                     >
-                        <X className="h-6 w-6" />
+                        <X className="h-5 w-5" />
                     </button>
                 </div>
 
+                {/* Navigation */}
                 <nav className="mt-8 px-4 space-y-2">
                     {navigation.map((item) => (
                         <NavLink
@@ -97,79 +139,134 @@ const AdminLayout = () => {
                             to={item.href}
                             end={item.href === '/admin'}
                             className={({ isActive }) =>
-                                `group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors ${isActive
-                                    ? 'bg-blue-100 text-blue-700 border-r-2 border-blue-700'
-                                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                                `group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${isActive
+                                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25'
+                                    : 'text-slate-300 hover:bg-slate-700 hover:text-white'
                                 }`
                             }
+                            onClick={() => setSidebarOpen(false)}
                         >
                             <item.icon className="mr-3 h-5 w-5 flex-shrink-0" />
-                            {item.name}
+                            <div className="flex-1">
+                                <div>{item.name}</div>
+                                <div className="text-xs opacity-75 hidden sm:block">{item.description}</div>
+                            </div>
                         </NavLink>
                     ))}
                 </nav>
 
                 {/* User info at bottom */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
-                    <div className="flex items-center mb-3">
+                <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-700">
+                    <div className="flex items-center mb-4 p-3 rounded-xl bg-slate-800/50">
                         <img
-                            className="h-8 w-8 rounded-full"
+                            className="h-10 w-10 rounded-full ring-2 ring-blue-500"
                             src={user.avatar}
                             alt={user.name}
                         />
-                        <div className="ml-3">
-                            <p className="text-sm font-medium text-gray-700">{user.name}</p>
-                            <p className="text-xs text-gray-500 capitalize">{user.role}</p>
+                        <div className="ml-3 flex-1">
+                            <p className="text-sm font-medium text-white">{user.name}</p>
+                            <p className="text-xs text-slate-400 capitalize flex items-center">
+                                <Shield className="w-3 h-3 mr-1" />
+                                {user.role}
+                            </p>
                         </div>
-                    </div>                    <button
+                    </div>
+                    <button
                         onClick={() => setShowLogoutModal(true)}
-                        className="w-full flex items-center px-2 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md transition-colors"
+                        className="w-full flex items-center px-4 py-3 text-sm text-slate-300 hover:bg-slate-700 hover:text-white rounded-xl transition-all duration-200 group"
                     >
-                        <LogOut className="mr-3 h-5 w-5" />
+                        <LogOut className="mr-3 h-5 w-5 group-hover:text-red-400 transition-colors" />
                         Logout
                     </button>
                 </div>
-            </div>
-
-            {/* Main content */}
-            <div className="flex-1 flex flex-col overflow-hidden">
-                {/* Top navigation */}
-                <header className="bg-white shadow-sm border-b border-gray-200 lg:static lg:overflow-y-visible">
+            </div>            {/* Main content */}
+            <div className="flex-1 flex flex-col overflow-hidden">                {/* Top navigation */}
+                <header className="bg-gray-800/80 backdrop-blur-md shadow-lg border-b border-gray-700/50 lg:static lg:overflow-y-visible">
                     <div className="mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="relative flex justify-between h-16">
-                            <div className="flex items-center">                                <button
-                                onClick={() => setSidebarOpen(true)}
-                                className="lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100"
-                            >
-                                <Menu className="h-6 w-6" />
-                            </button>
-                                <h1 className="ml-4 lg:ml-0 text-lg font-semibold text-gray-900">
-                                    Admin Dashboard
-                                </h1>
+                        <div className="relative flex justify-between items-center h-20">
+                            <div className="flex items-center">
+                                <button
+                                    onClick={() => setSidebarOpen(true)}
+                                    className="lg:hidden p-3 rounded-xl text-gray-400 hover:text-gray-300 hover:bg-gray-700/50 transition-all duration-200 shadow-sm"
+                                >
+                                    <Menu className="h-6 w-6" />
+                                </button>
+                                <div className="ml-4 lg:ml-0">
+                                    <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent">
+                                        Admin Dashboard
+                                    </h1>
+                                    <p className="text-sm text-gray-400 hidden sm:block">
+                                        Manage your platform efficiently
+                                    </p>
+                                </div>
                             </div>
 
-                            <div className="flex items-center space-x-4">                                {/* Notifications */}
-                                <button className="p-2 text-gray-400 hover:text-gray-500 relative">
-                                    <Bell className="h-6 w-6" />
-                                    <span className="absolute top-1 right-1 block h-2 w-2 rounded-full bg-red-400"></span>
+                            <div className="flex items-center space-x-4">                                {/* Search Bar */}
+                                <div className="hidden md:block relative">
+                                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                                    <input
+                                        type="text"
+                                        placeholder="Search admin panel..."
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                        className="pl-11 pr-4 py-3 border border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent w-72 text-sm bg-gray-700/50 backdrop-blur-sm shadow-sm text-white placeholder-gray-400"
+                                    />
+                                </div>
+
+                                {/* Notifications */}
+                                <button className="p-2 text-gray-400 hover:text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors relative">
+                                    <Bell className="h-5 w-5" />
+                                    <span className="absolute -top-1 -right-1 block h-3 w-3 rounded-full bg-red-500 ring-2 ring-gray-800"></span>
                                 </button>
 
-                                {/* Admin avatar */}
-                                <div className="flex items-center">
-                                    <img
-                                        className="h-8 w-8 rounded-full"
-                                        src={user.avatar}
-                                        alt={user.name}
-                                    />
+                                {/* Theme toggle */}
+                                <button
+                                    onClick={() => setDarkMode(!darkMode)}
+                                    className="p-2 text-gray-400 hover:text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors"
+                                >
+                                    {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+                                </button>                                {/* Admin avatar with dropdown */}
+                                <div className="relative">
+                                    <button
+                                        onClick={() => setShowUserDropdown(!showUserDropdown)}
+                                        className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700/50 transition-colors"
+                                    >
+                                        <img
+                                            className="h-8 w-8 rounded-full ring-2 ring-blue-500"
+                                            src={user.avatar}
+                                            alt={user.name}
+                                        />
+                                        <div className="hidden sm:block text-left">
+                                            <p className="text-sm font-medium text-white">{user.name}</p>
+                                            <p className="text-xs text-gray-400 capitalize">{user.role}</p>
+                                        </div>
+                                        <ChevronDown className="h-4 w-4 text-gray-400" />
+                                    </button>                                    {/* User dropdown menu */}
+                                    {showUserDropdown && (
+                                        <div className="absolute right-0 mt-2 w-48 bg-gray-800/95 backdrop-blur-sm rounded-lg shadow-xl border border-gray-700/50 py-1 z-50">
+                                            <div className="px-4 py-2 border-b border-gray-700/50">
+                                                <p className="text-sm font-medium text-white">{user.name}</p>
+                                                <p className="text-xs text-gray-400">{user.email}</p>
+                                            </div>
+                                            <button
+                                                onClick={() => {
+                                                    setShowUserDropdown(false);
+                                                    setShowLogoutModal(true);
+                                                }}
+                                                className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-900/30 flex items-center transition-colors"
+                                            >
+                                                <LogOut className="h-4 w-4 mr-2" />
+                                                Logout
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
                     </div>
-                </header>
-
-                {/* Main content area */}
-                <main className="flex-1 overflow-y-auto bg-gray-100">
-                    <div className="py-6">
+                </header>                {/* Main content area */}
+                <main className="flex-1 overflow-y-auto bg-gradient-to-br from-slate-900 to-gray-900">
+                    <div className="py-8">
                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                             <Outlet />
                         </div>
