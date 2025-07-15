@@ -16,7 +16,7 @@ import {
     LogOut,
     ChevronDown
 } from 'lucide-react';
-import { Button, Avatar, Badge, ConfirmationModal } from '../ui';
+import { Button, Avatar, Badge, ConfirmationModal, SearchDropdown } from '../ui';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Navbar = () => {
@@ -24,6 +24,8 @@ const Navbar = () => {
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
     const location = useLocation();
     const { user, logout, loading: authLoading } = useAuth();
 
@@ -33,34 +35,35 @@ const Navbar = () => {
         { name: 'Upload', href: '/upload', icon: Upload },
         { name: 'Forum', href: '/forum', icon: MessageSquare },
         { name: 'Leaderboard', href: '/leaderboard', icon: TrendingUp }
-    ]; const isActive = (path) => location.pathname === path;
-
-    const handleLogout = async () => {
+    ]; const isActive = (path) => location.pathname === path; const handleLogout = async () => {
         const result = await logout();
 
         if (result.success) {
             setShowLogoutModal(false);
             setIsProfileMenuOpen(false);
         }
-    }; useEffect(() => {
+    };
+
+    useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 20);
         };
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    // Close profile menu when clicking outside
+    }, []);    // Close profile menu when clicking outside
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (isProfileMenuOpen && !event.target.closest('.profile-menu-container')) {
                 setIsProfileMenuOpen(false);
             }
+            if (isSearchOpen && !event.target.closest('.search-container')) {
+                setIsSearchOpen(false);
+            }
         };
 
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [isProfileMenuOpen]); return (
+    }, [isProfileMenuOpen, isSearchOpen]); return (
         <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-['Hanken_Grotesk'] ${scrolled
             ? 'backdrop-blur-xl bg-white/80 border-b border-white/20 shadow-md shadow-gray-200/20'
             : 'backdrop-blur-lg bg-white/60 border-b border-white/10'
@@ -102,18 +105,31 @@ const Navbar = () => {
                             })}
                         </div>
                     </div>                    {/* Search and User Menu */}
-                    <div className="flex items-center space-x-2 lg:space-x-4">
-                        {/* Search Bar */}
-                        <div className="hidden md:block relative">
+                    <div className="flex items-center space-x-2 lg:space-x-4">                        {/* Search Bar */}
+                        <div className="hidden md:block relative search-container">
                             <div className="relative">
                                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-900" />
                                 <input
                                     type="text"
                                     placeholder="Search notes..."
-                                    className="pl-10 pr-4 py-2.5 w-40 lg:w-44 bg-white/50 backdrop-blur-sm border border-gray-200/50 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 hover:bg-white/70"
-                                />
+                                    value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
+                                    onFocus={() => setIsSearchOpen(true)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' && searchQuery.trim()) {
+                                            window.location.href = `/notes?search=${encodeURIComponent(searchQuery)}`;
+                                        }
+                                    }}
+                                    className="pl-10 pr-4 py-2.5 w-40 lg:w-44 bg-white/50 backdrop-blur-sm border border-gray-200/50 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 hover:bg-white/70" />
                             </div>
-                        </div>                        {/* Notifications */}
+                            <SearchDropdown
+                                isOpen={isSearchOpen}
+                                searchQuery={searchQuery}
+                                onClose={() => {
+                                    setIsSearchOpen(false);
+                                    setSearchQuery('');
+                                }}
+                            />
+                        </div>{/* Notifications */}
                         <button className="relative p-2 lg:p-2.5 text-gray-600 hover:text-blue-600 hover:bg-blue-50/50 rounded-xl transition-all duration-300 group">
                             <Bell className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
                             <span className="absolute -top-0.5 -right-0.5 h-4 w-4 lg:h-5 lg:w-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center animate-pulse font-medium">
@@ -152,15 +168,22 @@ const Navbar = () => {
                                     >
                                         <User className="h-4 w-4 mr-3" />
                                         Profile
-                                    </Link>
-                                    <Link
+                                    </Link>                                    <Link
                                         to="/settings"
                                         className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
                                         onClick={() => setIsProfileMenuOpen(false)}
                                     >                                            <Settings className="h-4 w-4 mr-3" />
                                         Settings
                                     </Link>
-                                    <hr className="my-2 border-gray-100" />                                        <button
+                                    <Link
+                                        to="/favorites"
+                                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
+                                        onClick={() => setIsProfileMenuOpen(false)}
+                                    >
+                                        <Star className="h-4 w-4 mr-3" />
+                                        My Favorites
+                                    </Link>
+                                    <hr className="my-2 border-gray-100" /><button
                                         onClick={() => {
                                             setIsProfileMenuOpen(false);
                                             setShowLogoutModal(true);
@@ -200,17 +223,30 @@ const Navbar = () => {
             </div>            {/* Mobile Navigation */}
             {isMobileMenuOpen && (
                 <div className="lg:hidden border-t border-gray-200/50 bg-white/95 backdrop-blur-xl">
-                    <div className="px-4 pt-4 pb-6 space-y-2">
-                        {/* Mobile Search */}
-                        <div className="mb-4 md:hidden">
+                    <div className="px-4 pt-4 pb-6 space-y-2">                        {/* Mobile Search */}
+                        <div className="mb-4 md:hidden search-container relative">
                             <div className="relative">
                                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                                 <input
                                     type="text"
                                     placeholder="Search notes..."
-                                    className="w-full pl-10 pr-4 py-3 bg-gray-50/50 border border-gray-200/50 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50"
-                                />
+                                    value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
+                                    onFocus={() => setIsSearchOpen(true)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' && searchQuery.trim()) {
+                                            window.location.href = `/notes?search=${encodeURIComponent(searchQuery)}`;
+                                        }
+                                    }}
+                                    className="w-full pl-10 pr-4 py-3 bg-gray-50/50 border border-gray-200/50 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50" />
                             </div>
+                            <SearchDropdown
+                                isOpen={isSearchOpen}
+                                searchQuery={searchQuery}
+                                onClose={() => {
+                                    setIsSearchOpen(false);
+                                    setSearchQuery('');
+                                }}
+                            />
                         </div>
 
                         {navigationItems.map((item) => {

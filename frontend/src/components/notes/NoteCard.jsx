@@ -17,8 +17,10 @@ import { Card, CardContent } from '../ui/Card';
 import { Button } from '../ui';
 import { Badge, Avatar } from '../ui';
 import { formatDistanceToNow } from 'date-fns';
+import { useFavorites } from '../../hooks/useFavorites';
 
-const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false }) => {
+const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false, showFavoriteButton = true }) => {
+    const { toggleFavorite, isFavorite, loading: favLoading } = useFavorites();
     const {
         id,
         title,
@@ -57,6 +59,20 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false }) =
         }
 
         return stars;
+    };
+
+    const handleFavorite = async () => {
+        if (favLoading) return;
+
+        try {
+            const result = await toggleFavorite(note.id);
+            if (result.success) {
+                // Optional: Show a toast notification
+                console.log(result.message);
+            }
+        } catch (error) {
+            console.error('Error toggling favorite:', error);
+        }
     };
 
     const getSubjectGradient = (subject) => {
@@ -269,9 +285,7 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false }) =
                             <span className="font-medium">{downloadCount * 3}</span>
                         </div>
                     </div>
-                </div>
-
-                {/* Action Buttons */}
+                </div>                {/* Action Buttons */}
                 <div className="flex items-center space-x-3">
                     <Button
                         className="flex-1"
@@ -281,6 +295,18 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false }) =
                         <Download className="w-4 h-4 inline mr-2" />
                         Download
                     </Button>
+                    {showFavoriteButton && (
+                        <Button
+                            variant={isFavorite(note.id) ? "warning" : "outline"}
+                            size="md"
+                            onClick={handleFavorite}
+                            disabled={favLoading}
+                            className="px-4"
+                            title={isFavorite(note.id) ? "Remove from favorites" : "Add to favorites"}
+                        >
+                            <Star className={`w-4 h-4 ${isFavorite(note.id) ? 'fill-current' : ''}`} />
+                        </Button>
+                    )}
                     <Button
                         variant="outline"
                         size="md"

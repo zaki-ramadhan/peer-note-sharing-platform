@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router';
 import { Search, Filter, Grid, List, Plus, SlidersHorizontal, Sparkles, Download, AlertCircle, Star, FileText, File, Image, BookOpen, TrendingUp, Calendar, Eye } from 'lucide-react';
 import Layout from '../components/layout/Layout';
 import NoteCard from '../components/notes/NoteCard';
@@ -10,12 +11,13 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 const NotesPage = () => {
+    const [searchParams] = useSearchParams();
     const [notes, setNotes] = useState([]);
     const [filteredNotes, setFilteredNotes] = useState([]);
     const [currentView, setCurrentView] = useState('grid');
     const [filters, setFilters] = useState({
-        search: '',
-        subject: '',
+        search: searchParams.get('search') || '',
+        subject: searchParams.get('subject') || '',
         sort: 'newest'
     }); const [loading, setLoading] = useState(true);
     const [showFilters, setShowFilters] = useState(false);
@@ -50,9 +52,7 @@ const NotesPage = () => {
         { key: 'recent', label: 'Recent', icon: Calendar, description: 'Uploaded in last 7 days' },
         { key: 'top-rated', label: 'Top Rated', icon: Star, description: '4.5+ rating' },
         { key: 'my-favorites', label: 'Bookmarked', icon: BookOpen, description: 'Your saved notes' }
-    ];
-
-    useEffect(() => {
+    ]; useEffect(() => {
         AOS.init({
             duration: 1400,
             easing: 'ease',
@@ -65,6 +65,15 @@ const NotesPage = () => {
             setLoading(false);
         }, 1000);
     }, []);
+
+    // Update filters when URL search params change
+    useEffect(() => {
+        setFilters(prev => ({
+            ...prev,
+            search: searchParams.get('search') || '',
+            subject: searchParams.get('subject') || ''
+        }));
+    }, [searchParams]);
 
     // Enhanced filtering with quick filter logic
     useEffect(() => {
