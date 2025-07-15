@@ -96,7 +96,7 @@ const ProfilePage = () => {
                         </div>                        <div className="flex-1 text-center md:text-left">
                             <h1
                                 className="text-3xl font-bold text-gray-900 mb-2"
-                                data-aos="fade-right"
+                                data-aos="fade-up"
                                 data-aos-delay="300"
                             >
                                 {userData.name}
@@ -104,7 +104,7 @@ const ProfilePage = () => {
 
                             <div
                                 className="flex flex-wrap justify-center md:justify-start gap-4 text-gray-600 mb-4"
-                                data-aos="fade-right"
+                                data-aos="fade-up"
                                 data-aos-delay="400"
                             >
                                 <div className="flex items-center gap-1">
@@ -121,7 +121,7 @@ const ProfilePage = () => {
                                 </div>
                             </div>                            <p
                                 className="text-gray-700 mb-6 max-w-2xl"
-                                data-aos="fade-right"
+                                data-aos="fade-up"
                                 data-aos-delay="500"
                             >
                                 {userData.bio}
@@ -150,7 +150,7 @@ const ProfilePage = () => {
                             </div>
                         </div>            <div
                             className="flex flex-col gap-3"
-                            data-aos="fade-left"
+                            data-aos="fade-up"
                             data-aos-delay="700"
                         >
                             <Link
@@ -211,7 +211,7 @@ const ProfilePage = () => {
                         {/* Activity Summary */}
                         <div
                             className="lg:col-span-2"
-                            data-aos="fade-right"
+                            data-aos="fade-up"
                             data-aos-delay="300"
                         >                            <div className="bg-white rounded-xl shadow-sm p-6">
                                 <h3 className="text-xl font-semibold text-gray-900 mb-6">Recent Activity</h3>
@@ -255,7 +255,7 @@ const ProfilePage = () => {
                         {/* Quick Stats */}
                         <div
                             className="space-y-6"
-                            data-aos="fade-left"
+                            data-aos="fade-up"
                             data-aos-delay="400"
                         >                            <div className="bg-white rounded-xl shadow-sm p-6">
                                 <h3 className="text-xl font-semibold text-gray-900 mb-4">Quick Stats</h3>

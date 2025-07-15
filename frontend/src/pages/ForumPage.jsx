@@ -144,7 +144,7 @@ const ForumPage = () => {
                         {post.tags && (
                             <div className="flex flex-wrap gap-1 mb-4">
                                 {post.tags.map((tag, index) => (
-                                    <Badge key={index} variant="default" size="sm">
+                                    <Badge key={index} variant="default" size="md">
                                         #{tag}
                                     </Badge>
                                 ))}
@@ -152,14 +152,14 @@ const ForumPage = () => {
                         )}
 
                         <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-4">
+                            <div className="flex items-center space-x-5">
                                 <div className="flex items-center space-x-1 text-gray-500">
                                     <ThumbsUp className="w-4 h-4" />
-                                    <span className="text-sm">{post.likes}</span>
+                                    <span className="lg:text-sm">{post.likes}</span>
                                 </div>
                                 <div className="flex items-center space-x-1 text-gray-500">
                                     <Reply className="w-4 h-4" />
-                                    <span className="text-sm">{post.replyCount} replies</span>
+                                    <span className="lg:text-sm">{post.replyCount} replies</span>
                                 </div>
                             </div>
 
@@ -210,7 +210,7 @@ const ForumPage = () => {
                                         <select
                                             value={selectedCategory}
                                             onChange={(e) => setSelectedCategory(e.target.value)}
-                                            className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            className="px-3 py-2 border border-gray-300 rounded-lg lg:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         >
                                             <option value="">Semua Kategori</option>
                                             {categories.map(category => (
@@ -220,7 +220,7 @@ const ForumPage = () => {
                                         <select
                                             value={sortBy}
                                             onChange={(e) => setSortBy(e.target.value)}
-                                            className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            className="px-3 py-2 border border-gray-300 rounded-lg lg:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         >
                                             <option value="newest">Terbaru</option>
                                             <option value="popular">Terpopuler</option>
@@ -263,9 +263,9 @@ const ForumPage = () => {
                                         <button
                                             key={category}
                                             onClick={() => setSelectedCategory(category === selectedCategory ? '' : category)}
-                                            className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${selectedCategory === category
+                                            className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${selectedCategory === category
                                                 ? 'bg-blue-50 text-blue-600 font-medium'
-                                                : 'text-gray-600 hover:bg-gray-50'
+                                                : 'text-gray-500 hover:bg-gray-100'
                                                 }`}
                                         >
                                             {category}
@@ -283,7 +283,7 @@ const ForumPage = () => {
                             <CardContent className="p-4">
                                 <div className="flex flex-wrap gap-2">
                                     {['ujian', 'tips', 'belajar', 'programming', 'matematika', 'fisika'].map(tag => (
-                                        <Badge key={tag} variant="default" size="sm" className="cursor-pointer hover:bg-blue-100">
+                                        <Badge key={tag} variant="default" size="md" className="cursor-pointer hover:bg-blue-100">
                                             #{tag}
                                         </Badge>
                                     ))}

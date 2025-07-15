@@ -46,13 +46,13 @@ const LeaderboardPage = () => {
     const getRankIcon = (rank) => {
         switch (rank) {
             case 1:
-                return <Crown className="w-6 h-6 text-yellow-500" />;
+                return <Crown className="w-8 h-8 lg:w-6 lg:h-6 text-yellow-500" />;
             case 2:
-                return <Medal className="w-6 h-6 text-gray-400" />;
+                return <Medal className="w-8 h-8 lg:w-6 lg:h-6 text-gray-400" />;
             case 3:
-                return <Award className="w-6 h-6 text-orange-500" />;
+                return <Award className="w-8 h-8 lg:w-6 lg:h-6 text-orange-500" />;
             default:
-                return <div className="w-6 h-6 flex items-center justify-center text-sm font-bold text-slate-600">#{rank}</div>;
+                return <div className="w-8 h-8 lg:w-6 lg:h-6 flex items-center justify-center text-sm font-bold text-slate-600">#{rank}</div>;
         }
     };
 
@@ -86,21 +86,21 @@ const LeaderboardPage = () => {
                     className="mx-auto mb-4 border-4 border-white shadow-md"
                 />
 
-                <h3 className="text-lg font-bold text-slate-800 mb-1">{user.name}</h3>
-                <p className="text-sm text-slate-500 mb-3">{user.university}</p>
+                <h3 className="text-xl lg:text-lg font-bold text-slate-800 mb-1">{user.name}</h3>
+                <p className="text-base lg:text-sm text-slate-500 mb-3">{user.university}</p>
 
                 <div className="space-y-2">
                     <div className="flex justify-between items-center">
-                        <span className="text-sm text-slate-600">Points</span>
+                        <span className="lg:text-sm text-slate-600">Points</span>
                         <Badge variant="primary" className="font-bold">{user.points}</Badge>
                     </div>
                     <div className="flex justify-between items-center">
-                        <span className="text-sm text-slate-600">Uploads</span>
-                        <span className="text-sm font-medium">{user.uploadCount}</span>
+                        <span className="lg:text-sm text-slate-600">Uploads</span>
+                        <span className="lg:text-sm font-medium">{user.uploadCount}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                        <span className="text-sm text-slate-600">Downloads</span>
-                        <span className="text-sm font-medium">{user.downloadCount}</span>
+                        <span className="lg:text-sm text-slate-600">Downloads</span>
+                        <span className="lg:text-sm font-medium">{user.downloadCount}</span>
                     </div>
                 </div>
             </CardContent>
@@ -184,7 +184,7 @@ const LeaderboardPage = () => {
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="space-y-4">
+                            <div className="space-y-2 lg:space-y-4">
                                 {leaderboardData.slice(3).map((user) => (
                                     <div
                                         key={user.id}
@@ -204,7 +204,7 @@ const LeaderboardPage = () => {
 
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center space-x-2">
-                                                <p className="text-sm font-medium text-slate-900 truncate">
+                                                <p className="font-medium text-slate-900 truncate">
                                                     {user.name}
                                                     {user.id === currentUser.id && (
                                                         <Badge variant="primary" size="sm" className="ml-2">Anda</Badge>
@@ -212,21 +212,21 @@ const LeaderboardPage = () => {
                                                 </p>
                                                 {getChangeIndicator(user.change)}
                                             </div>
-                                            <p className="text-xs text-slate-500 truncate">{user.university}</p>
+                                            <p className="text-sm text-slate-500 truncate">{user.university}</p>
                                         </div>
 
-                                        <div className="flex items-center space-x-6 text-sm">
+                                        <div className="flex items-center space-x-6 lg:space-x-10 text-sm">
                                             <div className="text-center">
-                                                <p className="font-bold text-slate-900">{user.points}</p>
-                                                <p className="text-xs text-slate-500">Poin</p>
+                                                <p className="font-bold text-slate-900 text-base">{user.points}</p>
+                                                <p className="text-sm text-slate-500">Poin</p>
                                             </div>
                                             <div className="text-center">
-                                                <p className="font-bold text-slate-900">{user.uploadCount}</p>
-                                                <p className="text-xs text-slate-500">Upload</p>
+                                                <p className="font-bold text-slate-900 text-base">{user.uploadCount}</p>
+                                                <p className="text-sm text-slate-500">Upload</p>
                                             </div>
                                             <div className="text-center">
-                                                <p className="font-bold text-slate-900">{user.downloadCount}</p>
-                                                <p className="text-xs text-slate-500">Download</p>
+                                                <p className="font-bold text-slate-900 text-base">{user.downloadCount}</p>
+                                                <p className="text-sm text-slate-500">Download</p>
                                             </div>
                                         </div>
                                     </div>

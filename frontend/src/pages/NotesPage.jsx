@@ -326,7 +326,7 @@ const NotesPage = () => {
                                         }}
                                         onFocus={() => generateSearchSuggestions(filters.search)}
                                         onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-                                        className="w-full pl-12 pr-4 py-4 bg-white/50 border border-gray-200/50 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300"
+                                        className="w-full pl-12 pr-4 py-4 bg-white/50 border border-gray-200/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300"
                                     />
 
                                     {/* Search Suggestions Dropdown */}
@@ -364,7 +364,7 @@ const NotesPage = () => {
                                                         }`}
                                                     title={option.label}
                                                 >
-                                                    <Icon className="w-5 h-5 " />
+                                                    <Icon className="w-6 h-6 " />
                                                 </button>
                                             );
                                         })}
@@ -510,22 +510,22 @@ const NotesPage = () => {
                                 <div className="border-t border-gray-200/50 pt-4 mt-4">
                                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                                         <div className="bg-blue-50/50 rounded-lg p-3">
-                                            <div className="text-lg font-bold text-blue-600">{filterStats.filtered}</div>
-                                            <div className="text-xs text-blue-700">Results</div>
+                                            <div className="text-2xl lg:text-3xl font-bold text-blue-600">{filterStats.filtered}</div>
+                                            <div className="text-sm text-blue-700">Results</div>
                                         </div>
                                         <div className="bg-green-50/50 rounded-lg p-3">
-                                            <div className="text-lg font-bold text-green-600">{filterStats.total}</div>
-                                            <div className="text-xs text-green-700">Total Notes</div>
+                                            <div className="text-2xl lg:text-3xl font-bold text-green-600">{filterStats.total}</div>
+                                            <div className="text-sm text-green-700">Total Notes</div>
                                         </div>
                                         <div className="bg-purple-50/50 rounded-lg p-3">
-                                            <div className="text-lg font-bold text-purple-600">{filterStats.avgRating}</div>
-                                            <div className="text-xs text-purple-700">Avg Rating</div>
+                                            <div className="text-2xl lg:text-3xl font-bold text-purple-600">{filterStats.avgRating}</div>
+                                            <div className="text-sm text-purple-700">Avg Rating</div>
                                         </div>
                                         <div className="bg-orange-50/50 rounded-lg p-3">
-                                            <div className="text-lg font-bold text-orange-600">
+                                            <div className="text-2xl lg:text-3xl font-bold text-orange-600">
                                                 {Object.keys(filterStats.bySubject || {}).length}
                                             </div>
-                                            <div className="text-xs text-orange-700">Categories</div>
+                                            <div className="text-sm text-orange-700">Categories</div>
                                         </div>
                                     </div>
                                 </div>
@@ -537,7 +537,7 @@ const NotesPage = () => {
                 {/* Quick Filters Bar */}
                 <div data-aos="fade-up" data-aos-delay="300" className="mb-8  ">
                     <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-lg font-semibold text-gray-900">Quick Filters</h3>
+                        <h3 className="text-2xl font-semibold text-gray-900">Quick Filters</h3>
                         <Button
                             variant="ghost"
                             size="sm"
@@ -563,13 +563,13 @@ const NotesPage = () => {
                                     <div className="flex items-center space-x-3 mb-2">
                                         <div className={`p-2 rounded-lg transition-colors ${isActive ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-600 group-hover:bg-blue-100 group-hover:text-blue-600'
                                             }`}>
-                                            <Icon className="w-4 h-4" />
+                                            <Icon className="w-6 h-6" />
                                         </div>
-                                        <span className={`font-semibold text-sm ${isActive ? 'text-blue-700' : 'text-gray-700'}`}>
+                                        <span className={`font-semibold ${isActive ? 'text-blue-700' : 'text-gray-700'}`}>
                                             {filter.label}
                                         </span>
                                     </div>
-                                    <p className="text-xs text-gray-500">{filter.description}</p>
+                                    <p className="text-sm text-gray-500">{filter.description}</p>
                                 </button>
                             );
                         })}
@@ -579,23 +579,23 @@ const NotesPage = () => {
                 {/* Quick Stats Bar */}
                 <div data-aos="fade-up" data-aos-delay="500" className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8  ">
                     <Card className="p-4 text-center bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200/50">
-                        <div className="text-2xl font-bold text-blue-600">{notes.length}</div>
+                        <div className="text-2xl lg:text-3xl font-bold text-blue-600">{notes.length}</div>
                         <div className="text-sm text-blue-700">Total Notes</div>
                     </Card>
                     <Card className="p-4 text-center bg-gradient-to-br from-green-50 to-emerald-50 border-green-200/50">
-                        <div className="text-2xl font-bold text-green-600">
+                        <div className="text-2xl lg:text-3xl font-bold text-green-600">
                             {notes.reduce((sum, note) => sum + (note.downloadCount || 0), 0).toLocaleString()}
                         </div>
                         <div className="text-sm text-green-700">Downloads</div>
                     </Card>
                     <Card className="p-4 text-center bg-gradient-to-br from-purple-50 to-violet-50 border-purple-200/50">
-                        <div className="text-2xl font-bold text-purple-600">
+                        <div className="text-2xl lg:text-3xl font-bold text-purple-600">
                             {Array.from(new Set(notes.map(note => note.subject))).length}
                         </div>
                         <div className="text-sm text-purple-700">Subjects</div>
                     </Card>
                     <Card className="p-4 text-center bg-gradient-to-br from-orange-50 to-amber-50 border-orange-200/50">
-                        <div className="text-2xl font-bold text-orange-600">
+                        <div className="text-2xl lg:text-3xl font-bold text-orange-600">
                             {(notes.reduce((sum, note) => sum + (note.averageRating || 0), 0) / notes.length).toFixed(1)}
                         </div>
                         <div className="text-sm text-orange-700">Avg Rating</div>
@@ -603,24 +603,25 @@ const NotesPage = () => {
                 </div>
 
                 {/* Upload CTA and Results Info */}
-                <div data-aos="fade-up" data-aos-delay="500" className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                <div data-aos="fade-up" data-aos-delay="500" className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 text-lg">
                     <div className="flex items-center space-x-4">
-                        <Badge variant="gradient" className="px-4 py-2 text-sm font-semibold">
+                        <Badge variant="gradient" className="px-5 py-3 text-xl font-bold">
                             {filteredNotes.length} Results
                         </Badge>
                         {filters.search && (
-                            <span className="text-sm text-gray-600">
+                            <span className="text-lg text-gray-600">
                                 for "<span className="font-semibold text-blue-600">{filters.search}</span>"
                             </span>
                         )}
                         {filters.subject && filters.subject !== '' && (
-                            <Badge variant="outline" className="px-3 py-1 text-sm">
+                            <Badge variant="outline" className="px-5 py-3 text-xl font-bold">
                                 {filters.subject}
                             </Badge>
                         )}
-                    </div>                    <a href="/upload">
-                        <Button variant="gradient" className="flex items-center shadow-md ">
-                            <Plus className="inline w-4 h-4" />
+                    </div>
+                    <a href="/upload">
+                        <Button variant="gradient" className="flex items-center shadow-md">
+                            <Plus className="inline w-5 h-5" />
                             <span className='ml-2'>Upload Note</span>
                         </Button>
                     </a>
@@ -684,7 +685,9 @@ const NotesPage = () => {
                             </div>
                         ))}
                     </div>
-                )}{/* Load More */}
+                )}
+                
+                {/* Load More */}
                 {filteredNotes.length > 0 && filteredNotes.length >= 6 && (
                     <div className="text-center mt-16 ">
                         <Button

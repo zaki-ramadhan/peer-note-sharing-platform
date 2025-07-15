@@ -12,7 +12,7 @@ const Input = React.forwardRef(({
 }, ref) => {
     return (
         <div className="w-full">            {label && (
-            <label className="block text-sm font-medium text-gray-700 mb-2 font-['Hanken_Grotesk']">
+            <label className="block font-medium text-gray-700 mb-2 font-['Hanken_Grotesk']">
                 {label}
             </label>
         )}
@@ -24,7 +24,7 @@ const Input = React.forwardRef(({
                 )}                <input
                     type={type}
                     className={clsx(
-                        'block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm placeholder-gray-400 shadow-sm transition-colors duration-200 font-["Hanken_Grotesk"]',
+                        'block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 placeholder-gray-400 shadow-sm transition-colors duration-200 font-["Hanken_Grotesk"]',
                         'focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500',
                         'disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500',
                         Icon && 'pl-10',
@@ -37,7 +37,7 @@ const Input = React.forwardRef(({
                 />
             </div>
             {error && (
-                <p className="mt-1 text-sm text-red-600">{error}</p>
+                <p className="mt-1 text-red-600">{error}</p>
             )}
         </div>
     );

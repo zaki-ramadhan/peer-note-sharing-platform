@@ -91,7 +91,9 @@ const Dashboard = () => {
                 color: 'purple'
             }
         ]);
-    }, []); const StatCard = ({ title, value, icon: Icon, change, color = 'blue', trend }) => {
+    }, []);
+
+    const StatCard = ({ title, value, icon: Icon, change, color = 'blue', trend }) => {
         const colorVariants = {
             blue: 'bg-gradient-to-br from-blue-500 to-blue-600',
             green: 'bg-gradient-to-br from-green-500 to-green-600',
@@ -111,11 +113,11 @@ const Dashboard = () => {
                 <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                         <div className="space-y-2 flex-1">
-                            <p className="text-sm font-medium text-gray-600">{title}</p>
+                            <p className="lg:text-sm font-medium text-gray-600">{title}</p>
                             <p className="text-2xl lg:text-3xl font-bold text-gray-900">{value.toLocaleString()}</p>
                             {change && (
-                                <div className={`flex items-center space-x-1 text-sm ${trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>
-                                    <ArrowUpRight className={`w-4 h-4 ${trend === 'down' ? 'rotate-90' : ''}`} />
+                                <div className={`flex items-center space-x-1 lg:text-sm ${trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>
+                                    <ArrowUpRight className={`w-6 lg:w-4 h-6 lg:h-4 ${trend === 'down' ? 'rotate-90' : ''}`} />
                                     <span className="font-medium">{change}</span>
                                     <span className="text-gray-500 hidden sm:inline">vs last month</span>
                                 </div>
@@ -231,7 +233,7 @@ const Dashboard = () => {
                                     <Activity className="w-5 h-5 text-blue-600" />
                                     <span>Recent Activity</span>
                                 </CardTitle>
-                                <Badge variant="secondary" className="text-xs">
+                                <Badge variant="secondary" className="text-lg">
                                     Live
                                 </Badge>
                             </div>
@@ -247,18 +249,18 @@ const Dashboard = () => {
                                         orange: 'bg-gradient-to-br from-orange-500 to-orange-600'
                                     };
                                     return (
-                                        <div key={activity.id} className={`flex items-center space-x-4 p-4 sm:p-6 hover:bg-gray-50/50 transition-colors ${index !== recentActivity.length - 1 ? 'border-b border-gray-100/50' : ''}`}>                                            <div className={`flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 ${colorVariants[activity.color]} rounded-xl flex items-center justify-center shadow-md`}>
-                                            <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                                        <div key={activity.id} className={`flex items-center space-x-4 p-4 sm:p-6 hover:bg-gray-50/50 transition-colors ${index !== recentActivity.length - 1 ? 'border-b border-gray-100/50' : ''}`}>                                            <div className={`flex-shrink-0 w-12 h-12 sm:w-12 sm:h-12 ${colorVariants[activity.color]} rounded-xl flex items-center justify-center shadow-md`}>
+                                            <Icon className="w-6 h-6 sm:w-6 sm:h-6 text-white" />
                                         </div><div className="flex-1 min-w-0">
-                                                <p className="text-sm font-medium text-gray-900 line-clamp-2">{activity.message}</p>
+                                                <p className=" lg:text-base font-medium text-gray-900 line-clamp-2">{activity.message}</p>
                                                 <div className="flex items-center space-x-2 mt-1">
                                                     <Calendar className="w-3 h-3 text-gray-400" />
-                                                    <p className="text-xs text-gray-500">{activity.time}</p>
+                                                    <p className="text-sm text-gray-500">{activity.time}</p>
                                                 </div>
                                             </div>
                                             <Badge variant="success" className="flex items-center space-x-1 flex-shrink-0">
                                                 <Zap className="w-3 h-3" />
-                                                <span className="text-xs font-medium">{activity.points}</span>
+                                                <span className="text-sm font-medium">{activity.points}</span>
                                             </Badge>
                                         </div>
                                     );
@@ -268,7 +270,7 @@ const Dashboard = () => {
                     </Card>
                 </div>
                 {/* Top Uploaders */}
-                <div data-aos="fade-up" data-aos-delay="400" className=" ">
+                <div data-aos="fade-up" data-aos-delay="300" className=" ">
                     <Card variant="elevated">
                         <CardHeader className="p-4 sm:p-6">
                             <CardTitle className="flex items-center space-x-2">
@@ -277,7 +279,7 @@ const Dashboard = () => {
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="p-4 sm:p-6 pt-0">
-                            <div className="space-y-3 sm:space-y-4">
+                            <div className="space-y-3 lg:space-y-2.5 sm:space-y-4">
                                 {topUploaders.map((user, index) => (
                                     <div key={user.id} className="flex items-center space-x-3 p-2 sm:p-3 rounded-xl hover:bg-gray-50/50 transition-colors">
                                         <div className="flex-shrink-0">
@@ -290,10 +292,10 @@ const Dashboard = () => {
                                             initials={user.name?.split(' ').map(n => n[0]).join('')}
                                             className="ring-2 ring-gray-100"
                                         />                                            <div className="flex-1 min-w-0">
-                                            <p className="text-sm font-medium text-gray-900 truncate">
+                                            <p className="font-medium text-gray-900 truncate">
                                                 {user.name}
                                             </p>
-                                            <p className="text-xs text-gray-500 truncate">
+                                            <p className="text-sm text-gray-500 truncate">
                                                 {user.uploadCount} notes • {user.university}
                                             </p>
                                         </div>
@@ -308,6 +310,7 @@ const Dashboard = () => {
                     </Card>
                 </div>
             </div>
+
             {/* Quick Actions */}
             <div data-aos="fade-up" data-aos-delay="300" className="mt-8 lg:mt-12  00">
                 <Card variant="gradient">
@@ -333,10 +336,10 @@ const Dashboard = () => {
                                 >
                                     <div className={`w-12 h-12 sm:w-14 sm:h-14 ${colorVariants[action.color]} rounded-2xl flex items-center justify-center shadow-md transition-all duration-300 mb-3 sm:mb-4`}>
                                         <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-                                    </div>                            <h3 className="font-semibold text-gray-900 mb-1 text-center text-sm sm:text-base">
+                                    </div>                            <h3 className="font-semibold text-gray-900 mb-1 text-center text-base">
                                         {action.title}
                                     </h3>
-                                    <p className="text-xs sm:text-sm text-gray-600 text-center">
+                                    <p className="text-sm text-gray-600 text-center">
                                         {action.description}
                                     </p>
                                     <ArrowUpRight className="absolute top-3 right-3 sm:top-4 sm:right-4 w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

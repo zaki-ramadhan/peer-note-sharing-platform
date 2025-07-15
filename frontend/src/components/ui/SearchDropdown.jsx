@@ -185,8 +185,8 @@ const SearchDropdown = ({ isOpen, searchQuery, onClose }) => {
             ) : searchQuery.trim() === '' ? (
                 <div className="p-6 text-center">
                     <Search className="h-12 w-12 text-gray-300 mx-auto mb-3" />
-                    <h3 className="text-sm font-medium text-gray-900 mb-1">Cari catatan, mata kuliah, atau pengguna</h3>
-                    <p className="text-xs text-gray-500">
+                    <h3 className="lg:text-sm font-medium text-gray-900 mb-1">Cari catatan, mata kuliah, atau pengguna</h3>
+                    <p className="text-sm lg:text-xs text-gray-500">
                         Ketik kata kunci untuk mulai mencari
                     </p>
                 </div>

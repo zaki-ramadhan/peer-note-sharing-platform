@@ -170,29 +170,29 @@ const Navbar = () => {
                                     data-aos-duration="200"
                                 >
                                     <div className="px-4 py-3 border-b border-gray-100">
-                                        <p className="text-sm font-medium text-gray-900 truncate">{user.name}</p>
-                                        <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                                        <p className="lg:text-sm font-semibold lg:font-medium text-gray-900 truncate">{user.name}</p>
+                                        <p className="lg:text-xs text-gray-500 truncate">{user.email}</p>
                                     </div>
                                     <Link
                                         to="/profile"
-                                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
+                                        className="flex items-center px-4 py-2 lg:text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
                                         onClick={() => setIsProfileMenuOpen(false)}
                                     >
-                                        <User className="h-4 w-4 mr-3" />
+                                        <User className="w-5 h-5 lg:h-4 lg:w-4 mr-3" />
                                         Profile
                                     </Link>                                    <Link
                                         to="/settings"
-                                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
+                                        className="flex items-center px-4 py-2 lg:text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
                                         onClick={() => setIsProfileMenuOpen(false)}
-                                    >                                            <Settings className="h-4 w-4 mr-3" />
+                                    >                                            <Settings className="w-5 h-5 lg:h-4 lg:w-4 mr-3" />
                                         Settings
                                     </Link>
                                     <Link
                                         to="/favorites"
-                                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
+                                        className="flex items-center px-4 py-2  lg:text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
                                         onClick={() => setIsProfileMenuOpen(false)}
                                     >
-                                        <Star className="h-4 w-4 mr-3" />
+                                        <Star className="w-5 h-5 lg:h-4 lg:w-4 mr-3" />
                                         My Favorites
                                     </Link>
                                     <hr className="my-2 border-gray-100" /><button
@@ -200,9 +200,9 @@ const Navbar = () => {
                                             setIsProfileMenuOpen(false);
                                             setShowLogoutModal(true);
                                         }}
-                                        className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50/50 transition-colors"
+                                        className="flex items-center w-full px-4 py-2 lg:text-sm text-red-600 hover:bg-red-50/50 transition-colors"
                                     >
-                                        <LogOut className="h-4 w-4 mr-3" />
+                                        <LogOut className="h-5 w-5 lg:h-4 lg:w-4 mr-3" />
                                         Sign out
                                     </button>
                                 </div>

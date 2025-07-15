@@ -126,7 +126,7 @@ const UploadPage = () => {
                                         <FileText className="w-12 h-12 text-green-600 mx-auto" />
                                         <div>
                                             <p className="text-lg font-medium text-gray-900">{selectedFile.name}</p>
-                                            <p className="text-sm text-gray-500">{formatFileSize(selectedFile.size)}</p>
+                                            <p className=" text-gray-500">{formatFileSize(selectedFile.size)}</p>
                                         </div>
                                         <Button
                                             type="button"
@@ -144,7 +144,7 @@ const UploadPage = () => {
                                             <p className="text-lg font-medium text-gray-900">
                                                 Drop file atau klik untuk upload
                                             </p>
-                                            <p className="text-sm text-gray-500">
+                                            <p className=" text-gray-500">
                                                 PDF, DOC, DOCX, PPT, PPTX (Max. 10MB)
                                             </p>
                                         </div>
@@ -170,12 +170,12 @@ const UploadPage = () => {
                                     />
 
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        <label className="block  font-medium text-gray-700 mb-2">
                                             Mata Pelajaran
                                         </label>
                                         <select
                                             {...register('subject', { required: 'Mata pelajaran harus dipilih' })}
-                                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         >
                                             <option value="">Pilih mata pelajaran</option>
                                             {subjects.map(subject => (
@@ -183,13 +183,13 @@ const UploadPage = () => {
                                             ))}
                                         </select>
                                         {errors.subject && (
-                                            <p className="text-red-500 text-sm mt-1">{errors.subject.message}</p>
+                                            <p className="text-red-500  mt-1">{errors.subject.message}</p>
                                         )}
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block  font-medium text-gray-700 mb-2">
                                         Deskripsi
                                     </label>
                                     <textarea
@@ -199,13 +199,13 @@ const UploadPage = () => {
                                         placeholder="Berikan deskripsi singkat tentang catatan ini..."
                                     />
                                     {errors.description && (
-                                        <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>
+                                        <p className="text-red-500  mt-1">{errors.description.message}</p>
                                     )}
                                 </div>
 
                                 {/* Tags */}
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block  font-medium text-gray-700 mb-2">
                                         Tags
                                     </label>
                                     <div className="flex flex-wrap gap-2 mb-3">

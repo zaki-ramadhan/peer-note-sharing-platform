@@ -156,7 +156,7 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false, sho
                             <FileText className="w-6 h-6 text-white" />
                         </div>
                         <Link to={`/notes/${id}`} className="group flex-1">
-                            <h3 className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-2 leading-tight min-h-[2.5rem]">
+                            <h3 className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-2 leading-tight">
                                 {title}
                             </h3>
                         </Link>
@@ -191,7 +191,7 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false, sho
                         <div className="flex-1 min-w-0 flex flex-col justify-between h-full">
                             <div className="flex-1">
                                 <Link to={`/notes/${id}`} className="group">
-                                    <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-2 leading-tight min-h-[2.5rem]">
+                                    <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-1 mb-2 leading-tight">
                                         {title}
                                     </h3>
                                 </Link>
@@ -285,7 +285,7 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false, sho
                 {/* Title and Description */}
                 <div className="mb-3 flex-1">
                     <Link to={`/notes/${id}`} className="group">
-                        <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-2 lg:mb-1 leading-tight min-h-[3.5rem]">
+                        <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-1 mb-2 leading-tight ">
                             {title}
                         </h3>
                     </Link>
