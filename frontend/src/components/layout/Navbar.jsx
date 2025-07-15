@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router';
+import { showSearchToast } from '../../utils/toastUtils';
 import {
     BookOpen,
     Home,
@@ -41,6 +42,13 @@ const Navbar = () => {
         if (result.success) {
             setShowLogoutModal(false);
             setIsProfileMenuOpen(false);
+        }
+    }; const handleSearchNavigation = (query) => {
+        if (query.trim()) {
+            showSearchToast(query);
+            setIsSearchOpen(false);
+            setIsMobileMenuOpen(false);
+            window.location.href = `/notes?search=${encodeURIComponent(query)}`;
         }
     };
 

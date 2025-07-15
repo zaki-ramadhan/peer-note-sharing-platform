@@ -189,13 +189,13 @@ const FavoritesPage = () => {
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link to="/notes">
                                 <Button variant="gradient" size="lg" className="px-8 py-4">
-                                    <Search className="w-5 h-5 mr-2" />
+                                    <Search className="w-5 h-5 mr-2 inline" />
                                     Browse Notes
                                 </Button>
                             </Link>
                             <Link to="/upload">
                                 <Button variant="outline" size="lg" className="px-8 py-4">
-                                    <BookOpen className="w-5 h-5 mr-2" />
+                                    <BookOpen className="w-5 h-5 mr-2 inline" />
                                     Upload Note
                                 </Button>
                             </Link>
@@ -232,7 +232,7 @@ const FavoritesPage = () => {
                             </p>
                             <Link to="/notes">
                                 <Button variant="gradient">
-                                    <Search className="w-4 h-4 mr-2" />
+                                    <Search className="w-4 h-4 mr-2 inline" />
                                     Explore More Notes
                                 </Button>
                             </Link>

@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider } from './contexts/AuthContext';
 import { FavoritesProvider } from './contexts/FavoritesContext';
 import LandingPage from './pages/LandingPage';
@@ -30,11 +32,25 @@ function App() {
             <Route path="/forum" element={<ForumPage />} />          <Route path="/leaderboard" element={<LeaderboardPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/settings" element={<SettingsPage />} />
-            <Route path="/favorites" element={<FavoritesPage />} />{/* Redirect any unknown routes to 404 page */}
-            <Route path="*" element={<NotFoundPage />} />
+            <Route path="/favorites" element={<FavoritesPage />} />{/* Redirect any unknown routes to 404 page */}            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </FavoritesProvider>
       </AuthProvider>
+
+      {/* Toast Container */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        className="toast-container"
+      />
     </Router>
   );
 }

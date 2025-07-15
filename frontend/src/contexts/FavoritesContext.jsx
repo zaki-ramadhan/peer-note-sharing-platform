@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 const FavoritesContext = createContext();
 
@@ -25,9 +26,7 @@ export const FavoritesProvider = ({ children }) => {
         } catch (error) {
             console.error('Error saving favorites:', error);
         }
-    }, [favorites]);
-
-    const addToFavorites = async (noteId) => {
+    }, [favorites]); const addToFavorites = async (noteId) => {
         setLoading(true);
         try {
             if (!favorites.includes(noteId)) {
@@ -37,18 +36,30 @@ export const FavoritesProvider = ({ children }) => {
                 // In a real app, you would make an API call here
                 // await api.addToFavorites(noteId);
 
+                toast.success('📚 Note added to favorites!', {
+                    position: "top-right",
+                    autoClose: 2000,
+                });
+
                 return { success: true, message: 'Note added to favorites!' };
             }
+
+            toast.info('📝 Note is already in favorites', {
+                position: "top-right",
+                autoClose: 2000,
+            });
             return { success: false, message: 'Note is already in favorites' };
         } catch (error) {
             console.error('Error adding to favorites:', error);
+            toast.error('❌ Failed to add note to favorites', {
+                position: "top-right",
+                autoClose: 3000,
+            });
             return { success: false, message: 'Failed to add note to favorites' };
         } finally {
             setLoading(false);
         }
-    };
-
-    const removeFromFavorites = async (noteId) => {
+    }; const removeFromFavorites = async (noteId) => {
         setLoading(true);
         try {
             const newFavorites = favorites.filter(id => id !== noteId);
@@ -57,9 +68,18 @@ export const FavoritesProvider = ({ children }) => {
             // In a real app, you would make an API call here
             // await api.removeFromFavorites(noteId);
 
+            toast.success('💔 Note removed from favorites!', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+
             return { success: true, message: 'Note removed from favorites!' };
         } catch (error) {
             console.error('Error removing from favorites:', error);
+            toast.error('❌ Failed to remove note from favorites', {
+                position: "top-right",
+                autoClose: 3000,
+            });
             return { success: false, message: 'Failed to remove note from favorites' };
         } finally {
             setLoading(false);

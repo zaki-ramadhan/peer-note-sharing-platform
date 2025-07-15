@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router';
 import {
     Download,
@@ -11,16 +11,31 @@ import {
     Eye,
     Heart,
     Bookmark,
-    Share2
+    Share2,
+    ThumbsUp
 } from 'lucide-react';
 import { Card, CardContent } from '../ui/Card';
-import { Button } from '../ui';
+import { Button, Rating } from '../ui';
 import { Badge, Avatar } from '../ui';
 import { formatDistanceToNow } from 'date-fns';
 import { useFavorites } from '../../hooks/useFavorites';
+import RatingModal from './RatingModal';
+import {
+    showDownloadStartToast,
+    showDownloadSuccessToast,
+    showDownloadErrorToast,
+    showRatingSuccessToast,
+    showRatingErrorToast,
+    showFeatureComingSoonToast,
+    showShareSuccessToast,
+    showCopySuccessToast,
+    showShareErrorToast,
+    showGenericErrorToast
+} from '../../utils/toastUtils';
 
 const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false, showFavoriteButton = true }) => {
     const { toggleFavorite, isFavorite, loading: favLoading } = useFavorites();
+    const [showRatingModal, setShowRatingModal] = useState(false);
     const {
         id,
         title,
@@ -34,44 +49,87 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false, sho
         fileType,
         tags,
         thumbnail
-    } = note;
-
-    const formatDate = (date) => {
+    } = note; const formatDate = (date) => {
         return formatDistanceToNow(new Date(date), { addSuffix: true });
-    };
-
-    const getRatingStars = (rating) => {
-        const stars = [];
-        const fullStars = Math.floor(rating);
-        const hasHalfStar = rating % 1 !== 0;
-
-        for (let i = 0; i < fullStars; i++) {
-            stars.push(<Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />);
-        }
-
-        if (hasHalfStar) {
-            stars.push(<Star key="half" className="h-4 w-4 text-yellow-400 fill-current opacity-50" />);
-        }
-
-        const remainingStars = 5 - Math.ceil(rating);
-        for (let i = 0; i < remainingStars; i++) {
-            stars.push(<Star key={`empty-${i}`} className="h-4 w-4 text-gray-300" />);
-        }
-
-        return stars;
-    };
-
-    const handleFavorite = async () => {
+    }; const handleFavorite = async () => {
         if (favLoading) return;
 
         try {
             const result = await toggleFavorite(note.id);
+            // Toast is already handled in FavoritesContext
             if (result.success) {
-                // Optional: Show a toast notification
                 console.log(result.message);
             }
         } catch (error) {
             console.error('Error toggling favorite:', error);
+            showGenericErrorToast('Something went wrong!');
+        }
+    };
+
+    const handleRateClick = () => {
+        setShowRatingModal(true);
+    }; const handleDownload = async () => {
+        try {
+            showDownloadStartToast(note.title);
+
+            // Call the original onDownload callback if provided
+            if (onDownload) {
+                onDownload(note);
+            }
+
+            // Simulate download delay
+            setTimeout(() => {
+                showDownloadSuccessToast(note.title);
+            }, 1000);
+
+        } catch (error) {
+            console.error('Error downloading note:', error);
+            showDownloadErrorToast();
+        }
+    };
+
+    const handleBookmark = () => {
+        showFeatureComingSoonToast('Bookmark');
+    };
+
+    const handleShare = async () => {
+        try {
+            // Check if Web Share API is supported
+            if (navigator.share) {
+                await navigator.share({
+                    title: note.title,
+                    text: `Check out this note: ${note.title}`,
+                    url: window.location.href
+                });
+                showShareSuccessToast();
+            } else {
+                // Fallback: copy to clipboard
+                await navigator.clipboard.writeText(window.location.href);
+                showCopySuccessToast();
+            }
+        } catch (error) {
+            console.error('Error sharing note:', error);
+            showShareErrorToast();
+        }
+    };
+
+    const handleSubmitRating = async (note, rating, comment) => {
+        try {
+            console.log('Rating submitted:', { note: note.id, rating, comment });
+
+            // Call the original onRate callback if provided
+            if (onRate) {
+                onRate(note, rating, comment);
+            }
+
+            // Here you would typically send the rating to your backend
+            // await api.submitRating(note.id, rating, comment);
+
+            showRatingSuccessToast(note.title);
+
+        } catch (error) {
+            console.error('Error submitting rating:', error);
+            showRatingErrorToast();
         }
     };
 
@@ -104,9 +162,8 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false, sho
                                 {title}
                             </h3>
                         </Link>
-                        <p className="text-xs text-gray-500 mb-2">{subject}</p>
-                        <div className="flex items-center justify-center space-x-1 mb-2">
-                            {getRatingStars(averageRating).slice(0, 3)}
+                        <p className="text-xs text-gray-500 mb-2">{subject}</p>                        <div className="flex items-center justify-center space-x-1 mb-2">
+                            <Rating value={averageRating} readonly size="sm" />
                         </div>
                         <div className="flex items-center justify-between text-xs text-gray-500">
                             <div className="flex items-center space-x-1">
@@ -139,12 +196,8 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false, sho
                                     {title}
                                 </h3>
                             </Link>
-                            <p className="text-sm text-gray-600 mb-2">{subject}</p>
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center space-x-1">
-                                    {getRatingStars(averageRating).slice(0, 3)}
-                                    <span className="text-xs text-gray-500">({reviewCount})</span>
-                                </div>
+                            <p className="text-sm text-gray-600 mb-2">{subject}</p>                            <div className="flex items-center justify-between">
+                                <Rating value={averageRating} readonly size="sm" showValue />
                                 <div className="flex items-center space-x-3 text-xs text-gray-500">
                                     <div className="flex items-center space-x-1">
                                         <Download className="w-3 h-3" />
@@ -195,18 +248,33 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false, sho
                         <Badge className="bg-white/20 backdrop-blur-sm text-white border-white/30 font-medium">
                             {fileType?.toUpperCase() || 'PDF'}
                         </Badge>
-                    </div>
-
-                    {/* Quick Actions - appear on hover */}
+                    </div>                    {/* Quick Actions - appear on hover */}
                     <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                         <div className="flex space-x-2">
-                            <button className="p-2 bg-white/20 backdrop-blur-sm rounded-lg hover:bg-white/30 transition-colors">
-                                <Heart className="w-4 h-4 text-white" />
-                            </button>
-                            <button className="p-2 bg-white/20 backdrop-blur-sm rounded-lg hover:bg-white/30 transition-colors">
+                            {showFavoriteButton && (
+                                <button
+                                    onClick={handleFavorite}
+                                    disabled={favLoading}
+                                    className={`p-2 backdrop-blur-sm rounded-lg transition-colors ${isFavorite(note.id)
+                                        ? 'bg-red-500/80 hover:bg-red-600/80'
+                                        : 'bg-white/20 hover:bg-white/30'
+                                        }`}
+                                    title={isFavorite(note.id) ? "Remove from favorites" : "Add to favorites"}
+                                >
+                                    <Heart className={`w-4 h-4 ${isFavorite(note.id) ? 'text-white fill-current' : 'text-white'}`} />
+                                </button>
+                            )}                            <button
+                                onClick={handleBookmark}
+                                className="p-2 bg-white/20 backdrop-blur-sm rounded-lg hover:bg-white/30 transition-colors"
+                                title="Save for later"
+                            >
                                 <Bookmark className="w-4 h-4 text-white" />
                             </button>
-                            <button className="p-2 bg-white/20 backdrop-blur-sm rounded-lg hover:bg-white/30 transition-colors">
+                            <button
+                                onClick={handleShare}
+                                className="p-2 bg-white/20 backdrop-blur-sm rounded-lg hover:bg-white/30 transition-colors"
+                                title="Share note"
+                            >
                                 <Share2 className="w-4 h-4 text-white" />
                             </button>
                         </div>
@@ -241,16 +309,9 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false, sho
                             </Badge>
                         )}
                     </div>
-                )}
-
-                {/* Rating */}
+                )}                {/* Rating */}
                 <div className="flex items-center space-x-2 mb-4">
-                    <div className="flex items-center space-x-1">
-                        {getRatingStars(averageRating)}
-                    </div>
-                    <span className="text-sm font-medium text-gray-700">
-                        {averageRating.toFixed(1)}
-                    </span>
+                    <Rating value={averageRating} readonly showValue />
                     <span className="text-sm text-gray-500">
                         ({reviewCount} reviews)
                     </span>
@@ -290,38 +351,35 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false, sho
                     <Button
                         className="flex-1"
                         size="md"
-                        onClick={() => onDownload?.(note)}
+                        onClick={handleDownload}
                     >
                         <Download className="w-4 h-4 inline mr-2" />
                         Download
                     </Button>
-                    {showFavoriteButton && (
-                        <Button
-                            variant={isFavorite(note.id) ? "warning" : "outline"}
-                            size="md"
-                            onClick={handleFavorite}
-                            disabled={favLoading}
-                            className="px-4"
-                            title={isFavorite(note.id) ? "Remove from favorites" : "Add to favorites"}
-                        >
-                            <Star className={`w-4 h-4 ${isFavorite(note.id) ? 'fill-current' : ''}`} />
-                        </Button>
-                    )}
                     <Button
                         variant="outline"
                         size="md"
-                        onClick={() => onRate?.(note)}
+                        onClick={handleRateClick}
                         className="px-4"
+                        title="Rate this note"
                     >
-                        <Star className="w-4 h-4" />
+                        <ThumbsUp className="w-4 h-4" />
                     </Button>
                     <Link to={`/notes/${id}`}>
-                        <Button variant="ghost" size="md" className="px-4">
+                        <Button variant="ghost" size="md" className="px-4" title="View details">
                             <Eye className="w-4 h-4" />
                         </Button>
                     </Link>
                 </div>
             </CardContent>
+
+            {/* Rating Modal */}
+            <RatingModal
+                isOpen={showRatingModal}
+                onClose={() => setShowRatingModal(false)}
+                note={note}
+                onSubmitRating={handleSubmitRating}
+            />
         </Card>
     );
 };

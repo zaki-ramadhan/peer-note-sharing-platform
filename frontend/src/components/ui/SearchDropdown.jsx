@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router';
 import { Search, FileText, User, Hash, Clock } from 'lucide-react';
 import { generateDummyNotes } from '../../data/dummyData';
+import { showSearchResultsToast } from '../../utils/toastUtils';
 
 const SearchDropdown = ({ isOpen, searchQuery, onClose }) => {
     const [searchResults, setSearchResults] = useState({
@@ -45,18 +46,18 @@ const SearchDropdown = ({ isOpen, searchQuery, onClose }) => {
             const matchingUsers = mockUsers.filter(user =>
                 user.name.toLowerCase().includes(query) ||
                 user.university.toLowerCase().includes(query)
-            ).slice(0, 3);
-
-            setSearchResults({
+            ).slice(0, 3); setSearchResults({
                 notes: matchingNotes,
                 users: matchingUsers,
                 subjects: matchingSubjects
             });
-            setIsLoading(false);
-        }, 300);
+            // Show toast notification based on results
+            const totalFoundResults = matchingNotes.length + matchingUsers.length + matchingSubjects.length;
+            showSearchResultsToast(totalFoundResults, searchQuery);
 
-        return () => clearTimeout(searchTimeout);
-    }, [searchQuery]);
+            setIsLoading(false);
+        }, 300); return () => clearTimeout(searchTimeout);
+    }, [searchQuery, allNotes]);
 
     if (!isOpen) return null;
 
