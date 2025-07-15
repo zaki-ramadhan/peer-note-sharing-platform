@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useState, useEffect } from 'react';
 import {
     TrendingUp,
     Users,
@@ -32,6 +34,10 @@ const Dashboard = () => {
     const [recentActivity, setRecentActivity] = useState([]);
 
     useEffect(() => {
+        AOS.init({
+            duration: 1400,
+            easing: 'ease',
+        });
         const users = generateDummyUsers();
 
         setStats({
@@ -102,7 +108,7 @@ const Dashboard = () => {
         };
 
         return (
-            <Card className="relative overflow-hidden group  transition-all duration-300 bg-white border border-gray-100">
+            <Card data-aos="fade-up" className="relative overflow-hidden group  transition-all duration-300 bg-white border border-gray-100">
                 <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                         <div className="space-y-2 flex-1">
@@ -171,19 +177,19 @@ const Dashboard = () => {
     ]; return (<Layout user={currentUser}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-12 font-['Hanken_Grotesk']">
             {/* Welcome Hero Section */}
-            <div className="mb-8 lg:mb-12 text-center animate-fade-in-up">
-                <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full px-4 py-2 mb-4 lg:mb-6">
+            <div className="mb-8 lg:mb-12 text-center ">
+                <div data-aos="fade-up" className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full px-4 py-2 mb-4 lg:mb-6">
                     <Sparkles className="w-4 h-4 text-blue-600" />
                     <span className="text-sm font-medium text-blue-700">Welcome back!</span>
                 </div>
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent mb-4">
+                <h1 data-aos="fade-up" className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent mb-4">
                     Hello, {currentUser.name}!
                 </h1>
-                <p className="text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto px-4">
+                <p data-aos="fade-up" className="text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto px-4">
                     Ready to continue your learning journey? Let's explore and share knowledge together.
                 </p>
             </div>{/* Stats Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-8 lg:mb-12 animate-fade-in-up animation-delay-200">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-8 lg:mb-12  animation-delay-200">
                 <StatCard
                     title="Total Notes"
                     value={stats.totalNotes}
@@ -218,7 +224,7 @@ const Dashboard = () => {
                 />
             </div>                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
                 {/* Recent Activity */}
-                <div className="lg:col-span-2 animate-fade-in-up animation-delay-400">
+                <div data-aos="fade-up" data-aos-delay="400" className="lg:col-span-2">
                     <Card variant="elevated">
                         <CardHeader className="border-b border-gray-100/50 p-4 sm:p-6">
                             <div className="flex items-center justify-between">
@@ -261,8 +267,9 @@ const Dashboard = () => {
                             </div>
                         </CardContent>
                     </Card>
-                </div>                    {/* Top Uploaders */}
-                <div className="animate-fade-in-up animation-delay-600">
+                </div>
+                {/* Top Uploaders */}
+                <div data-aos="fade-up" data-aos-delay="400" className=" animation-delay-600">
                     <Card variant="elevated">
                         <CardHeader className="p-4 sm:p-6">
                             <CardTitle className="flex items-center space-x-2">
@@ -301,8 +308,9 @@ const Dashboard = () => {
                         </CardContent>
                     </Card>
                 </div>
-            </div>                {/* Quick Actions */}
-            <div className="mt-8 lg:mt-12 animate-fade-in-up animation-delay-800">
+            </div>
+            {/* Quick Actions */}
+            <div data-aos="fade-up" data-aos-delay="300" className="mt-8 lg:mt-12  animation-delay-800">
                 <Card variant="gradient">
                     <CardHeader className="p-4 sm:p-6">
                         <CardTitle className="flex items-center space-x-2">

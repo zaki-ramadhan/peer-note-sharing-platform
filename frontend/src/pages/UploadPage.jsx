@@ -79,7 +79,7 @@ const UploadPage = () => {
     return (
         <Layout user={currentUser}>
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-['Hanken_Grotesk']">
-                <div className="mb-8">
+                <div className="mb-8  animate-delay-200">
                     <h1 className="text-3xl font-bold text-gray-900">Upload Catatan</h1>
                     <p className="text-gray-600 mt-2">
                         Bagikan catatan Anda dengan komunitas dan dapatkan poin reward!
@@ -88,17 +88,17 @@ const UploadPage = () => {
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
                     {/* File Upload */}
-                    <Card>
+                    <Card className=" animation-delay-400">
                         <CardHeader>
                             <CardTitle>File Catatan</CardTitle>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className=" animate-delay-200">
                             <div
                                 className={`relative border-2 border-dashed rounded-lg p-8 text-center transition-colors ${dragActive
-                                        ? 'border-blue-400 bg-blue-50'
-                                        : selectedFile
-                                            ? 'border-green-400 bg-green-50'
-                                            : 'border-gray-300 hover:border-gray-400'
+                                    ? 'border-blue-400 bg-blue-50'
+                                    : selectedFile
+                                        ? 'border-green-400 bg-green-50'
+                                        : 'border-gray-300 hover:border-gray-400'
                                     }`}
                                 onDragEnter={handleDrag}
                                 onDragLeave={handleDrag}

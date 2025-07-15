@@ -272,38 +272,11 @@ const NotesPage = () => {
         setShowSuggestions(false);
     };
 
-    if (loading) {
-        return (
-            <Layout user={currentUser}>
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    <div className="space-y-8">
-                        {/* Header Skeleton */}
-                        <div className="animate-pulse">
-                            <div className="h-12 bg-gradient-to-r from-gray-200 to-gray-300 rounded-2xl w-1/3 mb-4"></div>
-                            <div className="h-6 bg-gradient-to-r from-gray-200 to-gray-300 rounded-xl w-1/2"></div>
-                        </div>
-
-                        {/* Filters Skeleton */}
-                        <div className="animate-pulse">
-                            <div className="h-20 bg-gradient-to-r from-gray-200 to-gray-300 rounded-2xl"></div>
-                        </div>
-
-                        {/* Cards Skeleton */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {[...Array(6)].map((_, i) => (
-                                <div key={i} className="animate-pulse">
-                                    <div className="h-96 bg-gradient-to-br from-gray-200 to-gray-300 rounded-2xl"></div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </Layout>
-        );
-    } return (
+    return (
         <Layout user={currentUser}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 font-['Hanken_Grotesk']">                {/* Hero Header */}
-                <div className="text-center mb-12 animate-fade-in-up">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 font-['Hanken_Grotesk']">
+                {/* Hero Header */}
+                <div className="text-center mb-12 ">
                     <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-full px-4 py-2 mb-6">
                         <Sparkles className="w-4 h-4 text-blue-600" />
                         <span className="text-sm font-medium text-blue-700">Discover Quality Notes</span>
@@ -317,7 +290,7 @@ const NotesPage = () => {
                 </div>
 
                 {/* Enhanced Search and Filter Bar */}
-                <Card variant="glass" className="mb-8 animate-fade-in-up animation-delay-200">
+                <Card variant="glass" className="mb-8  animation-delay-200">
                     <CardContent className="p-6">
                         {/* Main Search Row */}
                         <div className="flex flex-col lg:flex-row gap-4 mb-4">
@@ -368,8 +341,8 @@ const NotesPage = () => {
                                                 key={option.key}
                                                 onClick={() => setCurrentView(option.key)}
                                                 className={`p-2 rounded-lg transition-all duration-300 ${currentView === option.key
-                                                        ? 'bg-blue-600 text-white shadow-md'
-                                                        : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50/50'
+                                                    ? 'bg-blue-600 text-white shadow-md'
+                                                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50/50'
                                                     }`}
                                                 title={option.label}
                                             >
@@ -384,7 +357,7 @@ const NotesPage = () => {
                                     onClick={() => setShowFilters(!showFilters)}
                                     className="flex flex-nowrap items-center space-x-2"
                                 >
-                                    <SlidersHorizontal className="w-4 h-4 inline mr-2"/>
+                                    <SlidersHorizontal className="w-4 h-4 inline mr-2" />
                                     <span className='inline'>Filters</span>
                                 </Button>
                             </div>
@@ -392,7 +365,7 @@ const NotesPage = () => {
 
                         {/* Expandable Filters */}
                         {showFilters && (
-                            <div className="border-t border-gray-200/50 pt-6 space-y-6 animate-fade-in-up">                                {/* Subject Filter with Multi-select */}
+                            <div className="border-t border-gray-200/50 pt-6 space-y-6 ">                                {/* Subject Filter with Multi-select */}
                                 <div>
                                     <label className="block text-sm font-semibold text-gray-700 mb-3">
                                         Subject Categories
@@ -424,8 +397,8 @@ const NotesPage = () => {
                                                         }
                                                     }}
                                                     className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${isSelected
-                                                            ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md'
-                                                            : 'bg-white/50 text-gray-700 border border-gray-200/50 hover:bg-blue-50/50 hover:text-blue-600 hover:border-blue-200/50'
+                                                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md'
+                                                        : 'bg-white/50 text-gray-700 border border-gray-200/50 hover:bg-blue-50/50 hover:text-blue-600 hover:border-blue-200/50'
                                                         }`}
                                                 >
                                                     {subject}
@@ -541,7 +514,7 @@ const NotesPage = () => {
                         )}
                     </CardContent>
                 </Card>{/* Quick Filters Bar */}
-                <div className="mb-8 animate-fade-in-up animation-delay-100">
+                <div className="mb-8  animation-delay-100">
                     <div className="flex items-center justify-between mb-4">
                         <h3 className="text-lg font-semibold text-gray-900">Quick Filters</h3>
                         <Button
@@ -581,7 +554,7 @@ const NotesPage = () => {
                         })}
                     </div>
                 </div>                {/* Quick Stats Bar */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 animate-fade-in-up animation-delay-300">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8  animation-delay-300">
                     <Card className="p-4 text-center bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200/50">
                         <div className="text-2xl font-bold text-blue-600">{notes.length}</div>
                         <div className="text-sm text-blue-700">Total Notes</div>
@@ -628,7 +601,7 @@ const NotesPage = () => {
                     </a>
                 </div>                {/* Notes Grid/List */}
                 {filteredNotes.length === 0 ? (
-                    <div className="text-center py-20 animate-fade-in-up">                        <div className="relative mb-8">
+                    <div className="text-center py-20 ">                        <div className="relative mb-8">
                         <div className="w-32 h-32 bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-100 rounded-3xl flex items-center justify-center mx-auto shadow-md">
                             <Search className="w-16 h-16 text-blue-500" />
                         </div>
@@ -662,18 +635,18 @@ const NotesPage = () => {
                             )}
                         </div>
                     </div>) : (
-                    <div className={`animate-fade-in-up animation-delay-400 ${currentView === 'grid'
-                            ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'
-                            : currentView === 'list'
-                                ? 'space-y-6'
-                                : currentView === 'compact'
-                                    ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4'
-                                    : 'space-y-6'
+                    <div className={` animation-delay-400 ${currentView === 'grid'
+                        ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'
+                        : currentView === 'list'
+                            ? 'space-y-6'
+                            : currentView === 'compact'
+                                ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4'
+                                : 'space-y-6'
                         }`}>
                         {filteredNotes.map((note, index) => (
                             <div
                                 key={note.id}
-                                className="animate-fade-in-up"
+                                className=""
                                 style={{ animationDelay: `${index * 100}ms` }}
                             >
                                 <NoteCard
@@ -688,7 +661,7 @@ const NotesPage = () => {
                     </div>
                 )}{/* Load More */}
                 {filteredNotes.length > 0 && filteredNotes.length >= 6 && (
-                    <div className="text-center mt-16 animate-fade-in-up">
+                    <div className="text-center mt-16 ">
                         <Button
                             variant="outline"
                             size="lg"

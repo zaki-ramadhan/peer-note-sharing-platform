@@ -118,7 +118,7 @@ const Navbar = ({ user }) => {
                                 />
                                 <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform duration-300 hidden lg:block ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
                             </button>                                {/* Profile Dropdown */}
-                                {isProfileMenuOpen && (<div className="absolute right-0 mt-2 w-56 bg-white/95 backdrop-blur-xl rounded-2xl shadow-md border border-gray-200/50 py-2 animate-fade-in-up z-50">
+                                {isProfileMenuOpen && (<div className="absolute right-0 mt-2 w-56 bg-white/95 backdrop-blur-xl rounded-2xl shadow-md border border-gray-200/50 py-2  z-50">
                                     <div className="px-4 py-3 border-b border-gray-100">
                                         <p className="text-sm font-medium text-gray-900 truncate">{user.name}</p>
                                         <p className="text-xs text-gray-500 truncate">{user.email}</p>
