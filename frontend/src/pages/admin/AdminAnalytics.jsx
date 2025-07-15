@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import {
     BarChart3,
@@ -6,11 +5,18 @@ import {
     FileText,
     TrendingUp,
     TrendingDown,
-    Calendar
+    Calendar,
+    Search,
+    Filter,
+    Download,
+    Star,
+    Award
 } from 'lucide-react';
 
 const AdminAnalytics = () => {
     const [timeRange, setTimeRange] = useState('7d');
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filterType, setFilterType] = useState('all');
 
     const analyticsData = {
         userGrowth: {
@@ -51,65 +57,119 @@ const AdminAnalytics = () => {
 
     const topContent = [
         {
+            id: 1,
             title: 'Advanced React Patterns',
             author: 'Mike Chen',
             downloads: 342,
-            subject: 'Computer Science'
+            subject: 'Computer Science',
+            rating: 4.9
         },
         {
+            id: 2,
             title: 'Database Design Fundamentals',
             author: 'Sarah Johnson',
             downloads: 298,
-            subject: 'Information Systems'
+            subject: 'Information Systems',
+            rating: 4.8
         },
         {
+            id: 3,
             title: 'Calculus Integration Guide',
             author: 'John Doe',
             downloads: 267,
-            subject: 'Mathematics'
+            subject: 'Mathematics',
+            rating: 4.7
         },
         {
+            id: 4,
             title: 'Physics Lab Reports',
             author: 'Emma Davis',
             downloads: 234,
-            subject: 'Physics'
+            subject: 'Physics',
+            rating: 4.6
+        },
+        {
+            id: 5,
+            title: 'Machine Learning Basics',
+            author: 'Alex Wilson',
+            downloads: 198,
+            subject: 'Computer Science',
+            rating: 4.8
         }
     ];
 
     const topUsers = [
         {
+            id: 1,
             name: 'Mike Chen',
             notes: 42,
             posts: 31,
-            points: 2840
+            points: 2840,
+            avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150'
         },
         {
+            id: 2,
             name: 'Sarah Johnson',
             notes: 38,
             posts: 28,
-            points: 2650
+            points: 2650,
+            avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=150'
         },
         {
+            id: 3,
             name: 'John Doe',
             notes: 35,
             posts: 25,
-            points: 2420
+            points: 2420,
+            avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150'
         },
         {
+            id: 4,
             name: 'Emma Davis',
             notes: 29,
             posts: 22,
-            points: 2180
+            points: 2180,
+            avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150'
         }
-    ]; const StatCard = ({ title, value, change, trend, suffix = '', icon: Icon }) => (
-        <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700/50">
+    ];
+
+    const subjectData = [
+        { subject: 'Computer Science', notes: 152, posts: 89, color: 'bg-blue-500' },
+        { subject: 'Mathematics', notes: 134, posts: 67, color: 'bg-green-500' },
+        { subject: 'Physics', notes: 98, posts: 45, color: 'bg-purple-500' },
+        { subject: 'Chemistry', notes: 76, posts: 34, color: 'bg-orange-500' },
+        { subject: 'Biology', notes: 67, posts: 28, color: 'bg-red-500' },
+        { subject: 'Others', notes: 45, posts: 22, color: 'bg-gray-500' }
+    ];
+
+    // Filter functions
+    const filteredContent = topContent.filter(item => {
+        const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            item.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            item.subject.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesFilter = filterType === 'all' || item.subject.toLowerCase() === filterType.toLowerCase();
+        return matchesSearch && matchesFilter;
+    });
+
+    const filteredUsers = topUsers.filter(user => {
+        const matchesSearch = user.name.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesSearch;
+    });
+
+    const StatCard = ({ title, value, change, trend, suffix = '', icon: Icon }) => (
+        <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700/50 hover:bg-gray-800/70 transition-all duration-200">
             <div className="flex items-center justify-between">
-                <div>
-                    <p className="text-sm font-medium text-gray-400">{title}</p>
-                    <p className="text-3xl font-bold text-white">
+                <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                            <Icon className="h-5 w-5 text-white" />
+                        </div>
+                        <p className="text-sm font-medium text-gray-400">{title}</p>
+                    </div>
+                    <p className="text-2xl font-bold text-white mb-2">
                         {typeof value === 'number' ? value.toLocaleString() : value}{suffix}
                     </p>
-                    <div className="flex items-center mt-2">
+                    <div className="flex items-center">
                         {trend === 'up' ? (
                             <TrendingUp className="h-4 w-4 text-green-400 mr-1" />
                         ) : (
@@ -121,76 +181,106 @@ const AdminAnalytics = () => {
                         <span className="text-sm text-gray-500 ml-1">vs last period</span>
                     </div>
                 </div>
-                <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-blue-900/50 rounded-lg flex items-center justify-center border border-blue-600/30">
-                        <Icon className="h-6 w-6 text-blue-400" />
-                    </div>
-                </div>
             </div>
         </div>
-    ); const SimpleChart = ({ data }) => {
+    );
+
+    const SimpleChart = ({ data }) => {
         const maxValue = Math.max(...data.map(d => Math.max(d.users, d.notes, d.posts)));
 
         return (
-            <div className="mt-6">
-                <div className="flex items-end justify-between h-64 space-x-2 px-4">
+            <div className="w-full h-80 p-4">
+                <div className="flex items-end justify-between h-64 space-x-3">
                     {data.map((item, index) => (
-                        <div key={index} className="flex-1 flex flex-col items-center">
-                            <div className="flex flex-col items-center space-y-1 mb-3 flex-1 justify-end">
+                        <div key={index} className="flex-1 flex flex-col items-center max-w-20">
+                            <div className="flex items-end space-x-1 mb-3 h-48">
                                 <div
-                                    className="w-4 bg-blue-500 rounded-t"
-                                    style={{ height: `${(item.users / maxValue) * 180}px` }}
+                                    className="w-3 bg-gradient-to-t from-blue-600 to-blue-400 rounded-t transition-all duration-300 hover:opacity-80"
+                                    style={{ height: `${Math.max(10, (item.users / maxValue) * 180)}px` }}
                                     title={`Users: ${item.users}`}
                                 />
                                 <div
-                                    className="w-4 bg-green-500 rounded-t"
-                                    style={{ height: `${(item.notes / maxValue) * 180}px` }}
+                                    className="w-3 bg-gradient-to-t from-green-600 to-green-400 rounded-t transition-all duration-300 hover:opacity-80"
+                                    style={{ height: `${Math.max(10, (item.notes / maxValue) * 180)}px` }}
                                     title={`Notes: ${item.notes}`}
                                 />
                                 <div
-                                    className="w-4 bg-purple-500 rounded-t"
-                                    style={{ height: `${(item.posts / maxValue) * 180}px` }}
+                                    className="w-3 bg-gradient-to-t from-purple-600 to-purple-400 rounded-t transition-all duration-300 hover:opacity-80"
+                                    style={{ height: `${Math.max(10, (item.posts / maxValue) * 180)}px` }}
                                     title={`Posts: ${item.posts}`}
                                 />
                             </div>
-                            <span className="text-xs text-gray-400 mt-2">
+                            <span className="text-xs text-gray-400 text-center leading-tight">
                                 {new Date(item.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                             </span>
                         </div>
                     ))}
-                </div><div className="flex justify-center mt-4 space-x-6">
+                </div>
+                <div className="flex justify-center mt-6 space-x-6">
                     <div className="flex items-center">
-                        <div className="w-3 h-3 bg-blue-500 rounded mr-2"></div>
+                        <div className="w-3 h-3 bg-gradient-to-r from-blue-600 to-blue-400 rounded mr-2"></div>
                         <span className="text-sm text-gray-400">Users</span>
                     </div>
                     <div className="flex items-center">
-                        <div className="w-3 h-3 bg-green-500 rounded mr-2"></div>
+                        <div className="w-3 h-3 bg-gradient-to-r from-green-600 to-green-400 rounded mr-2"></div>
                         <span className="text-sm text-gray-400">Notes</span>
                     </div>
                     <div className="flex items-center">
-                        <div className="w-3 h-3 bg-purple-500 rounded mr-2"></div>
+                        <div className="w-3 h-3 bg-gradient-to-r from-purple-600 to-purple-400 rounded mr-2"></div>
                         <span className="text-sm text-gray-400">Posts</span>
-                    </div>
-                </div>
+                    </div>                </div>
             </div>
         );
-    }; return (
-        <div className="space-y-6">
-            {/* Header */}
-            <div className="md:flex md:items-center md:justify-between">
+    };
+
+    return (
+        <div className="space-y-8">
+            {/* Header with Search and Filters */}
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div className="min-w-0 flex-1">
-                    <h2 className="text-2xl font-bold leading-7 text-white sm:truncate sm:text-3xl sm:tracking-tight">
+                    <h2 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                         Analytics Dashboard
                     </h2>
-                    <p className="mt-1 text-sm text-gray-400">
+                    <p className="mt-2 text-gray-400">
                         Platform insights and performance metrics.
                     </p>
                 </div>
-                <div className="mt-4 flex md:ml-4 md:mt-0">
+
+                <div className="flex flex-col sm:flex-row gap-4">
+                    {/* Search Bar */}
+                    <div className="relative">
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                        <input
+                            type="text"
+                            placeholder="Search content and users..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="pl-10 pr-4 py-2 w-64 bg-gray-800/50 border border-gray-600/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
+                        />
+                    </div>
+
+                    {/* Filter Dropdown */}
+                    <div className="relative">
+                        <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                        <select
+                            value={filterType}
+                            onChange={(e) => setFilterType(e.target.value)}
+                            className="pl-10 pr-8 py-2 bg-gray-800/50 border border-gray-600/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white appearance-none cursor-pointer"
+                        >
+                            <option value="all">All Subjects</option>
+                            <option value="computer science">Computer Science</option>
+                            <option value="mathematics">Mathematics</option>
+                            <option value="physics">Physics</option>
+                            <option value="chemistry">Chemistry</option>
+                            <option value="biology">Biology</option>
+                        </select>
+                    </div>
+
+                    {/* Time Range */}
                     <select
                         value={timeRange}
                         onChange={(e) => setTimeRange(e.target.value)}
-                        className="px-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white"
+                        className="px-4 py-2 bg-gray-800/50 border border-gray-600/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
                     >
                         <option value="7d">Last 7 days</option>
                         <option value="30d">Last 30 days</option>
@@ -200,14 +290,15 @@ const AdminAnalytics = () => {
                 </div>
             </div>
 
-            {/* Key Metrics */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">                <StatCard
-                title="Total Users"
-                value={analyticsData.userGrowth.current}
-                change={analyticsData.userGrowth.change}
-                trend={analyticsData.userGrowth.trend}
-                icon={Users}
-            />
+            {/* Key Metrics Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <StatCard
+                    title="Total Users"
+                    value={analyticsData.userGrowth.current}
+                    change={analyticsData.userGrowth.change}
+                    trend={analyticsData.userGrowth.trend}
+                    icon={Users}
+                />
                 <StatCard
                     title="Notes Shared"
                     value={analyticsData.notesShared.current}
@@ -230,87 +321,135 @@ const AdminAnalytics = () => {
                     icon={TrendingUp}
                     suffix="%"
                 />
-            </div>            {/* Activity Chart */}
-            <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700/50 mt-8">
-                <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-lg font-medium text-white">Activity Overview</h3>
-                    <div className="flex items-center">
-                        <Calendar className="h-5 w-5 text-gray-400 mr-2" />
-                        <span className="text-sm text-gray-400">Daily activity for the last 7 days</span>
+            </div>
+
+            {/* Activity Chart */}
+            <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700/50 overflow-hidden">
+                <div className="p-6 border-b border-gray-700/50">
+                    <div className="flex items-center justify-between">
+                        <h3 className="text-xl font-semibold text-white">Activity Overview</h3>
+                        <div className="flex items-center text-gray-400">
+                            <Calendar className="h-5 w-5 mr-2" />
+                            <span className="text-sm">Daily activity for the last 7 days</span>
+                        </div>
                     </div>
                 </div>
-                <div className="mt-6">
-                    <SimpleChart data={chartData} />
+                <SimpleChart data={chartData} />
+            </div>
+
+            {/* Content and Users Grid */}
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                {/* Top Content */}
+                <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700/50">
+                    <div className="p-6 border-b border-gray-700/50">
+                        <h3 className="text-xl font-semibold text-white flex items-center gap-2">
+                            <Download className="h-5 w-5 text-blue-400" />
+                            Most Downloaded Notes
+                        </h3>
+                        {searchQuery && (
+                            <p className="text-sm text-gray-400 mt-1">
+                                {filteredContent.length} result(s) for "{searchQuery}"
+                            </p>
+                        )}
+                    </div>
+                    <div className="p-6">
+                        <div className="space-y-4">
+                            {(searchQuery ? filteredContent : topContent).slice(0, 5).map((item, index) => (
+                                <div key={item.id} className="flex items-center justify-between p-4 bg-gray-700/30 rounded-lg hover:bg-gray-700/50 transition-all duration-200">
+                                    <div className="flex-1">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                                                {index + 1}
+                                            </div>
+                                            <div>
+                                                <p className="font-medium text-white">{item.title}</p>
+                                                <p className="text-sm text-gray-400">
+                                                    by {item.author} • {item.subject}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-4">
+                                        <div className="flex items-center gap-1 text-yellow-400">
+                                            <Star className="h-4 w-4 fill-current" />
+                                            <span className="text-sm font-medium">{item.rating}</span>
+                                        </div>
+                                        <div className="text-right">
+                                            <p className="font-semibold text-white">{item.downloads}</p>
+                                            <p className="text-xs text-gray-400">downloads</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Top Contributors */}
+                <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700/50">
+                    <div className="p-6 border-b border-gray-700/50">
+                        <h3 className="text-xl font-semibold text-white flex items-center gap-2">
+                            <Award className="h-5 w-5 text-yellow-400" />
+                            Top Contributors
+                        </h3>
+                        {searchQuery && (
+                            <p className="text-sm text-gray-400 mt-1">
+                                {filteredUsers.length} result(s) for "{searchQuery}"
+                            </p>
+                        )}
+                    </div>
+                    <div className="p-6">
+                        <div className="space-y-4">
+                            {(searchQuery ? filteredUsers : topUsers).slice(0, 4).map((user, index) => (
+                                <div key={user.id} className="flex items-center justify-between p-4 bg-gray-700/30 rounded-lg hover:bg-gray-700/50 transition-all duration-200">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-10 h-10 bg-gradient-to-br from-green-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                                            {index + 1}
+                                        </div>
+                                        <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center">
+                                            <span className="text-sm font-medium text-white">
+                                                {user.name.split(' ').map(n => n[0]).join('')}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <p className="font-medium text-white">{user.name}</p>
+                                            <p className="text-sm text-gray-400">
+                                                {user.notes} notes • {user.posts} posts
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="text-right">
+                                        <p className="font-semibold text-white">{user.points.toLocaleString()}</p>
+                                        <p className="text-xs text-gray-400">points</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            {/* Two Column Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Top Content */}                <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700/50">
-                    <h3 className="text-lg font-medium text-white mb-4">Most Downloaded Notes</h3>
-                    <div className="space-y-4">
-                        {topContent.map((item, index) => (<div key={index} className="flex items-center justify-between py-3 border-b border-gray-700/50 last:border-b-0">
-                            <div className="flex-1">
-                                <p className="text-sm font-medium text-white">{item.title}</p>
-                                <p className="text-xs text-gray-400">
-                                    by {item.author} • {item.subject}
-                                </p>
-                            </div>
-                            <div className="text-right">
-                                <p className="text-sm font-semibold text-white">{item.downloads}</p>
-                                <p className="text-xs text-gray-400">downloads</p>
-                            </div>
-                        </div>
-                        ))}
-                    </div>
+            {/* Subject Distribution */}
+            <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700/50">
+                <div className="p-6 border-b border-gray-700/50">
+                    <h3 className="text-xl font-semibold text-white">Content by Subject</h3>
+                    <p className="text-sm text-gray-400 mt-1">Distribution of notes across different subjects</p>
                 </div>
-
-                {/* Top Contributors */}                <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700/50">
-                    <h3 className="text-lg font-medium text-white mb-4">Top Contributors</h3>
-                    <div className="space-y-4">
-                        {topUsers.map((user, index) => (
-                            <div key={index} className="flex items-center justify-between py-3 border-b border-gray-700/50 last:border-b-0">
-                                <div className="flex items-center">
-                                    <div className="w-8 h-8 bg-blue-900/50 rounded-full flex items-center justify-center mr-3 border border-blue-600/30">
-                                        <span className="text-xs font-medium text-blue-400">
-                                            {user.name.split(' ').map(n => n[0]).join('')}
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <p className="text-sm font-medium text-white">{user.name}</p>
-                                        <p className="text-xs text-gray-400">
-                                            {user.notes} notes • {user.posts} posts
-                                        </p>
-                                    </div>
+                <div className="p-6">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+                        {subjectData.map((item, index) => (
+                            <div key={index} className="text-center group">
+                                <div className={`w-16 h-16 ${item.color} rounded-xl mx-auto mb-3 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-200`}>
+                                    <span className="text-white font-bold text-lg">
+                                        {item.notes.toString().slice(0, 1)}
+                                    </span>
                                 </div>
-                                <div className="text-right">
-                                    <p className="text-sm font-semibold text-white">{user.points}</p>
-                                    <p className="text-xs text-gray-400">points</p>
-                                </div>
+                                <p className="font-medium text-white text-sm">{item.subject}</p>
+                                <p className="text-xs text-gray-400 mt-1">{item.notes} notes</p>
+                                <p className="text-xs text-gray-500">{item.posts} posts</p>
                             </div>
                         ))}
                     </div>
-                </div>
-            </div>            {/* Subject Distribution */}
-            <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700/50">
-                <h3 className="text-lg font-medium text-white mb-4">Content by Subject</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                    {[
-                        { subject: 'Computer Science', count: 1245, color: 'bg-blue-500' },
-                        { subject: 'Mathematics', count: 987, color: 'bg-green-500' },
-                        { subject: 'Physics', count: 756, color: 'bg-purple-500' },
-                        { subject: 'Chemistry', count: 623, color: 'bg-orange-500' },
-                        { subject: 'Biology', count: 542, color: 'bg-red-500' },
-                        { subject: 'Others', count: 432, color: 'bg-gray-500' }
-                    ].map((item, index) => (
-                        <div key={index} className="text-center">
-                            <div className={`w-16 h-16 ${item.color} rounded-lg mx-auto mb-2 flex items-center justify-center shadow-lg`}>
-                                <span className="text-white font-bold text-lg">{item.count.toString().slice(0, 1)}</span>
-                            </div>
-                            <p className="text-sm font-medium text-white">{item.subject}</p>
-                            <p className="text-xs text-gray-400">{item.count} notes</p>
-                        </div>
-                    ))}
                 </div>
             </div>
         </div>
