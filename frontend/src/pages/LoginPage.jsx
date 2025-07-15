@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { Eye, EyeOff, Mail, Lock, BookOpen, ArrowRight } from 'lucide-react';
 import { Button, Input, Card, CardContent } from '../components/ui';
+import { useAuth } from '../contexts/AuthContext';
 
 const LoginPage = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -9,18 +10,21 @@ const LoginPage = () => {
         email: '',
         password: ''
     });
-    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
     const navigate = useNavigate();
+    const { login, loading } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
+        setError('');
 
-        // Simulate login
-        setTimeout(() => {
-            setLoading(false);
+        const result = await login(formData);
+
+        if (result.success) {
             navigate('/dashboard');
-        }, 1500);
+        } else {
+            setError(result.message || 'Login failed. Please try again.');
+        }
     };
 
     const handleChange = (e) => {
@@ -54,6 +58,12 @@ const LoginPage = () => {
                                 Masuk ke akun Anda untuk melanjutkan pembelajaran
                             </p>
                         </div>
+
+                        {error && (
+                            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                                <p className="text-red-600 text-sm">{error}</p>
+                            </div>
+                        )}
 
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div className="space-y-4">

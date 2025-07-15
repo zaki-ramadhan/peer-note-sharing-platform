@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Layout from '../components/layout/Layout';
 import { ConfirmationModal } from '../components/ui';
+import { useAuth } from '../contexts/AuthContext';
 import {
     User,
     Lock,
@@ -19,14 +20,17 @@ import {
 } from 'lucide-react';
 
 const SettingsPage = () => {
+    const { user, updateUser } = useAuth();
     const [activeTab, setActiveTab] = useState('profile');
+
+    // Initialize with user data or default values
     const [profileData, setProfileData] = useState({
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        phone: '+62 812 3456 7890',
-        location: 'Jakarta, Indonesia',
-        bio: 'Computer Science student passionate about sharing knowledge and helping fellow students succeed.',
-        website: 'https://johndoe.dev'
+        name: user?.name || 'John Doe',
+        email: user?.email || 'john.doe@example.com',
+        phone: user?.phone || '+62 812 3456 7890',
+        location: user?.location || 'Jakarta, Indonesia',
+        bio: user?.bio || 'Computer Science student passionate about sharing knowledge and helping fellow students succeed.',
+        website: user?.website || 'https://johndoe.dev'
     });
 
     const [privacySettings, setPrivacySettings] = useState({
@@ -54,11 +58,11 @@ const SettingsPage = () => {
     const [showDeactivateModal, setShowDeactivateModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [modalLoading, setModalLoading] = useState(false);
-    const [selectedSessionId, setSelectedSessionId] = useState(null);
-
-    const handleProfileSubmit = (e) => {
+    const [selectedSessionId, setSelectedSessionId] = useState(null); const handleProfileSubmit = (e) => {
         e.preventDefault();
-        // Handle profile update
+        // Update user data in context
+        updateUser(profileData);
+        alert('Profile berhasil diperbarui!');
         console.log('Profile updated:', profileData);
     }; const handlePasswordSubmit = (e) => {
         e.preventDefault();

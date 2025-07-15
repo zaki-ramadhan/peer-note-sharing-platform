@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Search, Filter, Grid, List, Plus, SlidersHorizontal, Sparkles, Download, AlertCircle, Star, FileText, File, Image, BookOpen, TrendingUp, Calendar, Eye } from 'lucide-react';
 import Layout from '../components/layout/Layout';
 import NoteCard from '../components/notes/NoteCard';
@@ -565,7 +565,7 @@ const NotesPage = () => {
                             );
                         })}
                     </div>
-                </div>                
+                </div>
 
                 {/* Quick Stats Bar */}
                 <div data-aos="fade-up" data-aos-delay="500" className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8  ">

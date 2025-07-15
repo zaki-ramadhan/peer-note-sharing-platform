@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router';
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router';
 import {
     BookOpen,
     Home,
@@ -17,15 +17,15 @@ import {
     ChevronDown
 } from 'lucide-react';
 import { Button, Avatar, Badge, ConfirmationModal } from '../ui';
+import { useAuth } from '../../contexts/AuthContext';
 
-const Navbar = ({ user }) => {
+const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
-    const [logoutLoading, setLogoutLoading] = useState(false);
     const location = useLocation();
-    const navigate = useNavigate();
+    const { user, logout, loading: authLoading } = useAuth();
 
     const navigationItems = [
         { name: 'Dashboard', href: '/dashboard', icon: Home },
@@ -36,25 +36,31 @@ const Navbar = ({ user }) => {
     ]; const isActive = (path) => location.pathname === path;
 
     const handleLogout = async () => {
-        setLogoutLoading(true);
+        const result = await logout();
 
-        // Simulate logout process
-        setTimeout(() => {
-            setLogoutLoading(false);
+        if (result.success) {
             setShowLogoutModal(false);
             setIsProfileMenuOpen(false);
-            // In real app, clear user session/token here
-            navigate('/');
-        }, 1000);
-    };
-
-    useEffect(() => {
+        }
+    }; useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 20);
         };
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []); return (
+    }, []);
+
+    // Close profile menu when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (isProfileMenuOpen && !event.target.closest('.profile-menu-container')) {
+                setIsProfileMenuOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [isProfileMenuOpen]); return (
         <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-['Hanken_Grotesk'] ${scrolled
             ? 'backdrop-blur-xl bg-white/80 border-b border-white/20 shadow-md shadow-gray-200/20'
             : 'backdrop-blur-lg bg-white/60 border-b border-white/10'
@@ -113,15 +119,13 @@ const Navbar = ({ user }) => {
                             <span className="absolute -top-0.5 -right-0.5 h-4 w-4 lg:h-5 lg:w-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center animate-pulse font-medium">
                                 3
                             </span>
-                        </button>{/* User Menu */}
-                        {user ? (
-                            <div className="relative">                                <button
+                        </button>{/* User Menu */}                        {user ? (
+                            <div className="relative profile-menu-container"><button
                                 onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
                                 className="flex items-center space-x-2 lg:space-x-3 p-2 rounded-xl hover:bg-gray-50/50 transition-all duration-300 group"
-                            >
-                                <div className="hidden sm:block text-right">
+                            >                                <div className="hidden sm:block text-right">
                                     <p className="text-sm font-medium text-gray-900 truncate max-w-20 md:max-w-24 lg:max-w-none">{user.name}</p>
-                                    <p className="text-xs text-gray-500">{user.points} points</p>
+                                    <p className="text-xs text-gray-500">{user.points || 0} points</p>
                                 </div>
                                 <Avatar
                                     src={user.avatar}
@@ -131,44 +135,43 @@ const Navbar = ({ user }) => {
                                     className="ring-2 ring-gray-100 group-hover:ring-blue-200 transition-all duration-300"
                                 />
                                 <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform duration-300 hidden lg:block ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
-                            </button>                                {/* Profile Dropdown */}
-                                {isProfileMenuOpen && (
-                                    <div
-                                        className="absolute right-0 mt-2 w-56 bg-white/95 backdrop-blur-xl rounded-2xl shadow-md border border-gray-200/50 py-2 z-50"
-                                        data-aos="fade-down"
-                                        data-aos-duration="200"
-                                    >
-                                        <div className="px-4 py-3 border-b border-gray-100">
-                                            <p className="text-sm font-medium text-gray-900 truncate">{user.name}</p>
-                                            <p className="text-xs text-gray-500 truncate">{user.email}</p>
-                                        </div>
-                                        <Link
-                                            to="/profile"
-                                            className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
-                                            onClick={() => setIsProfileMenuOpen(false)}
-                                        >
-                                            <User className="h-4 w-4 mr-3" />
-                                            Profile
-                                        </Link>
-                                        <Link
-                                            to="/settings"
-                                            className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
-                                            onClick={() => setIsProfileMenuOpen(false)}
-                                        >                                            <Settings className="h-4 w-4 mr-3" />
-                                            Settings
-                                        </Link>
-                                        <hr className="my-2 border-gray-100" />                                        <button
-                                            onClick={() => {
-                                                setIsProfileMenuOpen(false);
-                                                setShowLogoutModal(true);
-                                            }}
-                                            className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50/50 transition-colors"
-                                        >
-                                            <LogOut className="h-4 w-4 mr-3" />
-                                            Sign out
-                                        </button>
+                            </button>                                {/* Profile Dropdown */}                                {isProfileMenuOpen && (
+                                <div
+                                    className="absolute right-0 mt-2 w-56 bg-white/95 backdrop-blur-xl rounded-2xl shadow-lg border border-gray-200/50 py-2 z-[100]"
+                                    data-aos="fade-down"
+                                    data-aos-duration="200"
+                                >
+                                    <div className="px-4 py-3 border-b border-gray-100">
+                                        <p className="text-sm font-medium text-gray-900 truncate">{user.name}</p>
+                                        <p className="text-xs text-gray-500 truncate">{user.email}</p>
                                     </div>
-                                )}
+                                    <Link
+                                        to="/profile"
+                                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
+                                        onClick={() => setIsProfileMenuOpen(false)}
+                                    >
+                                        <User className="h-4 w-4 mr-3" />
+                                        Profile
+                                    </Link>
+                                    <Link
+                                        to="/settings"
+                                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
+                                        onClick={() => setIsProfileMenuOpen(false)}
+                                    >                                            <Settings className="h-4 w-4 mr-3" />
+                                        Settings
+                                    </Link>
+                                    <hr className="my-2 border-gray-100" />                                        <button
+                                        onClick={() => {
+                                            setIsProfileMenuOpen(false);
+                                            setShowLogoutModal(true);
+                                        }}
+                                        className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50/50 transition-colors"
+                                    >
+                                        <LogOut className="h-4 w-4 mr-3" />
+                                        Sign out
+                                    </button>
+                                </div>
+                            )}
                             </div>
                         ) : (
                             <div className="flex items-center space-x-3">
@@ -230,8 +233,7 @@ const Navbar = ({ user }) => {
                 </div>
             )}
 
-            {/* Logout Confirmation Modal */}
-            <ConfirmationModal
+            {/* Logout Confirmation Modal */}            <ConfirmationModal
                 isOpen={showLogoutModal}
                 onClose={() => setShowLogoutModal(false)}
                 onConfirm={handleLogout}
@@ -240,7 +242,7 @@ const Navbar = ({ user }) => {
                 type="warning"
                 confirmText="Ya, Logout"
                 cancelText="Batal"
-                loading={logoutLoading}
+                loading={authLoading}
             />
         </nav>
     );

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
 import Layout from '../components/layout/Layout';
+import { useAuth } from '../contexts/AuthContext';
 import {
     User,
     Mail,
@@ -19,19 +20,20 @@ import {
 
 const ProfilePage = () => {
     const [activeTab, setActiveTab] = useState('overview');
+    const { user } = useAuth();
 
-    // Sample user data
+    // Use authenticated user data or fallback
     const userData = {
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
-        joinDate: 'March 2024',
-        location: 'Jakarta, Indonesia',
-        bio: 'Computer Science student passionate about sharing knowledge and helping fellow students succeed.',
+        name: user?.name || 'John Doe',
+        email: user?.email || 'john.doe@example.com',
+        avatar: user?.avatar || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+        joinDate: user?.joinDate ? new Date(user.joinDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long' }) : 'March 2024',
+        location: user?.location || 'Jakarta, Indonesia',
+        bio: user?.bio || 'Computer Science student passionate about sharing knowledge and helping fellow students succeed.',
         stats: {
             notesUploaded: 45,
             totalDownloads: 2840,
-            points: 1250,
+            points: user?.points || 1250,
             rank: 12,
             achievements: 8
         }

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { Eye, EyeOff, Mail, Lock, User, BookOpen, ArrowRight, School } from 'lucide-react';
 import { Button, Input, Card, CardContent } from '../components/ui';
+import { useAuth } from '../contexts/AuthContext';
 
 const RegisterPage = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -13,24 +14,31 @@ const RegisterPage = () => {
         password: '',
         confirmPassword: ''
     });
-    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
     const navigate = useNavigate();
+    const { register, loading } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError('');
 
         if (formData.password !== formData.confirmPassword) {
-            alert('Password tidak cocok!');
+            setError('Password tidak cocok!');
             return;
         }
 
-        setLoading(true);
+        if (formData.password.length < 6) {
+            setError('Password minimal 6 karakter!');
+            return;
+        }
 
-        // Simulate registration
-        setTimeout(() => {
-            setLoading(false);
+        const result = await register(formData);
+
+        if (result.success) {
             navigate('/dashboard');
-        }, 2000);
+        } else {
+            setError(result.message || 'Registration failed. Please try again.');
+        }
     };
 
     const handleChange = (e) => {
@@ -64,6 +72,12 @@ const RegisterPage = () => {
                                 Mulai perjalanan pembelajaran Anda bersama ribuan mahasiswa
                             </p>
                         </div>
+
+                        {error && (
+                            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                                <p className="text-red-600 text-sm">{error}</p>
+                            </div>
+                        )}
 
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div className="space-y-4">
