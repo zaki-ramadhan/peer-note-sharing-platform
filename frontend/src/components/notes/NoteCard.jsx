@@ -147,31 +147,30 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false, sho
             'Ekonomi': 'from-indigo-500 to-purple-500'
         };
         return gradients[subject] || 'from-gray-500 to-gray-600';
-    };
-
-    if (mini) {
+    }; if (mini) {
         return (
-            <Card variant="glass" className=" transition-all duration-300 border border-white/20 font-['Hanken_Grotesk']">
-                <CardContent className="p-3">
-                    <div className="text-center">
-                        <div className={`w-10 h-10 bg-gradient-to-br ${getSubjectGradient(subject)} rounded-lg flex items-center justify-center shadow-md mx-auto mb-2`}>
-                            <FileText className="w-5 h-5 text-white" />
+            <Card variant="glass" className="h-full flex flex-col transition-all duration-300 border border-white/20 font-['Hanken_Grotesk']">
+                <CardContent className="p-4 flex-1 flex flex-col">
+                    <div className="text-center flex-1 flex flex-col">
+                        <div className={`w-12 h-12 bg-gradient-to-br ${getSubjectGradient(subject)} rounded-lg flex items-center justify-center shadow-md mx-auto mb-3`}>
+                            <FileText className="w-6 h-6 text-white" />
                         </div>
-                        <Link to={`/notes/${id}`} className="group">
-                            <h3 className="text-xs font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-1 leading-tight">
+                        <Link to={`/notes/${id}`} className="group flex-1">
+                            <h3 className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-2 leading-tight min-h-[2.5rem]">
                                 {title}
                             </h3>
                         </Link>
-                        <p className="text-xs text-gray-500 mb-2">{subject}</p>                        <div className="flex items-center justify-center space-x-1 mb-2">
+                        <p className="text-sm text-gray-500 mb-3 min-h-[1.25rem]">{subject}</p>
+                        <div className="flex items-center justify-center space-x-1 mb-3">
                             <Rating value={averageRating} readonly size="sm" />
                         </div>
-                        <div className="flex items-center justify-between text-xs text-gray-500">
+                        <div className="flex items-center justify-between text-sm text-gray-500 mt-auto">
                             <div className="flex items-center space-x-1">
-                                <Download className="w-3 h-3" />
+                                <Download className="w-4 h-4" />
                                 <span>{downloadCount}</span>
                             </div>
                             <div className="flex items-center space-x-1">
-                                <Eye className="w-3 h-3" />
+                                <Eye className="w-4 h-4" />
                                 <span>{Math.floor(downloadCount * 1.5)}</span>
                             </div>
                         </div>
@@ -179,33 +178,35 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false, sho
                 </CardContent>
             </Card>
         );
-    }
-
-    if (compact) {
+    } if (compact) {
         return (
-            <Card variant="glass" className=" transition-all duration-300 border border-white/20 font-['Hanken_Grotesk']">
-                <CardContent className="p-5">
-                    <div className="flex items-start space-x-4">
-                        <div className="flex-shrink-0">                            <div className={`w-14 h-14 bg-gradient-to-br ${getSubjectGradient(subject)} rounded-xl flex items-center justify-center shadow-md`}>
-                            <FileText className="w-7 h-7 text-white" />
+            <Card variant="glass" className="h-full flex flex-col transition-all duration-300 border border-white/20 font-['Hanken_Grotesk']">
+                <CardContent className="p-5 flex-1">
+                    <div className="flex items-start space-x-4 h-full">
+                        <div className="flex-shrink-0">
+                            <div className={`w-16 h-16 bg-gradient-to-br ${getSubjectGradient(subject)} rounded-xl flex items-center justify-center shadow-md`}>
+                                <FileText className="w-8 h-8 text-white" />
+                            </div>
                         </div>
-                        </div>
-                        <div className="flex-1 min-w-0">
-                            <Link to={`/notes/${id}`} className="group">
-                                <h3 className="text-base font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-1 mb-1">
-                                    {title}
-                                </h3>
-                            </Link>
-                            <p className="text-sm text-gray-600 mb-2">{subject}</p>                            <div className="flex items-center justify-between">
-                                <Rating value={averageRating} readonly size="sm" showValue />
-                                <div className="flex items-center space-x-3 text-xs text-gray-500">
+                        <div className="flex-1 min-w-0 flex flex-col justify-between h-full">
+                            <div className="flex-1">
+                                <Link to={`/notes/${id}`} className="group">
+                                    <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-2 leading-tight min-h-[2.5rem]">
+                                        {title}
+                                    </h3>
+                                </Link>
+                                <p className="text-base text-gray-600 mb-3 min-h-[1.5rem]">{subject}</p>
+                            </div>
+                            <div className="flex items-center justify-between mt-auto">
+                                <Rating value={averageRating} readonly size="md" showValue />
+                                <div className="flex items-center space-x-4 text-sm text-gray-500">
                                     <div className="flex items-center space-x-1">
-                                        <Download className="w-3 h-3" />
-                                        <span>{downloadCount}</span>
+                                        <Download className="w-4 h-4" />
+                                        <span className="font-medium">{downloadCount}</span>
                                     </div>
                                     <div className="flex items-center space-x-1">
-                                        <Eye className="w-3 h-3" />
-                                        <span>{downloadCount * 3}</span>
+                                        <Eye className="w-4 h-4" />
+                                        <span className="font-medium">{downloadCount * 3}</span>
                                     </div>
                                 </div>
                             </div>
@@ -215,7 +216,7 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false, sho
             </Card>
         );
     } return (
-        <Card variant="elevated" className="group  transition-all duration-500 overflow-hidden font-['Hanken_Grotesk']">
+        <Card variant="elevated" className="group h-full flex flex-col transition-all duration-500 overflow-hidden font-['Hanken_Grotesk']">
             {/* Header with gradient and thumbnail */}
             <div className="relative">
                 <div className={`h-48 bg-gradient-to-br ${getSubjectGradient(subject)} relative overflow-hidden`}>
@@ -280,36 +281,40 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false, sho
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <CardContent className="p-6">
+            </div>            <CardContent className="p-6 flex-1 flex flex-col">
                 {/* Title and Description */}
-                <div className="mb-4">
+                <div className="mb-3 flex-1">
                     <Link to={`/notes/${id}`} className="group">
-                        <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-2 leading-tight">
+                        <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-2 lg:mb-1 leading-tight min-h-[3.5rem]">
                             {title}
                         </h3>
                     </Link>
-                    <p className="text-gray-600 line-clamp-2 leading-relaxed">
+                    <p className="text-gray-600 line-clamp-2 leading-relaxed min-h-[3rem]">
                         {description}
                     </p>
                 </div>
 
                 {/* Tags */}
-                {tags && tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mb-4">
-                        {tags.slice(0, 3).map((tag, index) => (
-                            <Badge key={index} variant="secondary" className="text-xs px-2 py-1 bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
-                                #{tag}
-                            </Badge>
-                        ))}
-                        {tags.length > 3 && (
-                            <Badge variant="secondary" className="text-xs px-2 py-1 bg-gray-100 text-gray-700">
-                                +{tags.length - 3} more
-                            </Badge>
-                        )}
-                    </div>
-                )}                {/* Rating */}
+                <div className="flex flex-wrap gap-2 mb-4 min-h-[2rem]">
+                    {tags && tags.length > 0 ? (
+                        <>
+                            {tags.slice(0, 2).map((tag, index) => (
+                                <Badge key={index} variant="secondary" className="text-xs px-2 py-1 bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
+                                    #{tag}
+                                </Badge>
+                            ))}
+                            {tags.length > 2 && (
+                                <Badge variant="secondary" className="text-xs px-2 py-1 bg-gray-100 text-gray-700">
+                                    +{tags.length - 2} more
+                                </Badge>
+                            )}
+                        </>
+                    ) : (
+                        <div className="text-xs text-gray-400 italic">No tags</div>
+                    )}
+                </div>
+
+                {/* Rating */}
                 <div className="flex items-center space-x-2 mb-4">
                     <Rating value={averageRating} readonly showValue />
                     <span className="text-sm text-gray-500">
@@ -347,7 +352,7 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false, sho
                         </div>
                     </div>
                 </div>                {/* Action Buttons */}
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-3 mt-auto">
                     <Button
                         className="flex-1"
                         size="md"
