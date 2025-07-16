@@ -8,7 +8,6 @@ import {
     TrendingDown,
     Calendar,
     Search,
-    Filter,
     Download,
     Star,
     Award
@@ -156,27 +155,28 @@ const AdminAnalytics = () => {
         const matchesSearch = user.name.toLowerCase().includes(searchQuery.toLowerCase());
         return matchesSearch;
     }); const StatCard = ({ title, value, change, trend, suffix = '', icon: Icon }) => (
-        <div className="bg-gray-800/50 backdrop-blur-sm p-4 md:p-6 rounded-xl shadow-lg border border-gray-700/50 hover:bg-gray-800/70 transition-all duration-200">
+        <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700/50 hover:bg-gray-800/70 transition-all duration-200">
             <div className="flex items-center justify-between">
                 <div className="flex-1">
-                    <div className="flex items-center gap-2 md:gap-3 mb-3">
-                        <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <Icon className="h-4 w-4 md:h-5 md:w-5 text-white" />
+                    <div className="flex items-center gap-3 mb-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <Icon className="h-5 w-5 text-white" />
                         </div>
-                        <p className="text-xs md:text-sm font-medium text-gray-400 leading-tight">{title}</p>
+                        <p className="text-sm font-medium text-gray-400 leading-tight">{title}</p>
                     </div>
-                    <p className="text-xl md:text-2xl font-bold text-white mb-2">
-                        {typeof value === 'number' ? value.toLocaleString() : value}{suffix}                    </p>
+                    <p className="text-2xl font-bold text-white mb-2">
+                        {typeof value === 'number' ? value.toLocaleString() : value}{suffix}
+                    </p>
                     <div className="flex items-center flex-wrap">
                         {trend === 'up' ? (
-                            <TrendingUp className="h-3 w-3 md:h-4 md:w-4 text-green-400 mr-1 flex-shrink-0" />
+                            <TrendingUp className="h-4 w-4 text-green-400 mr-1 flex-shrink-0" />
                         ) : (
-                            <TrendingDown className="h-3 w-3 md:h-4 md:w-4 text-red-400 mr-1 flex-shrink-0" />
+                            <TrendingDown className="h-4 w-4 text-red-400 mr-1 flex-shrink-0" />
                         )}
-                        <span className={`text-xs md:text-sm font-medium ${trend === 'up' ? 'text-green-400' : 'text-red-400'}`}>
+                        <span className={`text-sm font-medium ${trend === 'up' ? 'text-green-400' : 'text-red-400'}`}>
                             {change > 0 ? '+' : ''}{change}%
                         </span>
-                        <span className="text-xs md:text-sm text-gray-500 ml-1">vs periode sebelumnya</span>
+                        <span className="text-sm text-gray-500 ml-1">vs periode sebelumnya</span>
                     </div>
                 </div>
             </div>
@@ -185,23 +185,23 @@ const AdminAnalytics = () => {
         const maxValue = Math.max(...data.map(d => Math.max(d.users, d.notes, d.posts)));
 
         return (
-            <div className="w-full h-64 md:h-80 p-3 md:p-4">
-                <div className="flex items-end justify-between h-48 md:h-64 space-x-2 md:space-x-3">
+            <div className="w-full h-80 p-4">
+                <div className="flex items-end justify-between h-64 space-x-3">
                     {data.map((item, index) => (
-                        <div key={index} className="flex-1 flex flex-col items-center max-w-12 md:max-w-20">
-                            <div className="flex items-end space-x-1 mb-2 md:mb-3 h-36 md:h-48">
+                        <div key={index} className="flex-1 flex flex-col items-center max-w-20">
+                            <div className="flex items-end space-x-1 mb-3 h-48">
                                 <div
-                                    className="w-2 md:w-3 bg-gradient-to-t from-blue-600 to-blue-400 rounded-t transition-all duration-300 hover:opacity-80"
+                                    className="w-3 bg-gradient-to-t from-blue-600 to-blue-400 rounded-t transition-all duration-300 hover:opacity-80"
                                     style={{ height: `${Math.max(8, (item.users / maxValue) * 135)}px` }}
                                     title={`Pengguna: ${item.users}`}
                                 />
                                 <div
-                                    className="w-2 md:w-3 bg-gradient-to-t from-green-600 to-green-400 rounded-t transition-all duration-300 hover:opacity-80"
+                                    className="w-3 bg-gradient-to-t from-green-600 to-green-400 rounded-t transition-all duration-300 hover:opacity-80"
                                     style={{ height: `${Math.max(8, (item.notes / maxValue) * 135)}px` }}
                                     title={`Catatan: ${item.notes}`}
                                 />
                                 <div
-                                    className="w-2 md:w-3 bg-gradient-to-t from-purple-600 to-purple-400 rounded-t transition-all duration-300 hover:opacity-80"
+                                    className="w-3 bg-gradient-to-t from-purple-600 to-purple-400 rounded-t transition-all duration-300 hover:opacity-80"
                                     style={{ height: `${Math.max(8, (item.posts / maxValue) * 135)}px` }}
                                     title={`Postingan: ${item.posts}`}
                                 />
@@ -212,83 +212,93 @@ const AdminAnalytics = () => {
                         </div>
                     ))}
                 </div>
-                <div className="flex justify-center mt-4 md:mt-6 space-x-3 md:space-x-6 flex-wrap gap-2">
+                <div className="flex justify-center mt-6 space-x-6 flex-wrap gap-2">
                     <div className="flex items-center">
-                        <div className="w-2 h-2 md:w-3 md:h-3 bg-gradient-to-r from-blue-600 to-blue-400 rounded mr-1 md:mr-2"></div>
-                        <span className="text-xs md:text-sm text-gray-400">Pengguna</span>
-                    </div>
-                    <div className="flex items-center">                        <div className="w-2 h-2 md:w-3 md:h-3 bg-gradient-to-r from-green-600 to-green-400 rounded mr-1 md:mr-2"></div>
-                        <span className="text-xs md:text-sm text-gray-400">Catatan</span>
+                        <div className="w-3 h-3 bg-gradient-to-r from-blue-600 to-blue-400 rounded mr-2"></div>
+                        <span className="text-sm text-gray-400">Pengguna</span>
                     </div>
                     <div className="flex items-center">
-                        <div className="w-2 h-2 md:w-3 md:h-3 bg-gradient-to-r from-purple-600 to-purple-400 rounded mr-1 md:mr-2"></div>
-                        <span className="text-xs md:text-sm text-gray-400">Postingan</span>
+                        <div className="w-3 h-3 bg-gradient-to-r from-green-600 to-green-400 rounded mr-2"></div>
+                        <span className="text-sm text-gray-400">Catatan</span>
+                    </div>
+                    <div className="flex items-center">
+                        <div className="w-3 h-3 bg-gradient-to-r from-purple-600 to-purple-400 rounded mr-2"></div>
+                        <span className="text-sm text-gray-400">Postingan</span>
                     </div>
                 </div>
             </div>
         );
     }; return (
-        <div className="space-y-6 md:space-y-8 p-4 md:p-6">
-            {/* Header with Search and Filters */}
-            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 md:gap-6">
+        <div className="space-y-6">
+            {/* Header */}
+            <div className="md:flex md:items-center md:justify-between">
                 <div className="min-w-0 flex-1">
-                    <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                    <h2 className="text-2xl font-bold leading-7 text-white sm:truncate sm:text-3xl sm:tracking-tight">
                         Dashboard Analitik
                     </h2>
-                    <p className="mt-2 text-sm md:text-base text-gray-400">
+                    <p className="mt-1 text-sm text-gray-400">
                         Wawasan platform dan metrik kinerja.
                     </p>
                 </div>
+            </div>
 
-                <div className="flex flex-col sm:flex-row gap-3 md:gap-4 lg:flex-shrink-0">                    {/* Search Bar */}
+            {/* Filters */}
+            <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700/50">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    {/* Search */}
                     <div className="relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                         <input
                             type="text"
                             placeholder="Cari konten dan pengguna..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-10 pr-4 py-2 w-full sm:w-64 lg:w-56 xl:w-64 bg-gray-800/50 border border-gray-600/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400 text-sm"
+                            className="w-full pl-10 pr-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white placeholder-gray-400"
                         />
                     </div>
 
-                    {/* Filter Dropdown */}
-                    <div className="relative">
-                        <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                        <select
-                            value={filterType}
-                            onChange={(e) => setFilterType(e.target.value)}
-                            className="pl-10 pr-8 py-2 w-full sm:w-auto bg-gray-800/50 border border-gray-600/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white appearance-none cursor-pointer text-sm"
-                        >
-                            <option className='bg-gray-800/95 backdrop-blur-sm border border-red-700/50 rounded-xl shadow-xl' value="all">Semua Mata Pelajaran</option>
-                            <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="computer science">Ilmu Komputer</option>
-                            <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="mathematics">Matematika</option>
-                            <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="physics">Fisika</option>
-                            <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="chemistry">Kimia</option>
-                            <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="biology">Biologi</option>
-                        </select>
-                    </div>
+                    {/* Subject Filter */}
+                    <select
+                        value={filterType}
+                        onChange={(e) => setFilterType(e.target.value)}
+                        className="px-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white"
+                    >
+                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="all">Semua Mata Pelajaran</option>
+                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="computer science">Ilmu Komputer</option>
+                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="mathematics">Matematika</option>
+                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="physics">Fisika</option>
+                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="chemistry">Kimia</option>
+                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="biology">Biologi</option>
+                    </select>
 
-                    {/* Time Range */}
+                    {/* Time Range Filter */}
                     <select
                         value={timeRange}
                         onChange={(e) => setTimeRange(e.target.value)}
-                        className="px-4 py-2 w-full sm:w-auto bg-gray-800/50 border border-gray-600/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white text-sm"
+                        className="px-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white"
                     >
-                        <option value="7d">7 Hari Terakhir</option>
-                        <option value="30d">30 Hari Terakhir</option>
-                        <option value="90d">90 Hari Terakhir</option>
-                        <option value="1y">Tahun Lalu</option>
+                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="7d">7 Hari Terakhir</option>
+                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="30d">30 Hari Terakhir</option>
+                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="90d">90 Hari Terakhir</option>
+                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="1y">Tahun Lalu</option>
                     </select>
+
+                    {/* Export Button */}
+                    <button className="inline-flex items-center justify-center px-3 py-2 border border-gray-600 rounded-md text-sm font-medium text-gray-300 bg-gray-700/50 hover:bg-gray-600/50 transition-colors">
+                        <Download className="h-4 w-4 mr-2" />
+                        Ekspor Data
+                    </button>
                 </div>
             </div>            {/* Key Metrics Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">{/* ... existing StatCard components ... */}<StatCard
-                title="Total Pengguna"
-                value={analyticsData.userGrowth.current}
-                change={analyticsData.userGrowth.change}
-                trend={analyticsData.userGrowth.trend}
-                icon={Users}
-            />                <StatCard
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <StatCard
+                    title="Total Pengguna"
+                    value={analyticsData.userGrowth.current}
+                    change={analyticsData.userGrowth.change}
+                    trend={analyticsData.userGrowth.trend}
+                    icon={Users}
+                />
+                <StatCard
                     title="Catatan Dibagikan"
                     value={analyticsData.notesShared.current}
                     change={analyticsData.notesShared.change}
@@ -312,54 +322,55 @@ const AdminAnalytics = () => {
                 />
             </div>            {/* Activity Chart */}
             <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700/50 overflow-hidden">
-                <div className="p-4 md:p-6 border-b border-gray-700/50">
+                <div className="p-6 border-b border-gray-700/50">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                        <h3 className="text-lg md:text-xl font-semibold text-white">Ikhtisar Aktivitas</h3>
+                        <h3 className="text-xl font-semibold text-white">Ikhtisar Aktivitas</h3>
                         <div className="flex items-center text-gray-400">
-                            <Calendar className="h-4 w-4 md:h-5 md:w-5 mr-2 flex-shrink-0" />
-                            <span className="text-xs md:text-sm">Aktivitas harian selama 7 hari terakhir</span>
+                            <Calendar className="h-5 w-5 mr-2 flex-shrink-0" />
+                            <span className="text-sm">Aktivitas harian selama 7 hari terakhir</span>
                         </div>
                     </div>
                 </div>
                 <SimpleChart data={chartData} />
             </div>            {/* Content and Users Grid */}
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
                 {/* Top Content */}
                 <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700/50">
-                    <div className="p-4 md:p-6 border-b border-gray-700/50">
-                        <h3 className="text-lg md:text-xl font-semibold text-white flex items-center gap-2">
-                            <Download className="h-4 w-4 md:h-5 md:w-5 text-blue-400 flex-shrink-0" />
+                    <div className="p-6 border-b border-gray-700/50">
+                        <h3 className="text-xl font-semibold text-white flex items-center gap-2">
+                            <Download className="h-5 w-5 text-blue-400 flex-shrink-0" />
                             <span>Catatan Paling Banyak Diunduh</span>
                         </h3>
                         {searchQuery && (
-                            <p className="text-xs md:text-sm text-gray-400 mt-1">
+                            <p className="text-sm text-gray-400 mt-1">
                                 {filteredContent.length} hasil untuk "{searchQuery}"
                             </p>
                         )}
-                    </div>                    <div className="p-4 md:p-6">
-                        <div className="space-y-3 md:space-y-4">
+                    </div>
+                    <div className="p-6">
+                        <div className="space-y-4">
                             {(searchQuery ? filteredContent : topContent).slice(0, 5).map((item, index) => (
-                                <div key={item.id} className="flex items-center justify-between p-3 md:p-4 bg-gray-700/30 rounded-lg hover:bg-gray-700/50 transition-all duration-200">
+                                <div key={item.id} className="flex items-center justify-between p-4 bg-gray-700/30 rounded-lg hover:bg-gray-700/50 transition-all duration-200">
                                     <div className="flex-1 min-w-0">
-                                        <div className="flex items-center gap-2 md:gap-3">
-                                            <div className="w-6 h-6 md:w-8 md:h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-xs md:text-sm flex-shrink-0">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
                                                 {index + 1}
                                             </div>
                                             <div className="min-w-0 flex-1">
-                                                <p className="font-medium text-white text-sm md:text-base truncate">{item.title}</p>
-                                                <p className="text-xs md:text-sm text-gray-400 truncate">
+                                                <p className="font-medium text-white text-base truncate">{item.title}</p>
+                                                <p className="text-sm text-gray-400 truncate">
                                                     by {item.author} • {item.subject}
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="flex items-center gap-2 md:gap-4 flex-shrink-0 ml-2">
+                                    <div className="flex items-center gap-4 flex-shrink-0 ml-2">
                                         <div className="flex items-center gap-1 text-yellow-400">
-                                            <Star className="h-3 w-3 md:h-4 md:w-4 fill-current" />
-                                            <span className="text-xs md:text-sm font-medium">{item.rating}</span>
+                                            <Star className="h-4 w-4 fill-current" />
+                                            <span className="text-sm font-medium">{item.rating}</span>
                                         </div>
                                         <div className="text-right">
-                                            <p className="font-semibold text-white text-sm md:text-base">{item.downloads}</p>
+                                            <p className="font-semibold text-white text-base">{item.downloads}</p>
                                             <p className="text-xs text-gray-400">unduhan</p>
                                         </div>
                                     </div>
@@ -369,60 +380,62 @@ const AdminAnalytics = () => {
                     </div>
                 </div>                {/* Top Contributors */}
                 <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700/50">
-                    <div className="p-4 md:p-6 border-b border-gray-700/50">
-                        <h3 className="text-lg md:text-xl font-semibold text-white flex items-center gap-2">
-                            <Award className="h-4 w-4 md:h-5 md:w-5 text-yellow-400 flex-shrink-0" />
+                    <div className="p-6 border-b border-gray-700/50">
+                        <h3 className="text-xl font-semibold text-white flex items-center gap-2">
+                            <Award className="h-5 w-5 text-yellow-400 flex-shrink-0" />
                             <span>Kontributor Teratas</span>
                         </h3>
                         {searchQuery && (
-                            <p className="text-xs md:text-sm text-gray-400 mt-1">
+                            <p className="text-sm text-gray-400 mt-1">
                                 {filteredUsers.length} hasil untuk "{searchQuery}"
                             </p>
                         )}
                     </div>
-                    <div className="p-4 md:p-6">
-                        <div className="space-y-3 md:space-y-4">
-                            {(searchQuery ? filteredUsers : topUsers).slice(0, 4).map((user, index) => (<div key={user.id} className="flex items-center justify-between p-3 md:p-4 bg-gray-700/30 rounded-lg hover:bg-gray-700/50 transition-all duration-200">
-                                <div className="flex items-center gap-2 md:gap-4 min-w-0 flex-1">
-                                    <div className="w-6 h-6 md:w-10 md:h-10 bg-gradient-to-br from-green-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xs md:text-sm flex-shrink-0">
-                                        {index + 1}
+                    <div className="p-6">
+                        <div className="space-y-4">
+                            {(searchQuery ? filteredUsers : topUsers).slice(0, 4).map((user, index) => (
+                                <div key={user.id} className="flex items-center justify-between p-4 bg-gray-700/30 rounded-lg hover:bg-gray-700/50 transition-all duration-200">
+                                    <div className="flex items-center gap-4 min-w-0 flex-1">
+                                        <div className="w-10 h-10 bg-gradient-to-br from-green-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                                            {index + 1}
+                                        </div>
+                                        <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                            <span className="text-sm font-medium text-white">
+                                                {user.name.split(' ').map(n => n[0]).join('')}
+                                            </span>
+                                        </div>
+                                        <div className="min-w-0 flex-1">
+                                            <p className="font-medium text-white text-base truncate">{user.name}</p>
+                                            <p className="text-sm text-gray-400 truncate">
+                                                {user.notes} catatan • {user.posts} postingan
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div className="w-6 h-6 md:w-10 md:h-10 bg-gray-600 rounded-full flex items-center justify-center flex-shrink-0">
-                                        <span className="text-xs md:text-sm font-medium text-white">
-                                            {user.name.split(' ').map(n => n[0]).join('')}
-                                        </span>
-                                    </div>
-                                    <div className="min-w-0 flex-1">
-                                        <p className="font-medium text-white text-sm md:text-base truncate">{user.name}</p>
-                                        <p className="text-xs md:text-sm text-gray-400 truncate">
-                                            {user.notes} catatan • {user.posts} postingan
-                                        </p>
+                                    <div className="text-right flex-shrink-0 ml-2">
+                                        <p className="font-semibold text-white text-base">{user.points.toLocaleString()}</p>
+                                        <p className="text-xs text-gray-400">poin</p>
                                     </div>
                                 </div>
-                                <div className="text-right flex-shrink-0 ml-2">
-                                    <p className="font-semibold text-white text-sm md:text-base">{user.points.toLocaleString()}</p>
-                                    <p className="text-xs text-gray-400">poin</p>
-                                </div>
-                            </div>
                             ))}
                         </div>
                     </div>
                 </div>
             </div>            {/* Subject Distribution */}
             <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700/50">
-                <div className="p-4 md:p-6 border-b border-gray-700/50">
-                    <h3 className="text-lg md:text-xl font-semibold text-white">Konten berdasarkan Mata Pelajaran</h3>
-                    <p className="text-xs md:text-sm text-gray-400 mt-1">Distribusi catatan di berbagai mata pelajaran</p>
+                <div className="p-6 border-b border-gray-700/50">
+                    <h3 className="text-xl font-semibold text-white">Konten berdasarkan Mata Pelajaran</h3>
+                    <p className="text-sm text-gray-400 mt-1">Distribusi catatan di berbagai mata pelajaran</p>
                 </div>
-                <div className="p-4 md:p-6">
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+                <div className="p-6">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
                         {subjectData.map((item, index) => (
                             <div key={index} className="text-center group">
-                                <div className={`w-12 h-12 md:w-16 md:h-16 ${item.color} rounded-xl mx-auto mb-2 md:mb-3 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-200`}>                                    <span className="text-white font-bold text-sm md:text-lg">
-                                    {item.notes.toString().slice(0, 1)}
-                                </span>
+                                <div className={`w-16 h-16 ${item.color} rounded-xl mx-auto mb-3 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-200`}>
+                                    <span className="text-white font-bold text-lg">
+                                        {item.notes.toString().slice(0, 1)}
+                                    </span>
                                 </div>
-                                <p className="font-medium text-white text-xs md:text-sm leading-tight">{item.subject}</p>
+                                <p className="font-medium text-white text-sm leading-tight">{item.subject}</p>
                                 <p className="text-xs text-gray-400 mt-1">{item.notes} catatan</p>
                                 <p className="text-xs text-gray-500">{item.posts} postingan</p>
                             </div>

@@ -357,7 +357,7 @@ const AdminUsers = () => {
                                 >
                                     <MoreVertical className="h-5 w-5" />
                                 </button>{actionMenuOpen === user.id && (
-                                    <div className="absolute right-0 top-full mt-1 w-48 bg-gray-800/95 backdrop-blur-sm rounded-xl shadow-xl z-10 border border-gray-700/50">
+                                    <div className="absolute right-8 top-full mt-1 w-48 bg-gray-800/95 backdrop-blur-sm rounded-xl shadow-xl z-10 border border-gray-700/50">
                                         <div className="py-1">                                                    <button
                                             onClick={() => handleUserAction('edit', user)}
                                             className="flex items-center w-full px-4 py-2 text-sm text-gray-300 hover:bg-gray-700/50 transition-colors"
