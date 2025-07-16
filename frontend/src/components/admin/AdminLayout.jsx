@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router';
 import { useAuth } from '../../contexts/AuthContext';
 import {
@@ -18,15 +18,51 @@ import {
     Shield
 } from 'lucide-react';
 import { showInfoToast } from '../../utils/toastUtils';
+import AdminSearchDropdown from './AdminSearchDropdown';
+import AdminNotificationDropdown from './AdminNotificationDropdown';
 
 const AdminLayout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
     const [showUserDropdown, setShowUserDropdown] = useState(false);
-    const [darkMode, setDarkMode] = useState(false);
-    const [searchQuery, setSearchQuery] = useState('');
+    const [showSearchDropdown, setShowSearchDropdown] = useState(false);
+    const [showNotificationDropdown, setShowNotificationDropdown] = useState(false);
+    const [darkMode, setDarkMode] = useState(false); const [searchQuery, setSearchQuery] = useState('');
+    const [unreadNotifications, setUnreadNotifications] = useState(0); // Dynamic unread count
     const { user, logout } = useAuth();
-    const navigate = useNavigate();
+    const navigate = useNavigate();    // Handle unread count changes from notification dropdown
+    const handleUnreadCountChange = useCallback((count) => {
+        setUnreadNotifications(count);
+    }, []);
+
+    // Initialize unread count on component mount
+    useEffect(() => {
+        // This will be set by the AdminNotificationDropdown when it initializes
+        setUnreadNotifications(3); // Default count until dropdown initializes
+    }, []);
+
+    // Close dropdowns when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            // Close search dropdown
+            if (showSearchDropdown && !event.target.closest('.search-container')) {
+                setShowSearchDropdown(false);
+            }
+            // Close notification dropdown
+            if (showNotificationDropdown && !event.target.closest('.notification-container')) {
+                setShowNotificationDropdown(false);
+            }
+            // Close user dropdown
+            if (showUserDropdown && !event.target.closest('.user-dropdown-container')) {
+                setShowUserDropdown(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [showSearchDropdown, showNotificationDropdown, showUserDropdown]);
 
     // Check if user is admin
     if (!user || user.role !== 'admin') {
@@ -63,16 +99,16 @@ const AdminLayout = () => {
             icon: Settings,
             description: 'Konfigurasi sistem'
         },
-    ];
-
-    const handleLogout = async () => {
+    ]; const handleLogout = async () => {
         const result = await logout();
         if (result.success) {
             showInfoToast('Berhasil keluar');
             navigate('/');
         }
         setShowLogoutModal(false);
-    }; const LogoutModal = () => (
+    };
+
+    const LogoutModal = () => (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
             <div className="bg-gray-800/95 backdrop-blur-sm rounded-2xl shadow-2xl max-w-md w-full mx-4 transform transition-all border border-gray-700/50">
                 <div className="p-6">
@@ -200,25 +236,46 @@ const AdminLayout = () => {
                                 </div>
                             </div>
 
-                            <div className="flex items-center space-x-4">
-
-                                {/* Search Bar */}
-                                <div className="hidden md:block relative">
+                            <div className="flex items-center space-x-4">                                {/* Search Bar */}
+                                <div className="hidden md:block relative search-container">
                                     <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                                     <input
                                         type="text"
                                         placeholder="Cari panel admin..."
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
+                                        onFocus={() => setShowSearchDropdown(true)}
+                                        onBlur={() => setTimeout(() => setShowSearchDropdown(false), 200)}
                                         className="pl-11 pr-4 py-3 border border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent w-72 text-sm bg-gray-700/50 backdrop-blur-sm shadow-sm text-white placeholder-gray-400"
+                                    />
+                                    <AdminSearchDropdown
+                                        isOpen={showSearchDropdown}
+                                        searchQuery={searchQuery}
+                                        onClose={() => {
+                                            setShowSearchDropdown(false);
+                                            setSearchQuery('');
+                                        }}
                                     />
                                 </div>
 
                                 {/* Notifications */}
-                                <button className="p-2 text-gray-400 hover:text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors relative">
-                                    <Bell className="h-5 w-5" />
-                                    <span className="absolute -top-1 -right-1 block h-3 w-3 rounded-full bg-red-500 ring-2 ring-gray-800"></span>
-                                </button>
+                                <div className="relative notification-container">
+                                    <button
+                                        onClick={() => setShowNotificationDropdown(!showNotificationDropdown)}
+                                        className="p-2 text-gray-400 hover:text-gray-300 hover:bg-gray-700/50 rounded-lg transition-colors relative"
+                                    >
+                                        <Bell className="h-5 w-5" />
+                                        {unreadNotifications > 0 && (
+                                            <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white ring-2 ring-gray-800">
+                                                {unreadNotifications > 9 ? '9+' : unreadNotifications}
+                                            </span>
+                                        )}
+                                    </button>                                    <AdminNotificationDropdown
+                                        isOpen={showNotificationDropdown}
+                                        onClose={() => setShowNotificationDropdown(false)}
+                                        onUnreadCountChange={handleUnreadCountChange}
+                                    />
+                                </div>
 
                                 {/* Theme toggle */}
                                 <button
@@ -227,7 +284,7 @@ const AdminLayout = () => {
                                 >
                                     {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
                                 </button>                                {/* Admin avatar with dropdown */}
-                                <div className="relative">
+                                <div className="relative user-dropdown-container">
                                     <button
                                         onClick={() => setShowUserDropdown(!showUserDropdown)}
                                         className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700/50 transition-colors"

@@ -503,15 +503,15 @@ const NotesPage = () => {
                                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                                         <div className="bg-blue-50/50 rounded-lg p-3">
                                             <div className="text-2xl lg:text-3xl font-bold text-blue-600">{filterStats.filtered}</div>
-                                            <div className="text-sm text-blue-700">Results</div>
+                                            <div className="text-sm text-blue-700">Hasil</div>
                                         </div>
                                         <div className="bg-green-50/50 rounded-lg p-3">
                                             <div className="text-2xl lg:text-3xl font-bold text-green-600">{filterStats.total}</div>
-                                            <div className="text-sm text-green-700">Total Notes</div>
+                                            <div className="text-sm text-green-700">Total Catatan</div>
                                         </div>
                                         <div className="bg-purple-50/50 rounded-lg p-3">
                                             <div className="text-2xl lg:text-3xl font-bold text-purple-600">{filterStats.avgRating}</div>
-                                            <div className="text-sm text-purple-700">Avg Rating</div>
+                                            <div className="text-sm text-purple-700">Rating Rata-rata</div>
                                         </div>
                                         <div className="bg-orange-50/50 rounded-lg p-3">
                                             <div className="text-2xl lg:text-3xl font-bold text-orange-600">

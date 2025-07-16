@@ -126,12 +126,12 @@ const AdminLogin = () => {
                                 <div className="w-full border-t border-gray-700/50" />
                             </div>
                             <div className="relative flex justify-center text-sm">
-                                <span className="px-2 bg-gray-800/50 text-gray-400">Demo Credentials</span>
+                                <span className="px-2 bg-gray-800/50 text-gray-400">Kredensial Demo</span>
                             </div>
                         </div>
 
                         <div className="mt-4 p-4 bg-blue-900/30 rounded-lg border border-blue-600/30">                            <div className="text-sm text-blue-300">
-                            <p className="font-medium">For demo purposes:</p>
+                            <p className="font-medium">Untuk keperluan demo:</p>
                             <p>Email: <span className="font-mono text-blue-200 select-all">admin@peernote.com</span></p>
                             <p>Password: <span className="font-mono text-blue-200 select-all">admin123</span></p>
                         </div>
