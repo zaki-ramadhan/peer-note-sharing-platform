@@ -16,6 +16,19 @@ import {
     Download,
     X
 } from 'lucide-react';
+import { Dropdown } from 'primereact/dropdown';
+
+/*
+STANDARD DROPDOWN STYLING PATTERN (AdminAnalytics Style):
+- itemTemplate with: "flex items-center py-1 text-white rounded-lg transition-colors text-sm"
+- valueTemplate with: "flex items-center text-white text-sm"
+- pt.root: "bg-gray-700/50 border border-gray-600 rounded-md text-white min-h-[38px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm flex items-center"
+- pt.input: "text-white bg-transparent px-3 h-full w-full text-sm flex items-center"
+- pt.trigger: "text-gray-400 hover:text-white w-8 h-8 flex items-center justify-center"
+- pt.panel: "bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl mt-1 z-50"
+- pt.wrapper: "max-h-48 overflow-y-auto"
+- pt.item: "text-white hover:bg-gray-700/50 px-3 py-2 cursor-pointer transition-colors border-none text-sm"
+*/
 
 const AdminUsers = () => {
     const [users, setUsers] = useState([
@@ -73,10 +86,27 @@ const AdminUsers = () => {
     const [selectedRole, setSelectedRole] = useState('all');
     const [selectedStatus, setSelectedStatus] = useState('all');
     const [showUserModal, setShowUserModal] = useState(false);
-    const [selectedUser, setSelectedUser] = useState(null);
-    const [actionMenuOpen, setActionMenuOpen] = useState(null);
+    const [selectedUser, setSelectedUser] = useState(null); const [actionMenuOpen, setActionMenuOpen] = useState(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [userToDelete, setUserToDelete] = useState(null);
+    const [modalUserRole, setModalUserRole] = useState('user');
+    const [modalUserStatus, setModalUserStatus] = useState('active');
+
+    // Dropdown options for PrimeReact components
+    const roleOptions = [
+        { label: 'Semua Role', value: 'all' },
+        { label: 'Pengguna', value: 'user' },
+        { label: 'Moderator', value: 'moderator' },
+        { label: 'Admin', value: 'admin' }
+    ]; const statusOptions = [
+        { label: 'Semua Status', value: 'all' },
+        { label: 'Aktif', value: 'active' },
+        { label: 'Ditangguhkan', value: 'suspended' }
+    ];
+
+    // Options for the modal (without "all" option)
+    const modalRoleOptions = roleOptions.filter(option => option.value !== 'all');
+    const modalStatusOptions = statusOptions.filter(option => option.value !== 'all');
 
     const filteredUsers = users.filter(user => {
         const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -85,12 +115,12 @@ const AdminUsers = () => {
         const matchesStatus = selectedStatus === 'all' || user.status === selectedStatus;
 
         return matchesSearch && matchesRole && matchesStatus;
-    });
-
-    const handleUserAction = (action, user) => {
+    }); const handleUserAction = (action, user) => {
         switch (action) {
             case 'edit':
                 setSelectedUser(user);
+                setModalUserRole(user.role);
+                setModalUserStatus(user.status);
                 setShowUserModal(true);
                 break;
             case 'suspend':
@@ -155,27 +185,85 @@ const AdminUsers = () => {
                         className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-700/50 text-white placeholder-gray-400"
                         placeholder="Masukkan alamat email"
                     />
-                </div>
-                <div>
+                </div>                <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">Peran</label>
-                    <select
-                        defaultValue={selectedUser?.role || 'user'}
-                        className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-700/50 text-white"
-                    >
-                        <option value="user">Pengguna</option>
-                        <option value="moderator">Moderator</option>
-                        <option value="admin">Admin</option>
-                    </select>
+                    <Dropdown
+                        value={selectedUser?.role || modalUserRole}
+                        onChange={(e) => setModalUserRole(e.value)}
+                        options={modalRoleOptions}
+                        placeholder="Pilih Peran"
+                        className="w-full"
+                        itemTemplate={(option) => (
+                            <div className="flex items-center py-1 text-white rounded-lg transition-colors text-sm">
+                                {option.label}
+                            </div>
+                        )}
+                        valueTemplate={(option) => (
+                            <div className="flex items-center text-white text-sm">
+                                {option ? option.label : 'Pilih Peran'}
+                            </div>
+                        )}
+                        pt={{
+                            root: {
+                                className: 'bg-gray-700/50 border border-gray-600 rounded-md text-white min-h-[38px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm flex items-center'
+                            },
+                            input: {
+                                className: 'text-white bg-transparent px-3 h-full w-full text-sm flex items-center'
+                            },
+                            trigger: {
+                                className: 'text-gray-400 hover:text-white w-8 h-8 flex items-center justify-center'
+                            },
+                            panel: {
+                                className: 'bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl mt-1 z-50'
+                            },
+                            wrapper: {
+                                className: 'max-h-48 overflow-y-auto'
+                            },
+                            item: {
+                                className: 'text-white hover:bg-gray-700/50 px-3 py-2 cursor-pointer transition-colors border-none text-sm'
+                            }
+                        }}
+                    />
                 </div>
                 <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">Status</label>
-                    <select
-                        defaultValue={selectedUser?.status || 'active'}
-                        className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-700/50 text-white"
-                    >
-                        <option value="active">Aktif</option>
-                        <option value="suspended">Ditangguhkan</option>
-                    </select>
+                    <Dropdown
+                        value={selectedUser?.status || modalUserStatus}
+                        onChange={(e) => setModalUserStatus(e.value)}
+                        options={modalStatusOptions}
+                        placeholder="Pilih Status"
+                        className="w-full"
+                        itemTemplate={(option) => (
+                            <div className="flex items-center py-1 text-white rounded-lg transition-colors text-sm">
+                                {option.label}
+                            </div>
+                        )}
+                        valueTemplate={(option) => (
+                            <div className="flex items-center text-white text-sm">
+                                {option ? option.label : 'Pilih Status'}
+                            </div>
+                        )}
+                        pt={{
+                            root: {
+                                className: 'bg-gray-700/50 border border-gray-600 rounded-md text-white min-h-[38px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm flex items-center'
+                            },
+                            input: {
+                                className: 'text-white bg-transparent px-3 h-full w-full text-sm flex items-center'
+                            },
+                            trigger: {
+                                className: 'text-gray-400 hover:text-white w-8 h-8 flex items-center justify-center'
+                            },
+                            panel: {
+                                className: 'bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl mt-1 z-50'
+                            },
+                            wrapper: {
+                                className: 'max-h-48 overflow-y-auto'
+                            },
+                            item: {
+                                className: 'text-white hover:bg-gray-700/50 px-3 py-2 cursor-pointer transition-colors border-none text-sm'
+                            }
+                        }}
+                    />
                 </div>
             </div>                <div className="flex space-x-3 p-6 border-t border-gray-700/50">
                 <button onClick={() => setShowUserModal(false)}
@@ -235,13 +323,17 @@ const AdminUsers = () => {
                     Kelola akun pengguna, peran, dan izin.
                 </p>
             </div>
-            <div className="mt-4 flex md:ml-4 md:mt-0">
-                <button
-                    onClick={() => setShowUserModal(true)}
-                    className="ml-3 inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 transition-colors"
-                >                    <UserPlus className="h-4 w-4 mr-2" />
-                    Tambah Pengguna
-                </button>
+            <div className="mt-4 flex md:ml-4 md:mt-0">                <button
+                onClick={() => {
+                    setSelectedUser(null);
+                    setModalUserRole('user');
+                    setModalUserStatus('active');
+                    setShowUserModal(true);
+                }}
+                className="ml-3 inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 transition-colors"
+            ><UserPlus className="h-4 w-4 mr-2" />
+                Tambah Pengguna
+            </button>
             </div>
         </div>
 
@@ -250,35 +342,95 @@ const AdminUsers = () => {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 {/* Search */}
                 <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />                        <input
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <input
                         type="text"
                         placeholder="Cari pengguna..."
-                        value={searchTerm}
+                        value=
+                        {searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-10 pr-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white placeholder-gray-400"
+                        className="w-full pl-10 pr-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white text-sm placeholder-gray-400"
                     />
-                </div>
-
-                {/* Role Filter */}                    <select
+                </div>                {/* Role Filter */}
+                <Dropdown
                     value={selectedRole}
-                    onChange={(e) => setSelectedRole(e.target.value)}
-                    className="px-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white"
-                >
-                    <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="all">Semua Role</option>
-                    <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="user">Pengguna</option>
-                    <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="moderator">Moderator</option>
-                    <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="admin">Admin</option>
-                </select>
+                    onChange={(e) => setSelectedRole(e.value)}
+                    options={roleOptions}
+                    placeholder="Semua Role"
+                    className="w-full"
+                    itemTemplate={(option) => (
+                        <div className="flex items-center py-1 text-white rounded-lg transition-colors text-sm">
+                            {option.label}
+                        </div>
+                    )}
+                    valueTemplate={(option) => (
+                        <div className="flex items-center text-white text-sm">
+                            {option ? option.label : 'Semua Role'}
+                        </div>
+                    )}
+                    pt={{
+                        root: {
+                            className: 'bg-gray-700/50 border border-gray-600 rounded-md text-white min-h-[38px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm flex items-center'
+                        },
+                        input: {
+                            className: 'text-white bg-transparent px-3 h-full w-full text-sm flex items-center'
+                        },
+                        trigger: {
+                            className: 'text-gray-400 hover:text-white w-8 h-8 flex items-center justify-center'
+                        },
+                        panel: {
+                            className: 'bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl mt-1 z-50'
+                        },
+                        wrapper: {
+                            className: 'max-h-48 overflow-y-auto'
+                        },
+                        item: {
+                            className: 'text-white hover:bg-gray-700/50 px-3 py-2 cursor-pointer transition-colors border-none text-sm'
+                        }
+                    }}
+                />
 
-                {/* Status Filter */}                    <select
+                {/* Status Filter */}
+                <Dropdown
                     value={selectedStatus}
-                    onChange={(e) => setSelectedStatus(e.target.value)}
-                    className="px-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white"
-                >
-                    <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="all">Semua Status</option>
-                    <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="active">Aktif</option>
-                    <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="suspended">Ditangguhkan</option>
-                </select>                    {/* Export Button */}                    <button className="inline-flex items-center justify-center px-3 py-2 border border-gray-600 rounded-md text-sm font-medium text-gray-300 bg-gray-700/50 hover:bg-gray-600/50 transition-colors">
+                    onChange={(e) => setSelectedStatus(e.value)}
+                    options={statusOptions}
+                    placeholder="Semua Status"
+                    className="w-full"
+                    itemTemplate={(option) => (
+                        <div className="flex items-center py-1 text-white rounded-lg transition-colors text-sm">
+                            {option.label}
+                        </div>
+                    )}
+                    valueTemplate={(option) => (
+                        <div className="flex items-center text-white text-sm">
+                            {option ? option.label : 'Semua Status'}
+                        </div>
+                    )}
+                    pt={{
+                        root: {
+                            className: 'bg-gray-700/50 border border-gray-600 rounded-md text-white min-h-[38px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm flex items-center'
+                        },
+                        input: {
+                            className: 'text-white bg-transparent px-3 h-full w-full text-sm flex items-center'
+                        },
+                        trigger: {
+                            className: 'text-gray-400 hover:text-white w-8 h-8 flex items-center justify-center'
+                        },
+                        panel: {
+                            className: 'bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl mt-1 z-50'
+                        },
+                        wrapper: {
+                            className: 'max-h-48 overflow-y-auto'
+                        },
+                        item: {
+                            className: 'text-white hover:bg-gray-700/50 px-3 py-2 cursor-pointer transition-colors border-none text-sm'
+                        }
+                    }}
+                />
+
+                {/* Export Button */}
+                <button className="inline-flex items-center justify-center px-3 py-2 border border-gray-600 rounded-md text-sm font-medium text-gray-300 bg-gray-700/50 hover:bg-gray-600/50 transition-colors">
                     <Download className="h-4 w-4 mr-2" />
                     Ekspor
                 </button>

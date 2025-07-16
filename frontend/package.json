@@ -19,6 +19,8 @@
 		"date-fns": "^4.1.0",
 		"framer-motion": "^12.23.5",
 		"lucide-react": "^0.525.0",
+		"primeicons": "^7.0.0",
+		"primereact": "^10.9.6",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
 		"react-hook-form": "^7.60.0",

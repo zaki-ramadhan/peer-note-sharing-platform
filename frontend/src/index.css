@@ -6,111 +6,12 @@ html {
 		-apple-system, sans-serif;
 }
 
-@keyframes blob {
-	0% {
-		transform: translate(
-				0px,
-				0px
-			)
-			scale(
-				1
-			);
-	}
-	33% {
-		transform: translate(
-				30px,
-				-50px
-			)
-			scale(
-				1.1
-			);
-	}
-	66% {
-		transform: translate(
-				-20px,
-				20px
-			)
-			scale(
-				0.9
-			);
-	}
-	100% {
-		transform: translate(
-				0px,
-				0px
-			)
-			scale(
-				1
-			);
-	}
-}
-
-@keyframes fade-in {
-	from {
-		opacity: 0;
-		transform: translateY(20px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
-@keyframes fade-in-up {
-	from {
-		opacity: 0;
-		transform: translateY(30px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
-.animate-blob {
-	animation: blob 7s infinite;
-}
-
-.animation-delay-2000 {
-	animation-delay: 2s;
-}
-
-.animation-delay-4000 {
-	animation-delay: 4s;
-}
-
-.animate-fade-in {
-	animation: fade-in 0.6s ease-out;
-}
-
-.animate-fade-in-up {
-	animation: fade-in-up 0.8s ease-out;
-}
-
-.animation-delay-200 {
-	animation-delay: 200ms;
-}
-
-.animation-delay-400 {
-	animation-delay: 400ms;
-}
-
-.animation-delay-600 {
-	animation-delay: 600ms;
-}
-
-.animation-delay-800 {
-	animation-delay: 800ms;
-}
-
 /* Glass morphism effect */
 .glass {
 	background: rgba(255, 255, 255, 0.25);
 	backdrop-filter: blur(10px);
 	border: 1px solid rgba(255, 255, 255, 0.18);
 }
-
-/* Custom animations and styles */
 
 /* Line clamp utilities */
 .line-clamp-1 {
@@ -216,4 +117,157 @@ body {
 
 .Toastify__close-button:hover {
 	color: white;
+}
+
+/* Custom PrimeReact Dropdown Styles for Dark Theme */
+.p-dropdown {
+	background: rgba(55, 65, 81, 0.5) !important;
+	border: 1px solid rgb(75, 85, 99) !important;
+	color: white !important;
+	font-size: 0.875rem !important; /* text-sm equivalent */
+	min-height: 38px !important; /* Slightly smaller height */
+	display: flex !important;
+	align-items: center !important;
+}
+
+.p-dropdown:not(.p-disabled):hover {
+	border-color: rgb(96, 165, 250) !important;
+}
+
+.p-dropdown:not(.p-disabled).p-focus {
+	outline: 0 none !important;
+	outline-offset: 0 !important;
+	box-shadow: 0 0 0 2px rgb(59, 130, 246) !important;
+	border-color: rgb(59, 130, 246) !important;
+}
+
+.p-dropdown .p-dropdown-trigger {
+	background: transparent !important;
+	color: rgb(156, 163, 175) !important;
+	border: none !important;
+	width: 32px !important; /* Smaller trigger */
+	height: 32px !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+}
+
+.p-dropdown .p-dropdown-trigger:hover {
+	color: white !important;
+}
+
+.p-dropdown-panel {
+	background: rgba(31, 41, 55, 0.95) !important;
+	backdrop-filter: blur(12px) !important;
+	border: 1px solid rgba(75, 85, 99, 0.5) !important;
+	border-radius: 12px !important;
+	box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3),
+		0 10px 10px -5px rgba(0, 0, 0, 0.2) !important;
+	font-size: 0.875rem !important; /* text-sm equivalent */
+}
+
+.p-dropdown-item {
+	color: white !important;
+	background: transparent !important;
+	border: none !important;
+	padding: 6px 12px !important; /* Smaller padding */
+	margin: 1px 4px !important;
+	border-radius: 6px !important;
+	transition: all 0.2s ease !important;
+	font-size: 0.875rem !important; /* text-sm equivalent */
+	display: flex !important;
+	align-items: center !important;
+	min-height: 32px !important;
+}
+
+.p-dropdown-item:hover {
+	background: rgba(55, 65, 81, 0.5) !important;
+	color: white !important;
+}
+
+.p-dropdown-item.p-highlight {
+	background: rgba(59, 130, 246, 0.2) !important;
+	color: white !important;
+}
+
+.p-dropdown-item.p-focus {
+	background: rgba(55, 65, 81, 0.5) !important;
+	color: white !important;
+	box-shadow: none !important;
+}
+
+.p-dropdown .p-inputtext {
+	background: transparent !important;
+	color: white !important;
+	border: none !important;
+	padding: 0 12px !important; /* Remove vertical padding, keep horizontal */
+	height: 100% !important;
+	display: flex !important;
+	align-items: center !important;
+	line-height: 1.25 !important; /* Better line height for vertical centering */
+}
+
+.p-dropdown .p-inputtext::placeholder {
+	color: rgb(156, 163, 175) !important;
+	font-size: 0.875rem !important; /* text-sm equivalent */
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+	white-space: nowrap !important;
+	max-width: 100% !important;
+}
+
+/* Placeholder text with ellipsis support */
+.p-dropdown .p-inputtext::placeholder,
+input::placeholder {
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+	white-space: nowrap !important;
+}
+
+/* Ensure dropdown values also truncate properly */
+.p-dropdown-label {
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+	white-space: nowrap !important;
+}
+
+/* Fix vertical alignment for PrimeReact Dropdown text */
+.p-dropdown {
+	display: flex !important;
+	align-items: center !important;
+}
+
+.p-dropdown .p-dropdown-trigger {
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+}
+
+.p-dropdown .p-inputtext {
+	padding: 0 12px !important; /* Remove vertical padding, keep horizontal */
+	height: 100% !important;
+	display: flex !important;
+	align-items: center !important;
+	line-height: 1.25 !important; /* Better line height for vertical centering */
+}
+
+.p-dropdown-item {
+	display: flex !important;
+	align-items: center !important;
+	min-height: 32px !important;
+}
+
+/* Fix for dropdown label alignment */
+.p-dropdown-label {
+	display: flex !important;
+	align-items: center !important;
+	height: 100% !important;
+	padding: 0 !important;
+	line-height: 1.25 !important;
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+	white-space: nowrap !important;
+	max-width: calc(
+		100% - 40px
+	) !important; /* Account for trigger button width */
 }

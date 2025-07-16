@@ -10,12 +10,33 @@ import {
     Filter,
     Search
 } from 'lucide-react';
+import { Dropdown } from 'primereact/dropdown';
+
+/*
+STANDARD DROPDOWN STYLING PATTERN (AdminAnalytics Style):
+- itemTemplate with: "flex items-center py-1 text-white rounded-lg transition-colors text-sm"
+- valueTemplate with: "flex items-center text-white text-sm"
+- pt.root: "bg-gray-700/50 border border-gray-600 rounded-md text-white min-h-[38px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm flex items-center"
+- pt.input: "text-white bg-transparent px-3 h-full w-full text-sm flex items-center"
+- pt.trigger: "text-gray-400 hover:text-white w-8 h-8 flex items-center justify-center"
+- pt.panel: "bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl mt-1 z-50"
+- pt.wrapper: "max-h-48 overflow-y-auto"
+- pt.item: "text-white hover:bg-gray-700/50 px-3 py-2 cursor-pointer transition-colors border-none text-sm"
+*/
 
 const AdminContent = () => {
-    const location = useLocation();
-    const [activeTab, setActiveTab] = useState('notes');
+    const location = useLocation(); const [activeTab, setActiveTab] = useState('notes');
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState('all');
+
+    // Dropdown options for PrimeReact components
+    const statusOptions = [
+        { label: 'Semua Status', value: 'all' },
+        { label: 'Menunggu', value: 'pending' },
+        { label: 'Disetujui', value: 'approved' },
+        { label: 'Ditolak', value: 'rejected' },
+        { label: 'Dilaporkan', value: 'flagged' }
+    ];
 
     // Handle URL filter parameters (e.g., when coming from dashboard quick action)
     useEffect(() => {
@@ -210,25 +231,48 @@ const AdminContent = () => {
                     {/* Search */}                    <div className="relative">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />                        <input
                             type="text"
-                            placeholder={`Cari ${activeTab === 'notes' ? 'catatan' : 'postingan'}...`}
+                            placeholder={`Cari ${activeTab === 'notes' ? 'catatan' : 'post'}...`}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-10 pr-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white placeholder-gray-400"
+                            className="w-full pl-10 pr-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white text-sm placeholder-gray-400 truncate"
                         />
-                    </div>
-
-                    {/* Status Filter */}
-                    <select
+                    </div>                    {/* Status Filter */}
+                    <Dropdown
                         value={statusFilter}
-                        onChange={(e) => setStatusFilter(e.target.value)}
-                        className="px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white"
-                    >
-                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="all">Semua Status</option>
-                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="pending">Menunggu</option>
-                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="approved">Disetujui</option>
-                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="rejected">Ditolak</option>
-                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="flagged">Dilaporkan</option>
-                    </select>
+                        onChange={(e) => setStatusFilter(e.value)}
+                        options={statusOptions}
+                        placeholder="Pilih Status"
+                        className="w-full"
+                        itemTemplate={(option) => (
+                            <div className="flex items-center py-1 text-white rounded-lg transition-colors text-sm">
+                                {option.label}
+                            </div>
+                        )}
+                        valueTemplate={(option) => (
+                            <div className="flex items-center text-white text-sm truncate">
+                                {option ? option.label : 'Pilih Status'}
+                            </div>
+                        )} pt={{
+                            root: {
+                                className: 'bg-gray-700/50 border border-gray-600 rounded-md text-white min-h-[38px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm flex items-center'
+                            },
+                            input: {
+                                className: 'text-white bg-transparent px-3 h-full w-full text-sm flex items-center truncate'
+                            },
+                            trigger: {
+                                className: 'text-gray-400 hover:text-white w-8 h-8 flex items-center justify-center'
+                            },
+                            panel: {
+                                className: 'bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl mt-1 z-50'
+                            },
+                            wrapper: {
+                                className: 'max-h-48 overflow-y-auto'
+                            },
+                            item: {
+                                className: 'text-white hover:bg-gray-700/50 px-3 py-2 cursor-pointer transition-colors border-none text-sm'
+                            }
+                        }}
+                    />
 
                     {/* Quick Actions */}
                     <div className="flex space-x-2">                        <button className="inline-flex items-center px-3 py-2 border border-gray-600 rounded-lg text-sm font-medium text-gray-300 bg-gray-700/50 hover:bg-gray-600/50 transition-colors">

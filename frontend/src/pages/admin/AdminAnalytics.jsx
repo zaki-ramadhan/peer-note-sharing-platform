@@ -12,11 +12,42 @@ import {
     Star,
     Award
 } from 'lucide-react';
+import { Dropdown } from 'primereact/dropdown';
+
+/*
+STANDARD DROPDOWN STYLING PATTERN (AdminAnalytics Style):
+- itemTemplate with: "flex items-center py-1 text-white rounded-lg transition-colors text-sm"
+- valueTemplate with: "flex items-center text-white text-sm"
+- pt.root: "bg-gray-700/50 border border-gray-600 rounded-md text-white min-h-[38px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm flex items-center"
+- pt.input: "text-white bg-transparent px-3 h-full w-full text-sm flex items-center"
+- pt.trigger: "text-gray-400 hover:text-white w-8 h-8 flex items-center justify-center"
+- pt.panel: "bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl mt-1 z-50"
+- pt.wrapper: "max-h-48 overflow-y-auto"
+- pt.item: "text-white hover:bg-gray-700/50 px-3 py-2 cursor-pointer transition-colors border-none text-sm"
+*/
+
 
 const AdminAnalytics = () => {
     const [timeRange, setTimeRange] = useState('7d');
     const [searchQuery, setSearchQuery] = useState('');
     const [filterType, setFilterType] = useState('all');
+
+    // Dropdown options for PrimeReact components
+    const subjectOptions = [
+        { label: 'Semua Mata Pelajaran', value: 'all' },
+        { label: 'Ilmu Komputer', value: 'computer science' },
+        { label: 'Matematika', value: 'mathematics' },
+        { label: 'Fisika', value: 'physics' },
+        { label: 'Kimia', value: 'chemistry' },
+        { label: 'Biologi', value: 'biology' }
+    ];
+
+    const timeRangeOptions = [
+        { label: '7 Hari Terakhir', value: '7d' },
+        { label: '30 Hari Terakhir', value: '30d' },
+        { label: '90 Hari Terakhir', value: '90d' },
+        { label: 'Tahun Lalu', value: '1y' }
+    ];
 
     const analyticsData = {
         userGrowth: {
@@ -228,7 +259,9 @@ const AdminAnalytics = () => {
                 </div>
             </div>
         );
-    }; return (
+    };
+
+    return (
         <div className="space-y-6">
             {/* Header */}
             <div className="md:flex md:items-center md:justify-between">
@@ -253,35 +286,79 @@ const AdminAnalytics = () => {
                             placeholder="Cari konten dan pengguna..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-10 pr-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white placeholder-gray-400"
+                            className="w-full pl-10 pr-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white text-sm placeholder-gray-400"
                         />
-                    </div>
-
-                    {/* Subject Filter */}
-                    <select
+                    </div>                    {/* Subject Filter */}
+                    <Dropdown
                         value={filterType}
-                        onChange={(e) => setFilterType(e.target.value)}
-                        className="px-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white"
-                    >
-                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="all">Semua Mata Pelajaran</option>
-                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="computer science">Ilmu Komputer</option>
-                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="mathematics">Matematika</option>
-                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="physics">Fisika</option>
-                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="chemistry">Kimia</option>
-                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="biology">Biologi</option>
-                    </select>
-
+                        onChange={(e) => setFilterType(e.value)}
+                        options={subjectOptions}
+                        placeholder="Pilih Mata Pelajaran"
+                        className="w-full" itemTemplate={(option) => (
+                            <div className="flex items-center py-1 text-white rounded-lg transition-colors text-sm">
+                                {option.label}
+                            </div>
+                        )} valueTemplate={(option) => (
+                            <div className="flex items-center text-white text-sm">
+                                {option ? option.label : 'Pilih Mata Pelajaran'}
+                            </div>
+                        )}
+                        pt={{
+                            root: {
+                                className: 'bg-gray-700/50 border border-gray-600 rounded-md text-white min-h-[38px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm flex items-center'
+                            },
+                            input: {
+                                className: 'text-white bg-transparent px-3 h-full w-full text-sm flex items-center'
+                            },
+                            trigger: {
+                                className: 'text-gray-400 hover:text-white w-8 h-8 flex items-center justify-center'
+                            },
+                            panel: {
+                                className: 'bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl mt-1 z-50'
+                            }, wrapper: {
+                                className: 'max-h-48 overflow-y-auto'
+                            },
+                            item: {
+                                className: 'text-white hover:bg-gray-700/50 px-3 py-2 cursor-pointer transition-colors border-none text-sm'
+                            }
+                        }}
+                    />
                     {/* Time Range Filter */}
-                    <select
+                    <Dropdown
                         value={timeRange}
-                        onChange={(e) => setTimeRange(e.target.value)}
-                        className="px-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white"
-                    >
-                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="7d">7 Hari Terakhir</option>
-                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="30d">30 Hari Terakhir</option>
-                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="90d">90 Hari Terakhir</option>
-                        <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="1y">Tahun Lalu</option>
-                    </select>
+                        onChange={(e) => setTimeRange(e.value)}
+                        options={timeRangeOptions}
+                        placeholder="Pilih Rentang Waktu"
+                        className="w-full" itemTemplate={(option) => (
+                            <div className="flex items-center py-1 text-white rounded-lg transition-colors text-sm">
+                                {option.label}
+                            </div>
+                        )} valueTemplate={(option) => (
+                            <div className="flex items-center text-white text-sm">
+                                {option ? option.label : 'Pilih Rentang Waktu'}
+                            </div>
+                        )}
+                        pt={{
+                            root: {
+                                className: 'bg-gray-700/50 border border-gray-600 rounded-md text-white min-h-[38px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm flex items-center'
+                            },
+                            input: {
+                                className: 'text-white bg-transparent px-3 h-full w-full text-sm flex items-center'
+                            },
+                            trigger: {
+                                className: 'text-gray-400 hover:text-white w-8 h-8 flex items-center justify-center'
+                            },
+                            panel: {
+                                className: 'bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl mt-1 z-50'
+                            },
+                            wrapper: {
+                                className: 'max-h-48 overflow-y-auto'
+                            },
+                            item: {
+                                className: 'text-white hover:bg-gray-700/50 px-3 py-2 cursor-pointer transition-colors border-none text-sm'
+                            }
+                        }}
+                    />
 
                     {/* Export Button */}
                     <button className="inline-flex items-center justify-center px-3 py-2 border border-gray-600 rounded-md text-sm font-medium text-gray-300 bg-gray-700/50 hover:bg-gray-600/50 transition-colors">
