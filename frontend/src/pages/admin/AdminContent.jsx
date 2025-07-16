@@ -85,9 +85,8 @@ const AdminContent = () => {
             reports: 3,
             views: 156
         }
-    ]); const tabs = [
-        { id: 'notes', name: 'Notes', icon: FileText, count: notes.length },
-        { id: 'posts', name: 'Forum Posts', icon: MessageSquare, count: posts.length }
+    ]); const tabs = [{ id: 'notes', name: 'Catatan', icon: FileText, count: notes.length },
+    { id: 'posts', name: 'Post Forum', icon: MessageSquare, count: posts.length }
     ]; const getStatusColor = (status) => {
         switch (status) {
             case 'approved':
@@ -168,10 +167,10 @@ const AdminContent = () => {
             {/* Header */}
             <div className="md:flex md:items-center md:justify-between">
                 <div className="min-w-0 flex-1">                    <h2 className="text-2xl font-bold leading-7 text-white sm:truncate sm:text-3xl sm:tracking-tight">
-                    Content Management
+                    Manajemen Konten
                 </h2>
                     <p className="mt-1 text-sm text-gray-400">
-                        Review and moderate user-generated content.
+                        Tinjau dan moderasi konten yang dibuat pengguna.
                     </p>
                 </div>
             </div>            {/* Tabs */}
@@ -198,10 +197,9 @@ const AdminContent = () => {
             <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700/50">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {/* Search */}                    <div className="relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                        <input
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />                        <input
                             type="text"
-                            placeholder={`Search ${activeTab}...`}
+                            placeholder={`Cari ${activeTab === 'notes' ? 'catatan' : 'postingan'}...`}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className="w-full pl-10 pr-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white placeholder-gray-400"
@@ -213,18 +211,17 @@ const AdminContent = () => {
                         value={statusFilter}
                         onChange={(e) => setStatusFilter(e.target.value)}
                         className="px-3 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white"
-                    >
-                        <option value="all">All Status</option>
-                        <option value="pending">Pending</option>
-                        <option value="approved">Approved</option>
-                        <option value="rejected">Rejected</option>
-                        <option value="flagged">Flagged</option>
+                    >                        <option value="all">Semua Status</option>
+                        <option value="pending">Menunggu</option>
+                        <option value="approved">Disetujui</option>
+                        <option value="rejected">Ditolak</option>
+                        <option value="flagged">Dilaporkan</option>
                     </select>
 
                     {/* Quick Actions */}
                     <div className="flex space-x-2">                        <button className="inline-flex items-center px-3 py-2 border border-gray-600 rounded-lg text-sm font-medium text-gray-300 bg-gray-700/50 hover:bg-gray-600/50 transition-colors">
                         <Filter className="h-4 w-4 mr-2" />
-                        Bulk Actions
+                        Aksi Massal
                     </button>
                     </div>
                 </div>
@@ -236,24 +233,23 @@ const AdminContent = () => {
                             <tr>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                                     <input type="checkbox" className="rounded border-gray-600 bg-gray-700 text-blue-600 focus:ring-blue-500" />
+                                </th>                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                                    {activeTab === 'notes' ? 'Catatan' : 'Post'}
                                 </th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                                    {activeTab === 'notes' ? 'Note' : 'Post'}
+                                    Penulis
                                 </th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                                    Author
-                                </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                                    {activeTab === 'notes' ? 'Subject' : 'Category'}
+                                    {activeTab === 'notes' ? 'Mata Pelajaran' : 'Kategori'}
                                 </th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                                     Status
                                 </th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                                    Stats
+                                    Statistik
                                 </th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                                    Date
+                                    Tanggal
                                 </th>
                                 <th className="relative px-6 py-3">
                                     <span className="sr-only">Actions</span>
@@ -295,12 +291,11 @@ const AdminContent = () => {
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                                         {activeTab === 'notes' ? (
                                             <div>
-                                                <div>{item.downloads} downloads</div>
+                                                <div>{item.downloads} unduhan</div>
                                             </div>
                                         ) : (
-                                            <div>
-                                                <div>{item.replies} replies</div>
-                                                <div>{item.views} views</div>
+                                            <div>                                            <div>{item.replies} balasan</div>
+                                                <div>{item.views} dilihat</div>
                                             </div>
                                         )}
                                     </td>
@@ -318,7 +313,7 @@ const AdminContent = () => {
 
                 {filteredContent.length === 0 && (
                     <div className="text-center py-12">
-                        <p className="text-gray-400">No {activeTab} found matching your criteria.</p>
+                        <p className="text-gray-400">Tidak ada {activeTab} yang sesuai dengan kriteria Anda.</p>
                     </div>
                 )}
             </div>            {/* Summary Stats */}
@@ -345,7 +340,7 @@ const AdminContent = () => {
                         </div>
                         </div>
                         <div className="ml-4">
-                            <p className="text-sm font-medium text-gray-400">Approved</p>
+                            <p className="text-sm font-medium text-gray-400">Disetujui</p>
                             <p className="text-2xl font-semibold text-white">
                                 {[...notes, ...posts].filter(item => item.status === 'approved').length}
                             </p>

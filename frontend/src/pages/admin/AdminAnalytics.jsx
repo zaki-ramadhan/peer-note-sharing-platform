@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import {
     BarChart3,
@@ -178,7 +179,7 @@ const AdminAnalytics = () => {
                         <span className={`text-sm font-medium ${trend === 'up' ? 'text-green-400' : 'text-red-400'}`}>
                             {change > 0 ? '+' : ''}{change}%
                         </span>
-                        <span className="text-sm text-gray-500 ml-1">vs last period</span>
+                        <span className="text-sm text-gray-500 ml-1">vs periode sebelumnya</span>
                     </div>
                 </div>
             </div>
@@ -197,17 +198,17 @@ const AdminAnalytics = () => {
                                 <div
                                     className="w-3 bg-gradient-to-t from-blue-600 to-blue-400 rounded-t transition-all duration-300 hover:opacity-80"
                                     style={{ height: `${Math.max(10, (item.users / maxValue) * 180)}px` }}
-                                    title={`Users: ${item.users}`}
+                                    title={`Pengguna: ${item.users}`}
                                 />
                                 <div
                                     className="w-3 bg-gradient-to-t from-green-600 to-green-400 rounded-t transition-all duration-300 hover:opacity-80"
                                     style={{ height: `${Math.max(10, (item.notes / maxValue) * 180)}px` }}
-                                    title={`Notes: ${item.notes}`}
+                                    title={`Catatan: ${item.notes}`}
                                 />
                                 <div
                                     className="w-3 bg-gradient-to-t from-purple-600 to-purple-400 rounded-t transition-all duration-300 hover:opacity-80"
                                     style={{ height: `${Math.max(10, (item.posts / maxValue) * 180)}px` }}
-                                    title={`Posts: ${item.posts}`}
+                                    title={`Postingan: ${item.posts}`}
                                 />
                             </div>
                             <span className="text-xs text-gray-400 text-center leading-tight">
@@ -218,18 +219,17 @@ const AdminAnalytics = () => {
                 </div>
                 <div className="flex justify-center mt-6 space-x-6">
                     <div className="flex items-center">
-                        <div className="w-3 h-3 bg-gradient-to-r from-blue-600 to-blue-400 rounded mr-2"></div>
-                        <span className="text-sm text-gray-400">Users</span>
+                        <div className="w-3 h-3 bg-gradient-to-r from-blue-600 to-blue-400 rounded mr-2"></div>                        <span className="text-sm text-gray-400">Pengguna</span>
                     </div>
                     <div className="flex items-center">
                         <div className="w-3 h-3 bg-gradient-to-r from-green-600 to-green-400 rounded mr-2"></div>
-                        <span className="text-sm text-gray-400">Notes</span>
+                        <span className="text-sm text-gray-400">Catatan</span>
                     </div>
                     <div className="flex items-center">
                         <div className="w-3 h-3 bg-gradient-to-r from-purple-600 to-purple-400 rounded mr-2"></div>
-                        <span className="text-sm text-gray-400">Posts</span>
-                    </div>                </div>
-            </div>
+                        <span className="text-sm text-gray-400">Postingan</span>
+                    </div>
+                </div>            </div>
         );
     };
 
@@ -237,22 +237,20 @@ const AdminAnalytics = () => {
         <div className="space-y-8">
             {/* Header with Search and Filters */}
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                <div className="min-w-0 flex-1">
-                    <h2 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                        Analytics Dashboard
-                    </h2>
+                <div className="min-w-0 flex-1">                    <h2 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                    Dashboard Analitik
+                </h2>
                     <p className="mt-2 text-gray-400">
-                        Platform insights and performance metrics.
+                        Wawasan platform dan metrik kinerja.
                     </p>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4">
                     {/* Search Bar */}
                     <div className="relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                        <input
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />                        <input
                             type="text"
-                            placeholder="Search content and users..."
+                            placeholder="Cari konten dan pengguna..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className="pl-10 pr-4 py-2 w-64 bg-gray-800/50 border border-gray-600/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
@@ -266,13 +264,12 @@ const AdminAnalytics = () => {
                             value={filterType}
                             onChange={(e) => setFilterType(e.target.value)}
                             className="pl-10 pr-8 py-2 bg-gray-800/50 border border-gray-600/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white appearance-none cursor-pointer"
-                        >
-                            <option value="all">All Subjects</option>
-                            <option value="computer science">Computer Science</option>
-                            <option value="mathematics">Mathematics</option>
-                            <option value="physics">Physics</option>
-                            <option value="chemistry">Chemistry</option>
-                            <option value="biology">Biology</option>
+                        >                            <option value="all">Semua Mata Pelajaran</option>
+                            <option value="computer science">Ilmu Komputer</option>
+                            <option value="mathematics">Matematika</option>
+                            <option value="physics">Fisika</option>
+                            <option value="chemistry">Kimia</option>
+                            <option value="biology">Biologi</option>
                         </select>
                     </div>
 
@@ -281,40 +278,37 @@ const AdminAnalytics = () => {
                         value={timeRange}
                         onChange={(e) => setTimeRange(e.target.value)}
                         className="px-4 py-2 bg-gray-800/50 border border-gray-600/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
-                    >
-                        <option value="7d">Last 7 days</option>
-                        <option value="30d">Last 30 days</option>
-                        <option value="90d">Last 90 days</option>
-                        <option value="1y">Last year</option>
+                    >                        <option value="7d">7 Hari Terakhir</option>
+                        <option value="30d">30 Hari Terakhir</option>
+                        <option value="90d">90 Hari Terakhir</option>
+                        <option value="1y">Tahun Lalu</option>
                     </select>
                 </div>
             </div>
 
             {/* Key Metrics Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <StatCard
-                    title="Total Users"
-                    value={analyticsData.userGrowth.current}
-                    change={analyticsData.userGrowth.change}
-                    trend={analyticsData.userGrowth.trend}
-                    icon={Users}
-                />
-                <StatCard
-                    title="Notes Shared"
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">                <StatCard
+                title="Total Pengguna"
+                value={analyticsData.userGrowth.current}
+                change={analyticsData.userGrowth.change}
+                trend={analyticsData.userGrowth.trend}
+                icon={Users}
+            />                <StatCard
+                    title="Catatan Dibagikan"
                     value={analyticsData.notesShared.current}
                     change={analyticsData.notesShared.change}
                     trend={analyticsData.notesShared.trend}
                     icon={FileText}
                 />
                 <StatCard
-                    title="Forum Posts"
+                    title="Postingan Forum"
                     value={analyticsData.forumPosts.current}
                     change={analyticsData.forumPosts.change}
                     trend={analyticsData.forumPosts.trend}
                     icon={BarChart3}
                 />
                 <StatCard
-                    title="Engagement Rate"
+                    title="Tingkat Keterlibatan"
                     value={analyticsData.engagement.current}
                     change={analyticsData.engagement.change}
                     trend={analyticsData.engagement.trend}
@@ -324,16 +318,15 @@ const AdminAnalytics = () => {
             </div>
 
             {/* Activity Chart */}
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700/50 overflow-hidden">
-                <div className="p-6 border-b border-gray-700/50">
-                    <div className="flex items-center justify-between">
-                        <h3 className="text-xl font-semibold text-white">Activity Overview</h3>
-                        <div className="flex items-center text-gray-400">
-                            <Calendar className="h-5 w-5 mr-2" />
-                            <span className="text-sm">Daily activity for the last 7 days</span>
-                        </div>
+            <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700/50 overflow-hidden">                <div className="p-6 border-b border-gray-700/50">
+                <div className="flex items-center justify-between">
+                    <h3 className="text-xl font-semibold text-white">Ikhtisar Aktivitas</h3>
+                    <div className="flex items-center text-gray-400">
+                        <Calendar className="h-5 w-5 mr-2" />
+                        <span className="text-sm">Aktivitas harian selama 7 hari terakhir</span>
                     </div>
                 </div>
+            </div>
                 <SimpleChart data={chartData} />
             </div>
 
@@ -344,11 +337,11 @@ const AdminAnalytics = () => {
                     <div className="p-6 border-b border-gray-700/50">
                         <h3 className="text-xl font-semibold text-white flex items-center gap-2">
                             <Download className="h-5 w-5 text-blue-400" />
-                            Most Downloaded Notes
+                            Catatan Paling Banyak Diunduh
                         </h3>
                         {searchQuery && (
                             <p className="text-sm text-gray-400 mt-1">
-                                {filteredContent.length} result(s) for "{searchQuery}"
+                                {filteredContent.length} hasil untuk "{searchQuery}"
                             </p>
                         )}
                     </div>
@@ -376,7 +369,7 @@ const AdminAnalytics = () => {
                                         </div>
                                         <div className="text-right">
                                             <p className="font-semibold text-white">{item.downloads}</p>
-                                            <p className="text-xs text-gray-400">downloads</p>
+                                            <p className="text-xs text-gray-400">unduhan</p>
                                         </div>
                                     </div>
                                 </div>
@@ -387,14 +380,13 @@ const AdminAnalytics = () => {
 
                 {/* Top Contributors */}
                 <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700/50">
-                    <div className="p-6 border-b border-gray-700/50">
-                        <h3 className="text-xl font-semibold text-white flex items-center gap-2">
-                            <Award className="h-5 w-5 text-yellow-400" />
-                            Top Contributors
-                        </h3>
+                    <div className="p-6 border-b border-gray-700/50">                        <h3 className="text-xl font-semibold text-white flex items-center gap-2">
+                        <Award className="h-5 w-5 text-yellow-400" />
+                        Kontributor Teratas
+                    </h3>
                         {searchQuery && (
                             <p className="text-sm text-gray-400 mt-1">
-                                {filteredUsers.length} result(s) for "{searchQuery}"
+                                {filteredUsers.length} hasil untuk "{searchQuery}"
                             </p>
                         )}
                     </div>
@@ -412,15 +404,13 @@ const AdminAnalytics = () => {
                                             </span>
                                         </div>
                                         <div>
-                                            <p className="font-medium text-white">{user.name}</p>
-                                            <p className="text-sm text-gray-400">
-                                                {user.notes} notes • {user.posts} posts
+                                            <p className="font-medium text-white">{user.name}</p>                                            <p className="text-sm text-gray-400">
+                                                {user.notes} catatan • {user.posts} postingan
                                             </p>
                                         </div>
                                     </div>
-                                    <div className="text-right">
-                                        <p className="font-semibold text-white">{user.points.toLocaleString()}</p>
-                                        <p className="text-xs text-gray-400">points</p>
+                                    <div className="text-right">                        <p className="font-semibold text-white">{user.points.toLocaleString()}</p>
+                                        <p className="text-xs text-gray-400">poin</p>
                                     </div>
                                 </div>
                             ))}
@@ -431,9 +421,8 @@ const AdminAnalytics = () => {
 
             {/* Subject Distribution */}
             <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700/50">
-                <div className="p-6 border-b border-gray-700/50">
-                    <h3 className="text-xl font-semibold text-white">Content by Subject</h3>
-                    <p className="text-sm text-gray-400 mt-1">Distribution of notes across different subjects</p>
+                <div className="p-6 border-b border-gray-700/50">                    <h3 className="text-xl font-semibold text-white">Konten berdasarkan Mata Pelajaran</h3>
+                    <p className="text-sm text-gray-400 mt-1">Distribusi catatan di berbagai mata pelajaran</p>
                 </div>
                 <div className="p-6">
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
@@ -443,10 +432,9 @@ const AdminAnalytics = () => {
                                     <span className="text-white font-bold text-lg">
                                         {item.notes.toString().slice(0, 1)}
                                     </span>
-                                </div>
-                                <p className="font-medium text-white text-sm">{item.subject}</p>
-                                <p className="text-xs text-gray-400 mt-1">{item.notes} notes</p>
-                                <p className="text-xs text-gray-500">{item.posts} posts</p>
+                                </div>                                <p className="font-medium text-white text-sm">{item.subject}</p>
+                                <p className="text-xs text-gray-400 mt-1">{item.notes} catatan</p>
+                                <p className="text-xs text-gray-500">{item.posts} postingan</p>
                             </div>
                         ))}
                     </div>

@@ -91,28 +91,26 @@ const RatingModal = ({ isOpen, onClose, note, onSubmitRating }) => {
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                         rows={4}
                         maxLength={500}
-                    />
-                    <p className="text-xs text-gray-500 mt-1">
-                        {comment.length}/500 characters
+                    />                    <p className="text-xs text-gray-500 mt-1">
+                        {comment.length}/500 karakter
                     </p>
                 </div>
             </ModalContent>
 
             <ModalFooter>
-                <div className="flex justify-end space-x-3">
-                    <Button
-                        variant="outline"
-                        onClick={handleClose}
-                        disabled={loading}
-                    >
-                        Cancel
-                    </Button>
+                <div className="flex justify-end space-x-3">                    <Button
+                    variant="outline"
+                    onClick={handleClose}
+                    disabled={loading}
+                >
+                    Batal
+                </Button>
                     <Button
                         onClick={handleSubmit}
                         disabled={rating === 0 || loading}
                         loading={loading}
                     >
-                        Submit Rating
+                        Kirim Rating
                     </Button>
                 </div>
             </ModalFooter>

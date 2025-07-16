@@ -133,19 +133,19 @@ const ProfilePage = () => {
                                 data-aos-delay="600"
                             >                                <div className="bg-blue-50 px-4 py-2 rounded-lg">
                                     <div className="text-2xl font-bold text-blue-600">{userData.stats.notesUploaded}</div>
-                                    <div className="text-sm text-gray-600">Notes Uploaded</div>
+                                    <div className="text-sm text-gray-600">Catatan Terupload</div>
                                 </div>
                                 <div className="bg-green-50 px-4 py-2 rounded-lg">
                                     <div className="text-2xl font-bold text-green-600">{userData.stats.totalDownloads}</div>
-                                    <div className="text-sm text-gray-600">Total Downloads</div>
+                                    <div className="text-sm text-gray-600">Total Unduhan</div>
                                 </div>
                                 <div className="bg-purple-50 px-4 py-2 rounded-lg">
                                     <div className="text-2xl font-bold text-purple-600">{userData.stats.points}</div>
-                                    <div className="text-sm text-gray-600">Points</div>
+                                    <div className="text-sm text-gray-600">Poin</div>
                                 </div>
                                 <div className="bg-orange-50 px-4 py-2 rounded-lg">
                                     <div className="text-2xl font-bold text-orange-600">#{userData.stats.rank}</div>
-                                    <div className="text-sm text-gray-600">Rank</div>
+                                    <div className="text-sm text-gray-600">Peringkat</div>
                                 </div>
                             </div>
                         </div>            <div
@@ -156,15 +156,13 @@ const ProfilePage = () => {
                             <Link
                                 to="/settings"
                                 className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
-                            >
-                                <Edit className="w-4 h-4" />
-                                Edit Profile
+                            >                                <Edit className="w-4 h-4" />
+                                Edit Profil
                             </Link>                            <Link
                                 to="/settings"
                                 className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors"
-                            >
-                                <Settings className="w-4 h-4" />
-                                Settings
+                            >                                <Settings className="w-4 h-4" />
+                                Pengaturan
                             </Link>
                         </div>
                     </div>
@@ -180,9 +178,8 @@ const ProfilePage = () => {
                             className={`px-6 py-4 font-medium ${activeTab === 'overview'
                                 ? 'text-blue-600 border-b-2 border-blue-600'
                                 : 'text-gray-600 hover:text-gray-900'
-                                }`}
-                        >
-                            Overview
+                                }`}                        >
+                            Ringkasan
                         </button>
                         <button
                             onClick={() => setActiveTab('notes')}
@@ -191,7 +188,7 @@ const ProfilePage = () => {
                                 : 'text-gray-600 hover:text-gray-900'
                                 }`}
                         >
-                            My Notes
+                            Catatan Saya
                         </button>
                         <button
                             onClick={() => setActiveTab('achievements')}
@@ -200,7 +197,7 @@ const ProfilePage = () => {
                                 : 'text-gray-600 hover:text-gray-900'
                                 }`}
                         >
-                            Achievements
+                            Pencapaian
                         </button>
                     </div>
                 </div>

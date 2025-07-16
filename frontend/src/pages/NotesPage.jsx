@@ -33,25 +33,22 @@ const NotesPage = () => {
         'All', 'Computer Science', 'Matematika', 'Fisika', 'Kimia', 'Biologi',
         'Bahasa Indonesia', 'Bahasa Inggris', 'Sejarah',
         'Geografi', 'Ekonomi', 'Lainnya'
-    ];
-
-    const sortOptions = [
-        { value: 'newest', label: 'Latest', icon: Sparkles },
-        { value: 'popular', label: 'Most Popular', icon: Sparkles },
-        { value: 'rating', label: 'Highest Rated', icon: Sparkles },
-        { value: 'downloads', label: 'Most Downloaded', icon: Sparkles }
+    ]; const sortOptions = [
+        { value: 'newest', label: 'Terbaru', icon: Sparkles },
+        { value: 'popular', label: 'Paling Populer', icon: Sparkles },
+        { value: 'rating', label: 'Rating Tertinggi', icon: Sparkles },
+        { value: 'downloads', label: 'Paling Banyak Diunduh', icon: Sparkles }
     ]; const viewOptions = [
-        { key: 'grid', icon: Grid, label: 'Grid View' },
-        { key: 'list', icon: List, label: 'List View' },
-        { key: 'compact', icon: FileText, label: 'Compact View' }
+        { key: 'grid', icon: Grid, label: 'Tampilan Grid' },
+        { key: 'list', icon: List, label: 'Tampilan List' },
+        { key: 'compact', icon: FileText, label: 'Tampilan Ringkas' }
     ];
 
     // Quick filter options
-    const quickFilters = [
-        { key: 'trending', label: 'Trending', icon: TrendingUp, description: 'Most downloaded this week' },
-        { key: 'recent', label: 'Recent', icon: Calendar, description: 'Uploaded in last 7 days' },
-        { key: 'top-rated', label: 'Top Rated', icon: Star, description: '4.5+ rating' },
-        { key: 'my-favorites', label: 'Bookmarked', icon: BookOpen, description: 'Your saved notes' }
+    const quickFilters = [{ key: 'trending', label: 'Trending', icon: TrendingUp, description: 'Paling banyak diunduh minggu ini' },
+    { key: 'recent', label: 'Terbaru', icon: Calendar, description: 'Diunggah dalam 7 hari terakhir' },
+    { key: 'top-rated', label: 'Rating Tinggi', icon: Star, description: 'Rating 4.5+' },
+    { key: 'my-favorites', label: 'Tersimpan', icon: BookOpen, description: 'Catatan favorit Anda' }
     ]; useEffect(() => {
         AOS.init({
             duration: 1400,
@@ -295,13 +292,12 @@ const NotesPage = () => {
                     <div data-aos="fade-up">
                         <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-full px-4 py-2 mb-6">
                             <Sparkles className="w-4 h-4 text-blue-600" />
-                            <span className="text-sm font-medium text-blue-700">Discover Quality Notes</span>
-                        </div>
-                        <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent mb-4">
-                            Explore {filteredNotes.length} Premium Notes
+                            <span className="text-sm font-medium text-blue-700">Temukan Catatan Berkualitas</span>
+                        </div>                        <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent mb-4">
+                            Jelajahi {filteredNotes.length} Catatan Premium
                         </h1>
                         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                            Find high-quality study materials curated by our community of learners
+                            Temukan materi belajar berkualitas tinggi yang dikurasi oleh komunitas pelajar
                         </p>
                     </div>
                 </div>
@@ -316,7 +312,7 @@ const NotesPage = () => {
                                 <div className="flex-1 relative">
                                     <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />                                <input
                                         type="text"
-                                        placeholder="Search by title, description, or tags..."
+                                        placeholder="Cari berdasarkan judul, deskripsi, atau tag..."
                                         value={filters.search}
                                         onChange={(e) => handleSearchChange(e.target.value)}
                                         onKeyDown={(e) => {
@@ -343,7 +339,7 @@ const NotesPage = () => {
                                                         <span className="text-sm text-gray-700 group-hover:text-blue-600">{suggestion.text}</span>
                                                     </div>
                                                     <Badge variant="secondary" className="text-xs">
-                                                        {suggestion.count} {suggestion.count === 1 ? 'note' : 'notes'}
+                                                        {suggestion.count} {suggestion.count === 1 ? 'catatan' : 'catatan'}
                                                     </Badge>
                                                 </button>
                                             ))}
@@ -376,7 +372,7 @@ const NotesPage = () => {
                                         className="flex flex-nowrap items-center space-x-2"
                                     >
                                         <SlidersHorizontal className="w-4 h-4 inline mr-2" />
-                                        <span className='inline'>Filters</span>
+                                        <span className='inline'>Filter</span>
                                     </Button>
                                 </div>
                             </div>
@@ -384,15 +380,14 @@ const NotesPage = () => {
                             {/* Expandable Filters */}
                             {showFilters && (
                                 <div className="border-t border-gray-200/50 pt-6 space-y-6 ">                                {/* Subject Filter with Multi-select */}
-                                    <div>
-                                        <label className="block text-sm font-semibold text-gray-700 mb-3">
-                                            Subject Categories
-                                            {selectedCategories.length > 0 && (
-                                                <span className="ml-2 text-xs text-blue-600">
-                                                    ({selectedCategories.length} selected)
-                                                </span>
-                                            )}
-                                        </label>
+                                    <div>                                        <label className="block text-sm font-semibold text-gray-700 mb-3">
+                                        Kategori Mata Pelajaran
+                                        {selectedCategories.length > 0 && (
+                                            <span className="ml-2 text-xs text-blue-600">
+                                                ({selectedCategories.length} dipilih)
+                                            </span>
+                                        )}
+                                    </label>
                                         <div className="flex flex-wrap gap-2">
                                             {subjects.map((subject) => {
                                                 const isSelected = subject === 'All'
@@ -430,10 +425,9 @@ const NotesPage = () => {
                                     </div>
 
                                     {/* Sort Options */}
-                                    <div>
-                                        <label className="block text-sm font-semibold text-gray-700 mb-3">
-                                            Sort By
-                                        </label>
+                                    <div>                                        <label className="block text-sm font-semibold text-gray-700 mb-3">
+                                        Urutkan Berdasarkan
+                                    </label>
                                         <div className="flex flex-wrap gap-3">
                                             {sortOptions.map((option) => {
                                                 const Icon = option.icon;
@@ -454,10 +448,9 @@ const NotesPage = () => {
                                     </div>
 
                                     {/* Popular Tags Quick Filter */}
-                                    <div>
-                                        <label className="block text-sm font-semibold text-gray-700 mb-3">
-                                            Popular Tags
-                                        </label>
+                                    <div>                                        <label className="block text-sm font-semibold text-gray-700 mb-3">
+                                        Tag Populer
+                                    </label>
                                         <div className="flex flex-wrap gap-2">
                                             {popularTags.map((tag) => (
                                                 <button
@@ -473,10 +466,9 @@ const NotesPage = () => {
 
                                     {/* Recent Searches */}
                                     {recentSearches.length > 0 && (
-                                        <div>
-                                            <label className="block text-sm font-semibold text-gray-700 mb-3">
-                                                Recent Searches
-                                            </label>
+                                        <div>                                            <label className="block text-sm font-semibold text-gray-700 mb-3">
+                                            Pencarian Terbaru
+                                        </label>
                                             <div className="flex flex-wrap gap-2">
                                                 {recentSearches.map((search, index) => (
                                                     <button
@@ -499,7 +491,7 @@ const NotesPage = () => {
                                                 onClick={clearAllFilters}
                                                 className="w-full bg-red-50/50 text-red-600 border-red-200/50 hover:bg-red-100/50 hover:text-red-700"
                                             >
-                                                Clear All Filters
+                                                Hapus Semua Filter
                                             </Button>
                                         </div>)}
                                 </div>
@@ -537,14 +529,14 @@ const NotesPage = () => {
                 {/* Quick Filters Bar */}
                 <div data-aos="fade-up" data-aos-delay="300" className="mb-8  ">
                     <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-2xl font-semibold text-gray-900">Quick Filters</h3>
+                        <h3 className="text-2xl font-semibold text-gray-900">Filter Cepat</h3>
                         <Button
                             variant="ghost"
                             size="sm"
                             onClick={() => setQuickFilterActive(null)}
                             className={quickFilterActive ? 'opacity-100' : 'opacity-50'}
                         >
-                            Clear All
+                            Hapus Semua
                         </Button>
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -580,25 +572,25 @@ const NotesPage = () => {
                 <div data-aos="fade-up" data-aos-delay="500" className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8  ">
                     <Card className="p-4 text-center bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200/50">
                         <div className="text-2xl lg:text-3xl font-bold text-blue-600">{notes.length}</div>
-                        <div className="text-sm text-blue-700">Total Notes</div>
+                        <div className="text-sm text-blue-700">Total Catatan</div>
                     </Card>
                     <Card className="p-4 text-center bg-gradient-to-br from-green-50 to-emerald-50 border-green-200/50">
                         <div className="text-2xl lg:text-3xl font-bold text-green-600">
                             {notes.reduce((sum, note) => sum + (note.downloadCount || 0), 0).toLocaleString()}
                         </div>
-                        <div className="text-sm text-green-700">Downloads</div>
+                        <div className="text-sm text-green-700">Unduhan</div>
                     </Card>
                     <Card className="p-4 text-center bg-gradient-to-br from-purple-50 to-violet-50 border-purple-200/50">
                         <div className="text-2xl lg:text-3xl font-bold text-purple-600">
                             {Array.from(new Set(notes.map(note => note.subject))).length}
                         </div>
-                        <div className="text-sm text-purple-700">Subjects</div>
+                        <div className="text-sm text-purple-700">Mata Pelajaran</div>
                     </Card>
                     <Card className="p-4 text-center bg-gradient-to-br from-orange-50 to-amber-50 border-orange-200/50">
                         <div className="text-2xl lg:text-3xl font-bold text-orange-600">
                             {(notes.reduce((sum, note) => sum + (note.averageRating || 0), 0) / notes.length).toFixed(1)}
                         </div>
-                        <div className="text-sm text-orange-700">Avg Rating</div>
+                        <div className="text-sm text-orange-700">Rating Rata-rata</div>
                     </Card>
                 </div>
 
@@ -606,11 +598,11 @@ const NotesPage = () => {
                 <div data-aos="fade-up" data-aos-delay="500" className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 text-lg">
                     <div className="flex items-center space-x-4">
                         <Badge variant="gradient" className="px-5 py-3 text-xl font-bold">
-                            {filteredNotes.length} Results
+                            {filteredNotes.length} Hasil
                         </Badge>
                         {filters.search && (
                             <span className="text-lg text-gray-600">
-                                for "<span className="font-semibold text-blue-600">{filters.search}</span>"
+                                untuk "<span className="font-semibold text-blue-600">{filters.search}</span>"
                             </span>
                         )}
                         {filters.subject && filters.subject !== '' && (
@@ -622,7 +614,7 @@ const NotesPage = () => {
                     <a href="/upload">
                         <Button variant="gradient" className="flex items-center shadow-md">
                             <Plus className="inline w-5 h-5" />
-                            <span className='ml-2'>Upload Note</span>
+                            <span className='ml-2'>Upload Catatan</span>
                         </Button>
                     </a>
                 </div>                {/* Notes Grid/List */}
@@ -686,7 +678,7 @@ const NotesPage = () => {
                         ))}
                     </div>
                 )}
-                
+
                 {/* Load More */}
                 {filteredNotes.length > 0 && filteredNotes.length >= 6 && (
                     <div className="text-center mt-16 ">

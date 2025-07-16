@@ -260,21 +260,21 @@ const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false, sho
                                         ? 'bg-red-500/80 hover:bg-red-600/80'
                                         : 'bg-white/20 hover:bg-white/30'
                                         }`}
-                                    title={isFavorite(note.id) ? "Remove from favorites" : "Add to favorites"}
+                                    title={isFavorite(note.id) ? "Hapus dari favorit" : "Tambahkan ke favorit"}
                                 >
                                     <Heart className={`w-4 h-4 ${isFavorite(note.id) ? 'text-white fill-current' : 'text-white'}`} />
                                 </button>
                             )}                            <button
                                 onClick={handleBookmark}
                                 className="p-2 bg-white/20 backdrop-blur-sm rounded-lg hover:bg-white/30 transition-colors"
-                                title="Save for later"
+                                title="Simpan untuk nanti"
                             >
                                 <Bookmark className="w-4 h-4 text-white" />
                             </button>
                             <button
                                 onClick={handleShare}
                                 className="p-2 bg-white/20 backdrop-blur-sm rounded-lg hover:bg-white/30 transition-colors"
-                                title="Share note"
+                                title="Bagikan catatan"
                             >
                                 <Share2 className="w-4 h-4 text-white" />
                             </button>

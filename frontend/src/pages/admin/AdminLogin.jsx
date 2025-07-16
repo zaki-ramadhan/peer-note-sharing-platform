@@ -51,20 +51,18 @@ const AdminLogin = () => {
             <div className="max-w-md w-full space-y-8">                <div>
                 <div className="mx-auto h-16 w-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
                     <Shield className="h-8 w-8 text-white" />
-                </div>
-                <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
-                    Admin Access
+                </div>                <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
+                    Akses Admin
                 </h2>
                 <p className="mt-2 text-center text-sm text-gray-400">
-                    Sign in to access the admin dashboard
+                    Masuk untuk mengakses dashboard admin
                 </p>
             </div>
 
                 <div className="bg-gray-800/50 backdrop-blur-sm py-8 px-6 shadow-xl rounded-xl border border-gray-700/50">                    <form className="space-y-6" onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-                            Email address
-                        </label>
+                    <div>                        <label htmlFor="email" className="block text-sm font-medium text-gray-300">
+                        Alamat Email
+                    </label>
                         <div className="mt-1">
                             <input
                                 id="email"
@@ -73,17 +71,15 @@ const AdminLogin = () => {
                                 autoComplete="email"
                                 required
                                 value={formData.email}
-                                onChange={handleChange}
-                                className="appearance-none block w-full px-3 py-2 border border-gray-600 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-700/50 text-white sm:text-sm"
-                                placeholder="admin@noteshare.com"
+                                onChange={handleChange} className="appearance-none block w-full px-3 py-2 border border-gray-600 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-700/50 text-white sm:text-sm"
+                                placeholder="admin@peernote.com"
                             />
                         </div>
                     </div>
 
-                    <div>
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-300">
-                            Password
-                        </label>
+                    <div>                        <label htmlFor="password" className="block text-sm font-medium text-gray-300">
+                        Kata Sandi
+                    </label>
                         <div className="mt-1 relative">
                             <input
                                 id="password"
@@ -94,7 +90,7 @@ const AdminLogin = () => {
                                 value={formData.password}
                                 onChange={handleChange}
                                 className="appearance-none block w-full px-3 py-2 pr-10 border border-gray-600 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-700/50 text-white sm:text-sm"
-                                placeholder="Enter your password"
+                                placeholder="Masukkan kata sandi Anda"
                             />                                <button
                                 type="button"
                                 className="absolute inset-y-0 right-0 pr-3 flex items-center"
@@ -114,15 +110,14 @@ const AdminLogin = () => {
                             type="submit"
                             disabled={loading}
                             className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg transition-all duration-200"
-                        >
-                            {loading ? (
-                                <div className="flex items-center">
-                                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                                    Signing in...
-                                </div>
-                            ) : (
-                                'Sign in to Admin Panel'
-                            )}
+                        >                            {loading ? (
+                            <div className="flex items-center">
+                                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                                Masuk...
+                            </div>
+                        ) : (
+                            'Masuk ke Panel Admin'
+                        )}
                         </button>
                     </div>
                 </form>                    <div className="mt-6">
@@ -135,12 +130,11 @@ const AdminLogin = () => {
                             </div>
                         </div>
 
-                        <div className="mt-4 p-4 bg-blue-900/30 rounded-lg border border-blue-600/30">
-                            <div className="text-sm text-blue-300">
-                                <p className="font-medium">For demo purposes:</p>
-                                <p>Email: <span className="font-mono text-blue-200 select-all">admin@noteshare.com</span></p>
-                                <p>Password: <span className="font-mono text-blue-200 select-all">admin123</span></p>
-                            </div>
+                        <div className="mt-4 p-4 bg-blue-900/30 rounded-lg border border-blue-600/30">                            <div className="text-sm text-blue-300">
+                            <p className="font-medium">For demo purposes:</p>
+                            <p>Email: <span className="font-mono text-blue-200 select-all">admin@peernote.com</span></p>
+                            <p>Password: <span className="font-mono text-blue-200 select-all">admin123</span></p>
+                        </div>
                         </div>
                     </div>
 

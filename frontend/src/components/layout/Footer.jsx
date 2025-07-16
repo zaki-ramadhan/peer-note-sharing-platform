@@ -16,26 +16,24 @@ const Footer = () => {
                     <div className="col-span-1 md:col-span-2">
                         <Link to="/" className="flex items-center space-x-2 mb-4">
                             <BookOpen className="h-8 w-8 text-blue-600" />
-                            <span className="text-xl font-bold text-gray-900">NoteShare</span>
+                            <span className="text-xl font-bold text-gray-900">PeerNote</span>
                         </Link>
                         <p className="text-gray-600 text-sm leading-relaxed max-w-md">
                             Platform berbagi catatan untuk mahasiswa dan pelajar.
                             Saling upload, unduh, dan diskusi untuk pembelajaran yang lebih efektif.
                         </p>
-                    </div>
-
-                    {/* Quick Links */}
+                    </div>                    {/* Quick Links */}
                     <div>
-                        <h3 className="text-sm font-semibold text-gray-900 mb-4">Quick Links</h3>
+                        <h3 className="text-sm font-semibold text-gray-900 mb-4">Tautan Cepat</h3>
                         <ul className="space-y-2">
                             <li>
                                 <Link to="/dashboard" className="text-sm text-gray-600 hover:text-blue-600 transition-colors">
-                                    Dashboard
+                                    Dasbor
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/upload" className="text-sm text-gray-600 hover:text-blue-600 transition-colors">
-                                    Upload Note
+                                    Upload Catatan
                                 </Link>
                             </li>
                             <li>
@@ -45,7 +43,7 @@ const Footer = () => {
                             </li>
                             <li>
                                 <Link to="/leaderboard" className="text-sm text-gray-600 hover:text-blue-600 transition-colors">
-                                    Leaderboard
+                                    Papan Peringkat
                                 </Link>
                             </li>
                         </ul>
@@ -53,26 +51,26 @@ const Footer = () => {
 
                     {/* Support */}
                     <div>
-                        <h3 className="text-sm font-semibold text-gray-900 mb-4">Support</h3>
+                        <h3 className="text-sm font-semibold text-gray-900 mb-4">Dukungan</h3>
                         <ul className="space-y-2">
                             <li>
                                 <Link to="/help" className="text-sm text-gray-600 hover:text-blue-600 transition-colors">
-                                    Help Center
+                                    Pusat Bantuan
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/privacy" className="text-sm text-gray-600 hover:text-blue-600 transition-colors">
-                                    Privacy Policy
+                                    Kebijakan Privasi
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/terms" className="text-sm text-gray-600 hover:text-blue-600 transition-colors">
-                                    Terms of Service
+                                    Syarat Layanan
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/contact" className="text-sm text-gray-600 hover:text-blue-600 transition-colors">
-                                    Contact Us
+                                    Hubungi Kami
                                 </Link>
                             </li>
                         </ul>
@@ -80,10 +78,9 @@ const Footer = () => {
                 </div>
 
                 {/* Bottom Section */}
-                <div className="mt-8 pt-8 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center">
-                    <p className="text-sm text-gray-500">
-                        © {currentYear} NoteShare. All rights reserved.
-                    </p>
+                <div className="mt-8 pt-8 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center">                    <p className="text-sm text-gray-500">
+                    © {currentYear} PeerNote. Hak cipta dilindungi.
+                </p>
 
                     {/* Social Links */}
                     <div className="flex space-x-4 mt-4 sm:mt-0">

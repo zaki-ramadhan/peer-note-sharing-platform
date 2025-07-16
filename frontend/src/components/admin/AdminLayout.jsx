@@ -37,66 +37,65 @@ const AdminLayout = () => {
             name: 'Dashboard',
             href: '/admin',
             icon: Home,
-            description: 'Overview and quick stats'
+            description: 'Ringkasan dan statistik cepat'
         },
         {
-            name: 'Users',
+            name: 'Pengguna',
             href: '/admin/users',
             icon: Users,
-            description: 'Manage user accounts'
+            description: 'Kelola akun pengguna'
         },
         {
-            name: 'Content',
+            name: 'Konten',
             href: '/admin/content',
             icon: FileText,
-            description: 'Review notes and posts'
+            description: 'Tinjau catatan dan postingan'
         },
         {
-            name: 'Analytics',
+            name: 'Analitik',
             href: '/admin/analytics',
             icon: BarChart3,
-            description: 'Platform statistics'
+            description: 'Statistik platform'
         },
         {
-            name: 'Settings',
+            name: 'Pengaturan',
             href: '/admin/settings',
             icon: Settings,
-            description: 'System configuration'
+            description: 'Konfigurasi sistem'
         },
     ];
 
     const handleLogout = async () => {
         const result = await logout();
         if (result.success) {
-            showInfoToast('Logged out successfully');
+            showInfoToast('Berhasil keluar');
             navigate('/');
         }
         setShowLogoutModal(false);
     }; const LogoutModal = () => (
-        <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
             <div className="bg-gray-800/95 backdrop-blur-sm rounded-2xl shadow-2xl max-w-md w-full mx-4 transform transition-all border border-gray-700/50">
                 <div className="p-6">
                     <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-red-900/30 rounded-full border border-red-600/30">
                         <LogOut className="w-8 h-8 text-red-400" />
-                    </div>
-                    <h3 className="text-xl font-bold text-white text-center mb-2">
-                        Logout Confirmation
+                    </div>                    <h3 className="text-xl font-bold text-white text-center mb-2">
+                        Konfirmasi Keluar
                     </h3>
                     <p className="text-gray-300 text-center mb-6">
-                        Are you sure you want to logout from the admin panel? You'll need to sign in again to access admin features.
+                        Apakah Anda yakin ingin keluar dari panel admin? Anda perlu masuk kembali untuk mengakses fitur admin.
                     </p>
                     <div className="flex space-x-3">
                         <button
                             onClick={() => setShowLogoutModal(false)}
                             className="flex-1 px-4 py-3 text-gray-300 bg-gray-700/50 border border-gray-600 rounded-xl hover:bg-gray-600/50 focus:ring-4 focus:ring-gray-600/25 transition-all duration-200 font-medium"
                         >
-                            Cancel
+                            Batal
                         </button>
                         <button
                             onClick={handleLogout}
                             className="flex-1 px-4 py-3 bg-red-600 text-white rounded-xl hover:bg-red-700 focus:ring-4 focus:ring-red-500/25 transition-all duration-200 font-medium"
                         >
-                            Yes, Logout
+                            Ya, Keluar
                         </button>
                     </div>
                 </div>
@@ -118,9 +117,8 @@ const AdminLayout = () => {
                         <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
                             <Shield className="w-6 h-6 text-white" />
                         </div>
-                        <div className="ml-3">
-                            <span className="text-xl font-bold text-white">Admin Panel</span>
-                            <p className="text-xs text-slate-400">Management Console</p>
+                        <div className="ml-3">                            <span className="text-xl font-bold text-white">Panel Admin</span>
+                            <p className="text-xs text-slate-400">Konsol Manajemen</p>
                         </div>
                     </div>
                     <button
@@ -170,18 +168,20 @@ const AdminLayout = () => {
                                 {user.role}
                             </p>
                         </div>
-                    </div>
-                    <button
+                    </div>                    <button
                         onClick={() => setShowLogoutModal(true)}
                         className="w-full flex items-center px-4 py-3 text-sm text-slate-300 hover:bg-slate-700 hover:text-white rounded-xl transition-all duration-200 group"
                     >
                         <LogOut className="mr-3 h-5 w-5 group-hover:text-red-400 transition-colors" />
-                        Logout
+                        Keluar
                     </button>
                 </div>
-            </div>            {/* Main content */}
-            <div className="flex-1 flex flex-col overflow-hidden">                {/* Top navigation */}
-                <header className="bg-gray-800/80 backdrop-blur-md shadow-lg border-b border-gray-700/50 lg:static lg:overflow-y-visible">
+            </div>
+            {/* Main content */}
+            <div className="flex-1 flex flex-col overflow-hidden">
+
+                {/* Top navigation */}
+                <header className="bg-gray-800/80 backdrop-blur-md shadow-lg border-b border-gray-700/50 lg:static lg:overflow-y-visible z-50">
                     <div className="mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="relative flex justify-between items-center h-20">
                             <div className="flex items-center">
@@ -191,22 +191,23 @@ const AdminLayout = () => {
                                 >
                                     <Menu className="h-6 w-6" />
                                 </button>
-                                <div className="ml-4 lg:ml-0">
-                                    <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent">
-                                        Admin Dashboard
-                                    </h1>
+                                <div className="ml-4 lg:ml-0">                                    <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent">
+                                    Dashboard Admin
+                                </h1>
                                     <p className="text-sm text-gray-400 hidden sm:block">
-                                        Manage your platform efficiently
+                                        Kelola platform Anda dengan efisien
                                     </p>
                                 </div>
                             </div>
 
-                            <div className="flex items-center space-x-4">                                {/* Search Bar */}
+                            <div className="flex items-center space-x-4">
+
+                                {/* Search Bar */}
                                 <div className="hidden md:block relative">
                                     <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                                     <input
                                         type="text"
-                                        placeholder="Search admin panel..."
+                                        placeholder="Cari panel admin..."
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
                                         className="pl-11 pr-4 py-3 border border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent w-72 text-sm bg-gray-700/50 backdrop-blur-sm shadow-sm text-white placeholder-gray-400"
@@ -254,9 +255,8 @@ const AdminLayout = () => {
                                                     setShowLogoutModal(true);
                                                 }}
                                                 className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-900/30 flex items-center transition-colors"
-                                            >
-                                                <LogOut className="h-4 w-4 mr-2" />
-                                                Logout
+                                            >                                                <LogOut className="h-4 w-4 mr-2" />
+                                                Keluar
                                             </button>
                                         </div>
                                     )}

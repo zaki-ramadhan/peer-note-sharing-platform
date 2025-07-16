@@ -129,10 +129,9 @@ const AdminUsers = () => {
     // Modal Components
     const UserModal = () => (<div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
         <div className="bg-gray-800/95 backdrop-blur-sm rounded-2xl shadow-2xl max-w-md w-full mx-4 transform transition-all border border-gray-700/50">
-            <div className="flex items-center justify-between p-6 border-b border-gray-700/50">
-                <h3 className="text-xl font-bold text-white">
-                    {selectedUser?.id ? 'Edit User' : 'Add New User'}
-                </h3>
+            <div className="flex items-center justify-between p-6 border-b border-gray-700/50">                <h3 className="text-xl font-bold text-white">
+                {selectedUser?.id ? 'Edit Pengguna' : 'Tambah Pengguna Baru'}
+            </h3>
                 <button
                     onClick={() => setShowUserModal(false)}
                     className="p-2 hover:bg-gray-700/50 rounded-lg transition-colors"
@@ -140,13 +139,12 @@ const AdminUsers = () => {
                     <X className="w-5 h-5 text-gray-400" />
                 </button>
             </div>                <div className="p-6 space-y-4">
-                <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Name</label>
+                <div>                    <label className="block text-sm font-medium text-gray-300 mb-2">Nama</label>
                     <input
                         type="text"
                         defaultValue={selectedUser?.name || ''}
                         className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-700/50 text-white placeholder-gray-400"
-                        placeholder="Enter user name"
+                        placeholder="Masukkan nama pengguna"
                     />
                 </div>
                 <div>
@@ -155,16 +153,16 @@ const AdminUsers = () => {
                         type="email"
                         defaultValue={selectedUser?.email || ''}
                         className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-700/50 text-white placeholder-gray-400"
-                        placeholder="Enter email address"
+                        placeholder="Masukkan alamat email"
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Role</label>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Peran</label>
                     <select
                         defaultValue={selectedUser?.role || 'user'}
                         className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-700/50 text-white"
                     >
-                        <option value="user">User</option>
+                        <option value="user">Pengguna</option>
                         <option value="moderator">Moderator</option>
                         <option value="admin">Admin</option>
                     </select>
@@ -175,21 +173,20 @@ const AdminUsers = () => {
                         defaultValue={selectedUser?.status || 'active'}
                         className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-700/50 text-white"
                     >
-                        <option value="active">Active</option>
-                        <option value="suspended">Suspended</option>
+                        <option value="active">Aktif</option>
+                        <option value="suspended">Ditangguhkan</option>
                     </select>
                 </div>
             </div>                <div className="flex space-x-3 p-6 border-t border-gray-700/50">
-                <button
-                    onClick={() => setShowUserModal(false)}
+                <button onClick={() => setShowUserModal(false)}
                     className="flex-1 px-4 py-3 text-gray-300 bg-gray-700/50 border border-gray-600 rounded-xl hover:bg-gray-600/50 focus:ring-4 focus:ring-gray-600/25 transition-all duration-200 font-medium"
                 >
-                    Cancel
+                    Batal
                 </button>
                 <button
                     className="flex-1 px-4 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 focus:ring-4 focus:ring-blue-500/25 transition-all duration-200 font-medium"
                 >
-                    {selectedUser?.id ? 'Update User' : 'Create User'}
+                    {selectedUser?.id ? 'Perbarui Pengguna' : 'Buat Pengguna'}
                 </button>
             </div>
         </div>
@@ -200,19 +197,17 @@ const AdminUsers = () => {
                 <div className="p-6">
                     <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-red-900/30 rounded-full border border-red-600/30">
                         <Trash className="w-8 h-8 text-red-400" />
-                    </div>
-                    <h3 className="text-xl font-bold text-white text-center mb-2">
-                        Delete User
+                    </div>                    <h3 className="text-xl font-bold text-white text-center mb-2">
+                        Hapus Pengguna
                     </h3>
                     <p className="text-gray-300 text-center mb-6">
-                        Are you sure you want to delete <strong className="text-white">{userToDelete?.name}</strong>? This action cannot be undone.
+                        Apakah Anda yakin ingin menghapus <strong className="text-white">{userToDelete?.name}</strong>? Tindakan ini tidak dapat dibatalkan.
                     </p>
                     <div className="flex space-x-3">
-                        <button
-                            onClick={() => setShowDeleteModal(false)}
+                        <button onClick={() => setShowDeleteModal(false)}
                             className="flex-1 px-4 py-3 text-gray-300 bg-gray-700/50 border border-gray-600 rounded-xl hover:bg-gray-600/50 focus:ring-4 focus:ring-gray-600/25 transition-all duration-200 font-medium"
                         >
-                            Cancel
+                            Batal
                         </button>
                         <button
                             onClick={() => {
@@ -222,7 +217,7 @@ const AdminUsers = () => {
                             }}
                             className="flex-1 px-4 py-3 bg-red-600 text-white rounded-xl hover:bg-red-700 focus:ring-4 focus:ring-red-500/25 transition-all duration-200 font-medium"
                         >
-                            Delete User
+                            Hapus Pengguna
                         </button>
                     </div>
                 </div>
@@ -233,21 +228,19 @@ const AdminUsers = () => {
     return (<div className="space-y-6">
         {/* Header */}
         <div className="md:flex md:items-center md:justify-between">
-            <div className="min-w-0 flex-1">
-                <h2 className="text-2xl font-bold leading-7 text-white sm:truncate sm:text-3xl sm:tracking-tight">
-                    User Management
-                </h2>
+            <div className="min-w-0 flex-1">                <h2 className="text-2xl font-bold leading-7 text-white sm:truncate sm:text-3xl sm:tracking-tight">
+                Manajemen Pengguna
+            </h2>
                 <p className="mt-1 text-sm text-gray-400">
-                    Manage user accounts, roles, and permissions.
+                    Kelola akun pengguna, peran, dan izin.
                 </p>
             </div>
             <div className="mt-4 flex md:ml-4 md:mt-0">
                 <button
                     onClick={() => setShowUserModal(true)}
                     className="ml-3 inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 transition-colors"
-                >
-                    <UserPlus className="h-4 w-4 mr-2" />
-                    Add User
+                >                    <UserPlus className="h-4 w-4 mr-2" />
+                    Tambah Pengguna
                 </button>
             </div>
         </div>
@@ -259,7 +252,7 @@ const AdminUsers = () => {
                 <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />                        <input
                         type="text"
-                        placeholder="Search users..."
+                        placeholder="Cari pengguna..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="w-full pl-10 pr-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white placeholder-gray-400"
@@ -270,9 +263,8 @@ const AdminUsers = () => {
                     value={selectedRole}
                     onChange={(e) => setSelectedRole(e.target.value)}
                     className="px-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white"
-                >
-                    <option value="all">All Roles</option>
-                    <option value="user">User</option>
+                >                    <option value="all">Semua Role</option>
+                    <option value="user">Pengguna</option>
                     <option value="moderator">Moderator</option>
                     <option value="admin">Admin</option>
                 </select>
@@ -281,13 +273,12 @@ const AdminUsers = () => {
                     value={selectedStatus}
                     onChange={(e) => setSelectedStatus(e.target.value)}
                     className="px-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white"
-                >
-                    <option value="all">All Status</option>
-                    <option value="active">Active</option>
-                    <option value="suspended">Suspended</option>
+                >                    <option value="all">Semua Status</option>
+                    <option value="active">Aktif</option>
+                    <option value="suspended">Ditangguhkan</option>
                 </select>                    {/* Export Button */}                    <button className="inline-flex items-center justify-center px-3 py-2 border border-gray-600 rounded-md text-sm font-medium text-gray-300 bg-gray-700/50 hover:bg-gray-600/50 transition-colors">
                     <Download className="h-4 w-4 mr-2" />
-                    Export
+                    Ekspor
                 </button>
             </div>
         </div>            {/* Users Table */}
@@ -295,24 +286,23 @@ const AdminUsers = () => {
             <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-700/50">
                     <thead className="bg-gray-900/50">
-                        <tr>
+                        <tr>                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                            Pengguna
+                        </th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                                User
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                                Role
+                                Peran
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                                 Status
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                                Activity
+                                Aktivitas
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                                Content
+                                Konten
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                                Joined
+                                Bergabung
                             </th>
                             <th className="relative px-6 py-3">
                                 <span className="sr-only">Actions</span>
@@ -352,11 +342,10 @@ const AdminUsers = () => {
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                                     {user.lastActive}
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                                    <div className="text-sm">
-                                        <div>{user.notes} notes</div>
-                                        <div>{user.posts} posts</div>
-                                    </div>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">                                    <div className="text-sm">
+                                    <div>{user.notes} catatan</div>
+                                    <div>{user.posts} postingan</div>
+                                </div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                                     {user.joinDate}
@@ -370,23 +359,22 @@ const AdminUsers = () => {
                                         <div className="py-1">                                                    <button
                                             onClick={() => handleUserAction('edit', user)}
                                             className="flex items-center w-full px-4 py-2 text-sm text-gray-300 hover:bg-gray-700/50 transition-colors"
-                                        >
-                                            <Edit className="h-4 w-4 mr-2" />
-                                            Edit User
+                                        >                                            <Edit className="h-4 w-4 mr-2" />
+                                            Edit Pengguna
                                         </button>
                                             {user.status === 'active' ? (<button
                                                 onClick={() => handleUserAction('suspend', user)}
                                                 className="flex items-center w-full px-4 py-2 text-sm text-gray-300 hover:bg-gray-700/50 transition-colors"
                                             >
                                                 <XCircle className="h-4 w-4 mr-2" />
-                                                Suspend User
+                                                Tangguhkan Pengguna
                                             </button>
                                             ) : (<button
                                                 onClick={() => handleUserAction('activate', user)}
                                                 className="flex items-center w-full px-4 py-2 text-sm text-gray-300 hover:bg-gray-700/50 transition-colors"
                                             >
                                                 <CheckCircle className="h-4 w-4 mr-2" />
-                                                Activate User
+                                                Aktifkan Pengguna
                                             </button>
                                             )}                                                    <button
                                                 onClick={() => {
@@ -396,7 +384,7 @@ const AdminUsers = () => {
                                                 className="flex items-center w-full px-4 py-2 text-sm text-red-400 hover:bg-gray-700/50 transition-colors"
                                             >
                                                 <Trash className="h-4 w-4 mr-2" />
-                                                Delete User
+                                                Hapus Pengguna
                                             </button>
                                         </div>
                                     </div>
@@ -408,7 +396,7 @@ const AdminUsers = () => {
                 </table>
             </div>            {filteredUsers.length === 0 && (
                 <div className="text-center py-12">
-                    <p className="text-gray-400">No users found matching your criteria.</p>
+                    <p className="text-gray-400">Tidak ada pengguna yang ditemukan sesuai kriteria Anda.</p>
                 </div>
             )}
         </div>

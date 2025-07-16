@@ -159,7 +159,7 @@ const ForumPage = () => {
                                 </div>
                                 <div className="flex items-center space-x-1 text-gray-500">
                                     <Reply className="w-4 h-4" />
-                                    <span className="lg:text-sm">{post.replyCount} replies</span>
+                                    <span className="lg:text-sm">{post.replyCount} balasan</span>
                                 </div>
                             </div>
 

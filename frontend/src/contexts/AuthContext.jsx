@@ -1,6 +1,20 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import {
+    showLoginStartToast,
+    showLoginSuccessToast,
+    showLoginErrorToast,
+    showRegisterStartToast,
+    showRegisterSuccessToast,
+    showRegisterErrorToast,
+    showLogoutStartToast,
+    showLogoutSuccessToast,
+    showLogoutErrorToast,
+    showSessionExpiredToast,
+    showInvalidCredentialsToast
+} from '../utils/toastUtils';
 
 const AuthContext = createContext();
 
@@ -39,11 +53,14 @@ export const AuthProvider = ({ children }) => {
         try {
             setLoading(true);
 
+            // Show loading toast
+            showLoginStartToast();
+
             // Simulate API call
             const response = await new Promise((resolve) => {
                 setTimeout(() => {
                     // Check if admin credentials
-                    const isAdmin = credentials.email === 'admin@noteshare.com' && credentials.password === 'admin123';
+                    const isAdmin = credentials.email === 'admin@peernote.com' && credentials.password === 'admin123';
 
                     // Mock user data based on credentials
                     const mockUser = {
@@ -60,7 +77,7 @@ export const AuthProvider = ({ children }) => {
                         bio: isAdmin ? 'Platform Administrator' : 'Computer Science student passionate about sharing knowledge and helping fellow students succeed.',
                         phone: isAdmin ? '' : '+62 812 3456 7890',
                         location: isAdmin ? 'Server Room' : 'Jakarta, Indonesia',
-                        website: isAdmin ? 'https://admin.noteshare.com' : 'https://johndoe.dev'
+                        website: isAdmin ? 'https://admin.peernote.com' : 'https://johndoe.dev'
                     };
 
                     const mockToken = 'mock-jwt-token-' + Date.now();
@@ -96,12 +113,27 @@ export const AuthProvider = ({ children }) => {
                 setUser(userData);
                 setIsAuthenticated(true);
 
+                // Show success toast
+                showLoginSuccessToast(userData.name);
+
                 return { success: true, user: userData };
             } else {
+                // Show error toast for invalid credentials
+                if (response.message === 'Invalid credentials') {
+                    showInvalidCredentialsToast();
+                } else {
+                    showLoginErrorToast(response.message);
+                }
                 throw new Error(response.message || 'Login failed');
             }
         } catch (error) {
             console.error('Login error:', error);
+
+            // Show error toast if not already shown
+            if (error.message !== 'Invalid credentials') {
+                showLoginErrorToast(error.message || 'Login failed. Please try again.');
+            }
+
             return {
                 success: false,
                 message: error.message || 'Login failed. Please try again.'
@@ -109,11 +141,12 @@ export const AuthProvider = ({ children }) => {
         } finally {
             setLoading(false);
         }
-    };
-
-    const register = async (userData) => {
+    }; const register = async (userData) => {
         try {
             setLoading(true);
+
+            // Show loading toast
+            showRegisterStartToast();
 
             // Simulate API call
             const response = await new Promise((resolve) => {
@@ -156,12 +189,23 @@ export const AuthProvider = ({ children }) => {
                 setUser(newUser);
                 setIsAuthenticated(true);
 
+                // Show success toast
+                showRegisterSuccessToast(newUser.name);
+
                 return { success: true, user: newUser };
             } else {
+                // Show error toast
+                showRegisterErrorToast(response.message);
                 throw new Error(response.message || 'Registration failed');
             }
         } catch (error) {
             console.error('Registration error:', error);
+
+            // Show error toast if not already shown
+            if (!error.message?.includes('Registration failed')) {
+                showRegisterErrorToast(error.message || 'Registration failed. Please try again.');
+            }
+
             return {
                 success: false,
                 message: error.message || 'Registration failed. Please try again.'
@@ -169,11 +213,12 @@ export const AuthProvider = ({ children }) => {
         } finally {
             setLoading(false);
         }
-    };
-
-    const logout = async () => {
+    }; const logout = async () => {
         try {
             setLoading(true);
+
+            // Show loading toast
+            showLogoutStartToast();
 
             // Simulate logout API call
             await new Promise(resolve => setTimeout(resolve, 1000));
@@ -186,12 +231,19 @@ export const AuthProvider = ({ children }) => {
             setUser(null);
             setIsAuthenticated(false);
 
+            // Show success toast
+            showLogoutSuccessToast();
+
             // Navigate to home
             navigate('/');
 
             return { success: true };
         } catch (error) {
             console.error('Logout error:', error);
+
+            // Show error toast
+            showLogoutErrorToast();
+
             return { success: false, message: 'Logout failed' };
         } finally {
             setLoading(false);

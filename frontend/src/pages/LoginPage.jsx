@@ -40,9 +40,8 @@ const LoginPage = () => {
                     <Link to="/" className="inline-flex items-center space-x-3 group">
                         <div className="p-3 bg-blue-600 rounded-xl shadow-md group- transition-shadow">
                             <BookOpen className="h-8 w-8 text-white" />
-                        </div>
-                        <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                            NoteShare
+                        </div>                        <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                            PeerNote
                         </span>
                     </Link>
                 </div>

@@ -24,91 +24,89 @@ const AdminDashboard = () => {
         activeUsers: 345,
         pendingNotes: 23,
         reportedContent: 7
-    });
-
-    const [recentActivity] = useState([
+    }); const [recentActivity] = useState([
         {
             id: 1,
             type: 'user_registered',
             user: 'Sarah Johnson',
-            timestamp: '2 minutes ago',
-            details: 'New user registration'
+            timestamp: '2 menit yang lalu',
+            details: 'Pendaftaran pengguna baru'
         },
         {
             id: 2,
             type: 'note_uploaded',
             user: 'Mike Chen',
-            timestamp: '5 minutes ago',
-            details: 'Uploaded "Advanced React Patterns"'
+            timestamp: '5 menit yang lalu',
+            details: 'Mengunggah "Advanced React Patterns"'
         },
         {
             id: 3,
             type: 'post_created',
             user: 'Emma Davis',
-            timestamp: '12 minutes ago',
-            details: 'Created forum post about JavaScript'
+            timestamp: '12 menit yang lalu',
+            details: 'Membuat postingan forum tentang JavaScript'
         },
         {
             id: 4,
             type: 'content_reported',
-            user: 'Anonymous',
-            timestamp: '25 minutes ago',
-            details: 'Reported inappropriate content'
+            user: 'Anonim',
+            timestamp: '25 menit yang lalu',
+            details: 'Melaporkan konten tidak pantas'
         }
     ]); const statCards = [
         {
-            title: 'Total Users',
+            title: 'Total Pengguna',
             value: stats.totalUsers.toLocaleString(),
             icon: Users,
             change: '+12%',
             changeType: 'positive',
             bgColor: 'from-blue-500 to-blue-600',
-            description: 'Registered accounts'
+            description: 'Akun terdaftar'
         },
         {
-            title: 'Notes Shared',
+            title: 'Catatan Dibagikan',
             value: stats.totalNotes.toLocaleString(),
             icon: FileText,
             change: '+8%',
             changeType: 'positive',
             bgColor: 'from-green-500 to-green-600',
-            description: 'Educational resources'
+            description: 'Sumber daya edukasi'
         },
         {
-            title: 'Forum Posts',
+            title: 'Postingan Forum',
             value: stats.totalPosts.toLocaleString(),
             icon: MessageSquare,
             change: '+15%',
             changeType: 'positive',
             bgColor: 'from-purple-500 to-purple-600',
-            description: 'Community discussions'
+            description: 'Diskusi komunitas'
         },
         {
-            title: 'Active Users',
+            title: 'Pengguna Aktif',
             value: stats.activeUsers.toLocaleString(),
             icon: Activity,
             change: '+5%',
             changeType: 'positive',
             bgColor: 'from-orange-500 to-orange-600',
-            description: 'Last 24 hours'
+            description: '24 jam terakhir'
         },
         {
-            title: 'Pending Review',
+            title: 'Menunggu Tinjauan',
             value: stats.pendingNotes.toLocaleString(),
             icon: Clock,
             change: '-3%',
             changeType: 'negative',
             bgColor: 'from-yellow-500 to-yellow-600',
-            description: 'Awaiting approval'
+            description: 'Menunggu persetujuan'
         },
         {
-            title: 'Reported Content',
+            title: 'Konten Dilaporkan',
             value: stats.reportedContent.toLocaleString(),
             icon: AlertTriangle,
             change: '+2%',
             changeType: 'negative',
             bgColor: 'from-red-500 to-red-600',
-            description: 'Needs attention'
+            description: 'Perlu perhatian'
         }
     ]; const getActivityIcon = (type) => {
         switch (type) {
@@ -127,22 +125,20 @@ const AdminDashboard = () => {
         <div className="space-y-8">
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                <div className="min-w-0 flex-1">
-                    <h2 className="text-3xl font-bold text-white sm:text-4xl">
-                        Dashboard Overview
-                    </h2>
+                <div className="min-w-0 flex-1">                    <h2 className="text-3xl font-bold text-white sm:text-4xl">
+                    Ringkasan Dashboard
+                </h2>
                     <p className="mt-2 text-lg text-gray-300">
-                        Welcome back! Here's what's happening on your platform.
+                        Selamat datang kembali! Berikut adalah yang terjadi di platform Anda.
                     </p>
                 </div>
-                <div className="mt-4 sm:mt-0 flex space-x-3">
-                    <button className="inline-flex items-center px-4 py-2 border border-gray-600 rounded-xl text-sm font-medium text-gray-300 bg-gray-800/50 hover:bg-gray-700/50 focus:ring-2 focus:ring-blue-500 transition-all duration-200 shadow-sm backdrop-blur-sm">
-                        <Calendar className="h-4 w-4 mr-2" />
-                        Last 30 days
-                    </button>
+                <div className="mt-4 sm:mt-0 flex space-x-3">                    <button className="inline-flex items-center px-4 py-2 border border-gray-600 rounded-xl text-sm font-medium text-gray-300 bg-gray-800/50 hover:bg-gray-700/50 focus:ring-2 focus:ring-blue-500 transition-all duration-200 shadow-sm backdrop-blur-sm">
+                    <Calendar className="h-4 w-4 mr-2" />
+                    30 Hari Terakhir
+                </button>
                     <button className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl text-sm font-medium hover:from-blue-700 hover:to-purple-700 focus:ring-2 focus:ring-blue-500 transition-all duration-200 shadow-lg">
                         <Download className="h-4 w-4 mr-2" />
-                        Export Report
+                        Ekspor Laporan
                     </button>
                 </div>
             </div>            {/* Stats Grid */}
@@ -183,13 +179,12 @@ const AdminDashboard = () => {
                 {/* Recent Activity */}
                 <div className="bg-gray-800/50 backdrop-blur-sm shadow-xl rounded-2xl border border-gray-700/50">
                     <div className="px-6 py-5 border-b border-gray-700/50">
-                        <div className="flex items-center justify-between">
-                            <h3 className="text-xl font-semibold text-white flex items-center">
-                                <Activity className="h-5 w-5 mr-2 text-blue-400" />
-                                Recent Activity
-                            </h3>
+                        <div className="flex items-center justify-between">                            <h3 className="text-xl font-semibold text-white flex items-center">
+                            <Activity className="h-5 w-5 mr-2 text-blue-400" />
+                            Aktivitas Terbaru
+                        </h3>
                             <button className="text-sm text-blue-400 hover:text-blue-300 font-medium px-3 py-1 rounded-lg hover:bg-gray-700/50 transition-colors">
-                                View all
+                                Lihat semua
                             </button>
                         </div>
                     </div>
@@ -218,11 +213,10 @@ const AdminDashboard = () => {
                 </div>
 
                 {/* Quick Actions */}
-                <div className="bg-gray-800/50 backdrop-blur-sm shadow-xl rounded-2xl border border-gray-700/50">                    <div className="px-6 py-5 border-b border-gray-700/50">
-                    <h3 className="text-xl font-semibold text-white flex items-center">
-                        <TrendingUp className="h-5 w-5 mr-2 text-purple-400" />
-                        Quick Actions
-                    </h3>
+                <div className="bg-gray-800/50 backdrop-blur-sm shadow-xl rounded-2xl border border-gray-700/50">                    <div className="px-6 py-5 border-b border-gray-700/50">                    <h3 className="text-xl font-semibold text-white flex items-center">
+                    <TrendingUp className="h-5 w-5 mr-2 text-purple-400" />
+                    Aksi Cepat
+                </h3>
                 </div>
                     <div className="p-6 space-y-4">
                         <button className="w-full flex items-center justify-between p-4 border border-gray-700/50 rounded-xl hover:bg-gradient-to-r hover:from-blue-900/30 hover:to-purple-900/30 transition-all duration-200 group">
@@ -230,13 +224,11 @@ const AdminDashboard = () => {
                                 <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                                     <Users className="h-5 w-5 text-white" />
                                 </div>
-                                <div className="ml-4 text-left">
-                                    <span className="text-sm font-medium text-white">Manage Users</span>
-                                    <p className="text-xs text-gray-400">Review pending accounts</p>
+                                <div className="ml-4 text-left">                                    <span className="text-sm font-medium text-white">Kelola Pengguna</span>
+                                    <p className="text-xs text-gray-400">Tinjau akun tertunda</p>
                                 </div>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <span className="px-2 py-1 text-xs font-medium bg-blue-900/50 text-blue-300 rounded-full">23 pending</span>
+                            </div>                            <div className="flex items-center space-x-2">
+                                <span className="px-2 py-1 text-xs font-medium bg-blue-900/50 text-blue-300 rounded-full">23 tertunda</span>
                                 <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-blue-400 transition-colors" />
                             </div>
                         </button>
@@ -247,11 +239,10 @@ const AdminDashboard = () => {
                                     <FileText className="h-5 w-5 text-white" />
                                 </div>
                                 <div className="ml-4 text-left">
-                                    <span className="text-sm font-medium text-white">Review Content</span>                                    <p className="text-xs text-gray-400">Moderate submissions</p>
+                                    <span className="text-sm font-medium text-white">Tinjau Konten</span>                                    <p className="text-xs text-gray-400">Moderasi kiriman</p>
                                 </div>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <span className="px-2 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full">12 items</span>
+                            </div>                            <div className="flex items-center space-x-2">
+                                <span className="px-2 py-1 text-xs font-medium bg-green-900/50 text-green-300 rounded-full">12 item</span>
                                 <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-green-400 transition-colors" />
                             </div>
                         </button>
@@ -261,13 +252,11 @@ const AdminDashboard = () => {
                                 <div className="w-10 h-10 bg-gradient-to-r from-red-500 to-red-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                                     <AlertTriangle className="h-5 w-5 text-white" />
                                 </div>
-                                <div className="ml-4 text-left">
-                                    <span className="text-sm font-medium text-white">Handle Reports</span>
-                                    <p className="text-xs text-gray-400">Address user complaints</p>
+                                <div className="ml-4 text-left">                                    <span className="text-sm font-medium text-white">Tangani Laporan</span>
+                                    <p className="text-xs text-gray-400">Atasi keluhan pengguna</p>
                                 </div>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <span className="px-2 py-1 text-xs font-medium bg-red-900/50 text-red-300 rounded-full">7 reports</span>
+                            </div>                            <div className="flex items-center space-x-2">
+                                <span className="px-2 py-1 text-xs font-medium bg-red-900/50 text-red-300 rounded-full">7 laporan</span>
                                 <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-red-400 transition-colors" />
                             </div>
                         </button>
@@ -276,13 +265,11 @@ const AdminDashboard = () => {
                             <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                                 <TrendingUp className="h-5 w-5 text-white" />
                             </div>
-                            <div className="ml-4 text-left">
-                                <span className="text-sm font-medium text-white">View Analytics</span>
-                                <p className="text-xs text-gray-400">Platform insights</p>
+                            <div className="ml-4 text-left">                                <span className="text-sm font-medium text-white">Lihat Analitik</span>
+                                <p className="text-xs text-gray-400">Wawasan platform</p>
                             </div>
-                        </div>
-                            <div className="flex items-center space-x-2">
-                                <span className="px-2 py-1 text-xs font-medium bg-purple-900/50 text-purple-300 rounded-full">Updated 1h ago</span>
+                        </div>                            <div className="flex items-center space-x-2">
+                                <span className="px-2 py-1 text-xs font-medium bg-purple-900/50 text-purple-300 rounded-full">Diperbarui 1j lalu</span>
                                 <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-purple-400 transition-colors" />
                             </div>
                         </button>
@@ -292,40 +279,35 @@ const AdminDashboard = () => {
 
             {/* System Status */}
             <div className="bg-gray-800/50 backdrop-blur-sm shadow-xl rounded-2xl border border-gray-700/50">
-                <div className="px-6 py-5 border-b border-gray-700/50">
-                    <h3 className="text-xl font-semibold text-white flex items-center">
-                        <CheckCircle className="h-5 w-5 mr-2 text-green-400" />
-                        System Status
-                    </h3>
+                <div className="px-6 py-5 border-b border-gray-700/50">                    <h3 className="text-xl font-semibold text-white flex items-center">
+                    <CheckCircle className="h-5 w-5 mr-2 text-green-400" />
+                    Status Sistem
+                </h3>
                 </div>
                 <div className="p-6">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="text-center p-4 rounded-xl bg-green-900/30 border border-green-600/30">
-                            <div className="w-4 h-4 bg-green-500 rounded-full mx-auto mb-3 animate-pulse"></div>
-                            <p className="text-sm font-semibold text-white">Database</p>
-                            <p className="text-xs text-green-400 font-medium">Operational</p>
-                            <p className="text-xs text-gray-400 mt-1">Response: 45ms</p>
+                            <div className="w-4 h-4 bg-green-500 rounded-full mx-auto mb-3 animate-pulse"></div>                            <p className="text-sm font-semibold text-white">Database</p>
+                            <p className="text-xs text-green-400 font-medium">Operasional</p>
+                            <p className="text-xs text-gray-400 mt-1">Respons: 45ms</p>
                         </div>                        <div className="text-center p-4 rounded-xl bg-green-900/30 border border-green-600/30">
-                            <div className="w-4 h-4 bg-green-500 rounded-full mx-auto mb-3 animate-pulse"></div>
-                            <p className="text-sm font-semibold text-white">File Storage</p>
-                            <p className="text-xs text-green-400 font-medium">Operational</p>
+                            <div className="w-4 h-4 bg-green-500 rounded-full mx-auto mb-3 animate-pulse"></div>                            <p className="text-sm font-semibold text-white">Penyimpanan File</p>
+                            <p className="text-xs text-green-400 font-medium">Operasional</p>
                             <p className="text-xs text-gray-400 mt-1">99.9% uptime</p>
                         </div>
                         <div className="text-center p-4 rounded-xl bg-yellow-900/30 border border-yellow-600/30">
-                            <div className="w-4 h-4 bg-yellow-500 rounded-full mx-auto mb-3 animate-pulse"></div>
-                            <p className="text-sm font-semibold text-white">Email Service</p>
-                            <p className="text-xs text-yellow-400 font-medium">Degraded Performance</p>
-                            <p className="text-xs text-gray-400 mt-1">Investigating...</p>
+                            <div className="w-4 h-4 bg-yellow-500 rounded-full mx-auto mb-3 animate-pulse"></div>                            <p className="text-sm font-semibold text-white">Layanan Email</p>
+                            <p className="text-xs text-yellow-400 font-medium">Kinerja Menurun</p>
+                            <p className="text-xs text-gray-400 mt-1">Sedang diselidiki...</p>
                         </div>
                     </div>
                     <div className="mt-6 pt-6 border-t border-gray-700/50">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center space-x-2">
-                                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                                <span className="text-sm text-gray-300">All systems operational</span>
+                                <div className="w-2 h-2 bg-green-500 rounded-full"></div>                                <span className="text-sm text-gray-300">Semua sistem operasional</span>
                             </div>
                             <button className="text-sm text-blue-400 hover:text-blue-300 font-medium">
-                                View status page
+                                Lihat halaman status
                             </button>
                         </div>
                     </div>

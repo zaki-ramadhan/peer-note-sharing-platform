@@ -45,10 +45,9 @@ const NotFoundPage = () => {
                                 <li className="flex items-center gap-2">
                                     <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
                                     Gunakan fitur pencarian untuk menemukan catatan
-                                </li>
-                                <li className="flex items-center gap-2">
+                                </li>                                <li className="flex items-center gap-2">
                                     <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
-                                    Kunjungi halaman utama NoteShare
+                                    Kunjungi halaman utama PeerNote
                                 </li>
                             </ul>
                         </div>
@@ -86,22 +85,21 @@ const NotFoundPage = () => {
 
                 {/* Popular Links */}
                 <div className="text-center">
-                    <p className="text-sm text-gray-500 mb-4">Halaman populer:</p>
-                    <div className="flex flex-wrap justify-center gap-4 text-sm">
+                    <p className="text-sm text-gray-500 mb-4">Halaman populer:</p>                    <div className="flex flex-wrap justify-center gap-4 text-sm">
                         <Link to="/dashboard" className="text-blue-600 hover:text-blue-700 hover:underline">
                             Dashboard
                         </Link>
                         <Link to="/notes" className="text-blue-600 hover:text-blue-700 hover:underline">
-                            Browse Notes
+                            Jelajahi Catatan
                         </Link>
                         <Link to="/upload" className="text-blue-600 hover:text-blue-700 hover:underline">
-                            Upload Note
+                            Upload Catatan
                         </Link>
                         <Link to="/forum" className="text-blue-600 hover:text-blue-700 hover:underline">
                             Forum
                         </Link>
                         <Link to="/leaderboard" className="text-blue-600 hover:text-blue-700 hover:underline">
-                            Leaderboard
+                            Papan Peringkat
                         </Link>
                     </div>
                 </div>

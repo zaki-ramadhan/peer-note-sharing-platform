@@ -9,8 +9,8 @@ const ConfirmationModal = ({
     title,
     message,
     type = 'warning', // 'warning', 'danger', 'info', 'success'
-    confirmText = 'Confirm',
-    cancelText = 'Cancel',
+    confirmText = 'Konfirmasi',
+    cancelText = 'Batal',
     loading = false
 }) => {
     const getIcon = () => {

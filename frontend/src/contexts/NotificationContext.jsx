@@ -16,34 +16,33 @@ export const NotificationProvider = ({ children }) => {
                 setUnreadCount(parsed.filter(n => !n.read).length);
             } else {
                 // Initialize with some demo notifications
-                const demoNotifications = [
-                    {
-                        id: '1',
-                        type: 'download',
-                        title: 'Note Downloaded',
-                        message: 'Your download of "Introduction to Calculus" is complete',
-                        timestamp: new Date(Date.now() - 2 * 60 * 1000).toISOString(),
-                        read: false,
-                        icon: '📥'
-                    },
-                    {
-                        id: '2',
-                        type: 'rating',
-                        title: 'New Rating',
-                        message: 'Someone rated your note "Physics Formula Sheet" 5 stars!',
-                        timestamp: new Date(Date.now() - 15 * 60 * 1000).toISOString(),
-                        read: false,
-                        icon: '⭐'
-                    },
-                    {
-                        id: '3',
-                        type: 'favorite',
-                        title: 'Note Favorited',
-                        message: 'Your note "Chemistry Lab Report" was added to favorites',
-                        timestamp: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
-                        read: true,
-                        icon: '❤️'
-                    }
+                const demoNotifications = [{
+                    id: '1',
+                    type: 'download',
+                    title: 'Catatan Diunduh',
+                    message: 'Unduhan Anda untuk "Pengantar Kalkulus" telah selesai',
+                    timestamp: new Date(Date.now() - 2 * 60 * 1000).toISOString(),
+                    read: false,
+                    icon: '📥'
+                },
+                {
+                    id: '2',
+                    type: 'rating',
+                    title: 'Penilaian Baru',
+                    message: 'Seseorang menilai catatan Anda "Lembar Rumus Fisika" dengan 5 bintang!',
+                    timestamp: new Date(Date.now() - 15 * 60 * 1000).toISOString(),
+                    read: false,
+                    icon: '⭐'
+                },
+                {
+                    id: '3',
+                    type: 'favorite',
+                    title: 'Catatan Difavoritkan',
+                    message: 'Catatan Anda "Laporan Lab Kimia" ditambahkan ke favorit',
+                    timestamp: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
+                    read: true,
+                    icon: '❤️'
+                }
                 ];
                 setNotifications(demoNotifications);
                 setUnreadCount(demoNotifications.filter(n => !n.read).length);

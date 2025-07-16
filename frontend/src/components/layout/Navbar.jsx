@@ -29,14 +29,12 @@ const Navbar = () => {
     const [isNotificationOpen, setIsNotificationOpen] = useState(false);
     const location = useLocation();
     const { user, logout, loading: authLoading } = useAuth();
-    const { unreadCount } = useNotifications();
-
-    const navigationItems = [
-        { name: 'Dashboard', href: '/dashboard', icon: Home },
-        { name: 'Browse Notes', href: '/notes', icon: BookOpen },
+    const { unreadCount } = useNotifications(); const navigationItems = [
+        { name: 'Dasbor', href: '/dashboard', icon: Home },
+        { name: 'Jelajahi Catatan', href: '/notes', icon: BookOpen },
         { name: 'Upload', href: '/upload', icon: Upload },
         { name: 'Forum', href: '/forum', icon: MessageSquare },
-        { name: 'Leaderboard', href: '/leaderboard', icon: TrendingUp }
+        { name: 'Papan Peringkat', href: '/leaderboard', icon: TrendingUp }
     ]; const isActive = (path) => location.pathname === path; const handleLogout = async () => {
         const result = await logout(); if (result.success) {
             setShowLogoutModal(false);
@@ -78,9 +76,8 @@ const Navbar = () => {
                                 <BookOpen className="h-6 w-6 text-white" />
                             </div>
                                 <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl opacity-30 blur-lg group-hover:opacity-60 transition-opacity duration-300"></div>
-                            </div>
-                            <span className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                                NoteShare
+                            </div>                            <span className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+                                PeerNote
                             </span>
                         </Link>
 
@@ -108,11 +105,10 @@ const Navbar = () => {
                     </div>                    {/* Search and User Menu */}
                     <div className="flex items-center space-x-2 lg:space-x-4">                        {/* Search Bar */}
                         <div className="hidden md:block relative search-container">
-                            <div className="relative">
-                                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-900" />
+                            <div className="relative">                                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-900" />
                                 <input
                                     type="text"
-                                    placeholder="Search notes..."
+                                    placeholder="Cari catatan..."
                                     value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
                                     onFocus={() => setIsSearchOpen(true)}
                                     onKeyDown={(e) => {
@@ -174,27 +170,25 @@ const Navbar = () => {
                                         <div className="px-4 py-3 border-b border-gray-100">
                                             <p className="lg:text-sm font-semibold lg:font-medium text-gray-900 truncate">{user.name}</p>
                                             <p className="lg:text-xs text-gray-500 truncate">{user.email}</p>
-                                        </div>
-                                        <Link
+                                        </div>                                        <Link
                                             to="/profile"
                                             className="flex items-center px-4 py-2 lg:text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
                                             onClick={() => setIsProfileMenuOpen(false)}
                                         >
                                             <User className="w-5 h-5 lg:h-4 lg:w-4 mr-3" />
-                                            Profile
-                                        </Link>                                    <Link
+                                            Profil
+                                        </Link><Link
                                             to="/settings"
                                             className="flex items-center px-4 py-2 lg:text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
                                             onClick={() => setIsProfileMenuOpen(false)}
                                         >                                            <Settings className="w-5 h-5 lg:h-4 lg:w-4 mr-3" />
-                                            Settings
+                                            Pengaturan
                                         </Link>                                    <Link
                                             to="/favorites"
                                             className="flex items-center px-4 py-2  lg:text-sm text-gray-700 hover:bg-blue-50/50 hover:text-blue-600 transition-colors"
                                             onClick={() => setIsProfileMenuOpen(false)}
-                                        >
-                                            <Star className="w-5 h-5 lg:h-4 lg:w-4 mr-3" />
-                                            My Favorites
+                                        >                                            <Star className="w-5 h-5 lg:h-4 lg:w-4 mr-3" />
+                                            Favorit Saya
                                         </Link>
                                         {/* Admin Access - Only show for admin users */}
                                         {user?.role === 'admin' && (
@@ -202,9 +196,8 @@ const Navbar = () => {
                                                 to="/admin"
                                                 className="flex items-center px-4 py-2 lg:text-sm text-purple-700 hover:bg-purple-50/50 hover:text-purple-800 transition-colors"
                                                 onClick={() => setIsProfileMenuOpen(false)}
-                                            >
-                                                <Settings className="w-5 h-5 lg:h-4 lg:w-4 mr-3" />
-                                                Admin Panel
+                                            >                                                <Settings className="w-5 h-5 lg:h-4 lg:w-4 mr-3" />
+                                                Panel Admin
                                             </Link>
                                         )}
                                         <hr className="my-2 border-gray-100" /><button
@@ -213,23 +206,21 @@ const Navbar = () => {
                                                 setShowLogoutModal(true);
                                             }}
                                             className="flex items-center w-full px-4 py-2 lg:text-sm text-red-600 hover:bg-red-50/50 transition-colors"
-                                        >
-                                            <LogOut className="h-5 w-5 lg:h-4 lg:w-4 mr-3" />
-                                            Sign out
+                                        >                                            <LogOut className="h-5 w-5 lg:h-4 lg:w-4 mr-3" />
+                                            Keluar
                                         </button>
                                     </div>
                                 )}
                             </div>
                         ) : (
-                            <div className="flex items-center space-x-3">
-                                <Link to="/login">
-                                    <Button variant="ghost" size="sm" className="font-medium">
-                                        Login
-                                    </Button>
-                                </Link>
+                            <div className="flex items-center space-x-3">                                <Link to="/login">
+                                <Button variant="ghost" size="sm" className="font-medium">
+                                    Masuk
+                                </Button>
+                            </Link>
                                 <Link to="/register">
                                     <Button size="sm" className="font-medium min-w-fit">
-                                        Sign Up
+                                        Daftar
                                     </Button>
                                 </Link>
                             </div>
@@ -249,11 +240,10 @@ const Navbar = () => {
                 <div className="lg:hidden border-t border-gray-200/50 bg-white/95 backdrop-blur-xl">
                     <div className="px-4 pt-4 pb-6 space-y-2">                        {/* Mobile Search */}
                         <div className="mb-4 md:hidden search-container relative">
-                            <div className="relative">
-                                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                            <div className="relative">                                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                                 <input
                                     type="text"
-                                    placeholder="Search notes..."
+                                    placeholder="Cari catatan..."
                                     value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
                                     onFocus={() => setIsSearchOpen(true)}
                                     onKeyDown={(e) => {

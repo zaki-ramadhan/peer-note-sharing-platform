@@ -30,19 +30,17 @@ const NotificationDropdown = ({ isOpen, onClose }) => {
             const diffMs = now - date;
             const diffMins = Math.floor(diffMs / (1000 * 60));
             const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-            const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
-            if (diffDays > 0) {
-                return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+            const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24)); if (diffDays > 0) {
+                return `${diffDays} hari lalu`;
             } else if (diffHours > 0) {
-                return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+                return `${diffHours} jam lalu`;
             } else if (diffMins > 0) {
-                return `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`;
+                return `${diffMins} menit lalu`;
             } else {
-                return 'just now';
+                return 'baru saja';
             }
         } catch {
-            return 'just now';
+            return 'baru saja';
         }
     };
 
@@ -62,36 +60,32 @@ const NotificationDropdown = ({ isOpen, onClose }) => {
     return (
         <div className="absolute top-full right-0 mt-2 w-96 bg-white rounded-2xl shadow-xl border border-gray-200 max-h-96 z-50 font-['Hanken_Grotesk']">
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-gray-100">
-                <div>
-                    <h3 className="text-lg font-semibold text-gray-900">Notifications</h3>
-                    {unreadCount > 0 && (
-                        <p className="text-sm text-gray-500">{unreadCount} unread notifications</p>
-                    )}
-                </div>
+            <div className="flex items-center justify-between p-4 border-b border-gray-100">                <div>
+                <h3 className="text-lg font-semibold text-gray-900">Notifikasi</h3>
+                {unreadCount > 0 && (
+                    <p className="text-sm text-gray-500">{unreadCount} notifikasi belum dibaca</p>
+                )}
+            </div>
                 <div className="flex items-center space-x-2">
-                    {unreadCount > 0 && (
-                        <button
-                            onClick={markAllAsRead}
-                            className="text-sm text-blue-600 hover:text-blue-700 font-medium"
-                            title="Mark all as read"
-                        >
-                            <CheckCheck className="h-4 w-4" />
-                        </button>
+                    {unreadCount > 0 && (<button
+                        onClick={markAllAsRead}
+                        className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                        title="Tandai semua telah dibaca"
+                    >
+                        <CheckCheck className="h-4 w-4" />
+                    </button>
                     )}
-                    {notifications.length > 0 && (
-                        <button
-                            onClick={clearAllNotifications}
-                            className="text-sm text-gray-400 hover:text-red-600 font-medium"
-                            title="Clear all notifications"
-                        >
-                            <Trash2 className="h-4 w-4" />
-                        </button>
-                    )}
-                    <button
+                    {notifications.length > 0 && (<button
+                        onClick={clearAllNotifications}
+                        className="text-sm text-gray-400 hover:text-red-600 font-medium"
+                        title="Hapus semua notifikasi"
+                    >
+                        <Trash2 className="h-4 w-4" />
+                    </button>
+                    )}                    <button
                         onClick={onClose}
                         className="text-gray-400 hover:text-gray-600"
-                        title="Close"
+                        title="Tutup"
                     >
                         <X className="h-4 w-4" />
                     </button>
@@ -102,10 +96,9 @@ const NotificationDropdown = ({ isOpen, onClose }) => {
             <div className="max-h-80 overflow-y-auto">
                 {notifications.length === 0 ? (
                     <div className="p-6 text-center">
-                        <Bell className="h-12 w-12 text-gray-300 mx-auto mb-3" />
-                        <h3 className="text-sm font-medium text-gray-900 mb-1">No notifications</h3>
+                        <Bell className="h-12 w-12 text-gray-300 mx-auto mb-3" />                        <h3 className="text-sm font-medium text-gray-900 mb-1">Tidak ada notifikasi</h3>
                         <p className="text-xs text-gray-500">
-                            You're all caught up! No new notifications.
+                            Anda sudah melihat semua! Tidak ada notifikasi baru.
                         </p>
                     </div>
                 ) : (
@@ -137,19 +130,17 @@ const NotificationDropdown = ({ isOpen, onClose }) => {
                                         </div>
 
                                         <div className="flex items-center space-x-1 ml-2">
-                                            {!notification.read && (
-                                                <button
-                                                    onClick={(e) => handleMarkAsRead(e, notification.id)}
-                                                    className="text-blue-600 hover:text-blue-700"
-                                                    title="Mark as read"
-                                                >
-                                                    <Check className="h-3 w-3" />
-                                                </button>
-                                            )}
-                                            <button
+                                            {!notification.read && (<button
+                                                onClick={(e) => handleMarkAsRead(e, notification.id)}
+                                                className="text-blue-600 hover:text-blue-700"
+                                                title="Tandai telah dibaca"
+                                            >
+                                                <Check className="h-3 w-3" />
+                                            </button>
+                                            )}                                            <button
                                                 onClick={(e) => handleClearNotification(e, notification.id)}
                                                 className="text-gray-400 hover:text-red-600"
-                                                title="Clear notification"
+                                                title="Hapus notifikasi"
                                             >
                                                 <X className="h-3 w-3" />
                                             </button>

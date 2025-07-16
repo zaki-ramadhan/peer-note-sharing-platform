@@ -54,24 +54,22 @@ const RegisterPage = () => {
                     <Link to="/" className="inline-flex items-center space-x-3 group">
                         <div className="p-3 bg-blue-600 rounded-xl shadow-md group- transition-shadow">
                             <BookOpen className="h-8 w-8 text-white" />
-                        </div>
-                        <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                            NoteShare
+                        </div>                        <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                            PeerNote
                         </span>
                     </Link>
                 </div>
 
                 {/* Register Card */}
                 <Card className="backdrop-blur-sm bg-white/80 border-0 shadow-md">
-                    <CardContent className="p-8">
-                        <div className="text-center mb-8">
-                            <h1 className="text-3xl font-bold text-slate-800 mb-2">
-                                Bergabung dengan NoteShare
-                            </h1>
-                            <p className="text-slate-600">
-                                Mulai perjalanan pembelajaran Anda bersama ribuan mahasiswa
-                            </p>
-                        </div>
+                    <CardContent className="p-8">                        <div className="text-center mb-8">
+                        <h1 className="text-3xl font-bold text-slate-800 mb-2">
+                            Bergabung dengan PeerNote
+                        </h1>
+                        <p className="text-slate-600">
+                            Mulai perjalanan pembelajaran Anda bersama ribuan mahasiswa
+                        </p>
+                    </div>
 
                         {error && (
                             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">

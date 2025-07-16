@@ -51,14 +51,12 @@ const Dashboard = () => {
                 .sort((a, b) => b.points - a.points)
                 .slice(0, 5)
                 .map((user, index) => ({ ...user, rank: index + 1 }))
-        );
-
-        setRecentActivity([
+        ); setRecentActivity([
             {
                 id: 1,
                 type: 'upload',
-                message: 'Successfully uploaded "Advanced Algorithms"',
-                time: '2 hours ago',
+                message: 'Berhasil mengunggah "Advanced Algorithms"',
+                time: '2 jam yang lalu',
                 points: '+15',
                 icon: BookOpen,
                 color: 'blue'
@@ -66,8 +64,8 @@ const Dashboard = () => {
             {
                 id: 2,
                 type: 'download',
-                message: 'Your note received 5 new downloads',
-                time: '4 hours ago',
+                message: 'Catatan Anda menerima 5 unduhan baru',
+                time: '4 jam yang lalu',
                 points: '+10',
                 icon: TrendingUp,
                 color: 'green'
@@ -75,8 +73,8 @@ const Dashboard = () => {
             {
                 id: 3,
                 type: 'review',
-                message: 'Received 5-star review on "Data Structures"',
-                time: '1 day ago',
+                message: 'Menerima ulasan 5 bintang pada "Data Structures"',
+                time: '1 hari yang lalu',
                 points: '+8',
                 icon: Award,
                 color: 'orange'
@@ -84,8 +82,8 @@ const Dashboard = () => {
             {
                 id: 4,
                 type: 'achievement',
-                message: 'Unlocked "Knowledge Sharer" badge',
-                time: '2 days ago',
+                message: 'Membuka lencana "Knowledge Sharer"',
+                time: '2 hari yang lalu',
                 points: '+25',
                 icon: Trophy,
                 color: 'purple'
@@ -119,7 +117,7 @@ const Dashboard = () => {
                                 <div className={`flex items-center space-x-1 lg:text-sm ${trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>
                                     <ArrowUpRight className={`w-6 lg:w-4 h-6 lg:h-4 ${trend === 'down' ? 'rotate-90' : ''}`} />
                                     <span className="font-medium">{change}</span>
-                                    <span className="text-gray-500 hidden sm:inline">vs last month</span>
+                                    <span className="text-gray-500 hidden sm:inline">vs bulan lalu</span>
                                 </div>
                             )}
                         </div>                        <div className={`relative p-3 lg:p-4 ${colorVariants[color]} rounded-2xl shadow-md transition-all duration-300 flex-shrink-0`}>
@@ -144,33 +142,31 @@ const Dashboard = () => {
             default:
                 return <Trophy className={`${iconProps} text-blue-500`} />;
         }
-    };
-
-    const quickActions = [
+    }; const quickActions = [
         {
-            title: 'Upload Note',
-            description: 'Share your knowledge',
+            title: 'Unggah Catatan',
+            description: 'Bagikan pengetahuan Anda',
             icon: BookOpen,
             color: 'blue',
             href: '/upload'
         },
         {
-            title: 'Browse Notes',
-            description: 'Discover new materials',
+            title: 'Jelajahi Catatan',
+            description: 'Temukan materi baru',
             icon: TrendingUp,
             color: 'green',
             href: '/notes'
         },
         {
-            title: 'Join Discussion',
-            description: 'Connect with peers',
+            title: 'Ikut Diskusi',
+            description: 'Terhubung dengan teman',
             icon: Users,
             color: 'purple',
             href: '/forum'
         },
         {
-            title: 'View Rankings',
-            description: 'Check leaderboard',
+            title: 'Lihat Peringkat',
+            description: 'Cek papan peringkat',
             icon: Award,
             color: 'orange',
             href: '/leaderboard'
@@ -178,29 +174,26 @@ const Dashboard = () => {
     ]; return (<Layout user={currentUser}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-12 font-['Hanken_Grotesk']">
             {/* Welcome Hero Section */}
-            <div className="mb-8 lg:mb-12 text-center ">
-                <div data-aos="fade-up" className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full px-4 py-2 mb-4 lg:mb-6">
-                    <Sparkles className="w-4 h-4 text-blue-600" />
-                    <span className="text-sm font-medium text-blue-700">Welcome back!</span>
-                </div>
-                <h1 data-aos="fade-up" className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent mb-4">
-                    Hello, {currentUser.name}!
+            <div className="mb-8 lg:mb-12 text-center ">                <div data-aos="fade-up" className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full px-4 py-2 mb-4 lg:mb-6">
+                <Sparkles className="w-4 h-4 text-blue-600" />
+                <span className="text-sm font-medium text-blue-700">Selamat datang kembali!</span>
+            </div><h1 data-aos="fade-up" className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent mb-4">
+                    Halo, {currentUser.name}!
                 </h1>
                 <p data-aos="fade-up" className="text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto px-4">
-                    Ready to continue your learning journey? Let's explore and share knowledge together.
+                    Siap melanjutkan perjalanan belajar Anda? Mari jelajahi dan bagikan pengetahuan bersama.
                 </p>
             </div>{/* Stats Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-8 lg:mb-12  ">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-8 lg:mb-12  ">                <StatCard
+                title="Total Catatan"
+                value={stats.totalNotes}
+                icon={BookOpen}
+                change="+12.5%"
+                color="blue"
+                trend="up"
+            />
                 <StatCard
-                    title="Total Notes"
-                    value={stats.totalNotes}
-                    icon={BookOpen}
-                    change="+12.5%"
-                    color="blue"
-                    trend="up"
-                />
-                <StatCard
-                    title="Active Users"
+                    title="Pengguna Aktif"
                     value={stats.totalUsers}
                     icon={Users}
                     change="+8.3%"
@@ -208,7 +201,7 @@ const Dashboard = () => {
                     trend="up"
                 />
                 <StatCard
-                    title="Total Downloads"
+                    title="Total Unduhan"
                     value={stats.totalDownloads}
                     icon={TrendingUp}
                     change="+23.1%"
@@ -216,7 +209,7 @@ const Dashboard = () => {
                     trend="up"
                 />
                 <StatCard
-                    title="Your Points"
+                    title="Poin Anda"
                     value={stats.userPoints}
                     icon={Award}
                     change="+45 pts"
@@ -228,13 +221,11 @@ const Dashboard = () => {
                 <div data-aos="fade-up" data-aos-delay="400" className="lg:col-span-2">
                     <Card variant="elevated">
                         <CardHeader className="border-b border-gray-100/50 p-4 sm:p-6">
-                            <div className="flex items-center justify-between">
-                                <CardTitle className="flex items-center space-x-2">
-                                    <Activity className="w-5 h-5 text-blue-600" />
-                                    <span>Recent Activity</span>
-                                </CardTitle>
-                                <Badge variant="secondary" className="text-lg">
-                                    Live
+                            <div className="flex items-center justify-between">                            <CardTitle className="flex items-center space-x-2">
+                                <Activity className="w-5 h-5 text-blue-600" />
+                                <span>Aktivitas Terbaru</span>
+                            </CardTitle>                                <Badge variant="secondary" className="text-lg">
+                                    Langsung
                                 </Badge>
                             </div>
                         </CardHeader>
@@ -272,11 +263,10 @@ const Dashboard = () => {
                 {/* Top Uploaders */}
                 <div data-aos="fade-up" data-aos-delay="300" className=" ">
                     <Card variant="elevated">
-                        <CardHeader className="p-4 sm:p-6">
-                            <CardTitle className="flex items-center space-x-2">
-                                <Trophy className="w-5 h-5 text-yellow-500" />
-                                <span>Top Contributors</span>
-                            </CardTitle>
+                        <CardHeader className="p-4 sm:p-6">                            <CardTitle className="flex items-center space-x-2">
+                            <Trophy className="w-5 h-5 text-yellow-500" />
+                            <span>Kontributor Teratas</span>
+                        </CardTitle>
                         </CardHeader>
                         <CardContent className="p-4 sm:p-6 pt-0">
                             <div className="space-y-3 lg:space-y-2.5 sm:space-y-4">
@@ -294,9 +284,8 @@ const Dashboard = () => {
                                         />                                            <div className="flex-1 min-w-0">
                                             <p className="font-medium text-gray-900 truncate">
                                                 {user.name}
-                                            </p>
-                                            <p className="text-sm text-gray-500 truncate">
-                                                {user.uploadCount} notes • {user.university}
+                                            </p>                                            <p className="text-sm text-gray-500 truncate">
+                                                {user.uploadCount} catatan • {user.university}
                                             </p>
                                         </div>
                                         <Badge variant="primary" className="flex items-center space-x-1 flex-shrink-0">
@@ -314,11 +303,10 @@ const Dashboard = () => {
             {/* Quick Actions */}
             <div data-aos="fade-up" data-aos-delay="300" className="mt-8 lg:mt-12  00">
                 <Card variant="gradient">
-                    <CardHeader className="p-4 sm:p-6">
-                        <CardTitle className="flex items-center space-x-2">
-                            <Target className="w-5 h-5 text-purple-600" />
-                            <span>Quick Actions</span>
-                        </CardTitle>
+                    <CardHeader className="p-4 sm:p-6">                        <CardTitle className="flex items-center space-x-2">
+                        <Target className="w-5 h-5 text-purple-600" />
+                        <span>Aksi Cepat</span>
+                    </CardTitle>
                     </CardHeader>
                     <CardContent className="p-4 sm:p-6 pt-0">
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">{quickActions.map((action, index) => {

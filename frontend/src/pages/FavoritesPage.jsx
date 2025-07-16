@@ -80,9 +80,8 @@ const FavoritesPage = () => {
             <Layout user={user}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                     <div className="flex items-center justify-center min-h-96">
-                        <div className="text-center">
-                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                            <p className="text-gray-600">Loading your favorite notes...</p>
+                        <div className="text-center">                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                            <p className="text-gray-600">Memuat catatan favorit Anda...</p>
                         </div>
                     </div>
                 </div>
@@ -104,10 +103,10 @@ const FavoritesPage = () => {
                         </Link>
                         <div>
                             <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent">
-                                My Favorite Notes
+                                Catatan Favorit Saya
                             </h1>
                             <p className="text-gray-600 mt-2">
-                                Your collection of starred notes ({favoriteCount} items)
+                                Koleksi catatan yang Anda bintangi ({favoriteCount} item)
                             </p>
                         </div>
                     </div>
@@ -117,28 +116,28 @@ const FavoritesPage = () => {
                         <Card className="p-4 text-center bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200/50">
                             <Star className="h-6 w-6 text-yellow-500 mx-auto mb-2" />
                             <div className="text-xl font-bold text-blue-600">{favoriteCount}</div>
-                            <div className="text-sm text-blue-700">Favorites</div>
+                            <div className="text-sm text-blue-700">Favorit</div>
                         </Card>
                         <Card className="p-4 text-center bg-gradient-to-br from-green-50 to-emerald-50 border-green-200/50">
                             <Download className="h-6 w-6 text-green-600 mx-auto mb-2" />
                             <div className="text-xl font-bold text-green-600">
                                 {favoriteNotes.reduce((sum, note) => sum + (note.downloadCount || 0), 0).toLocaleString()}
                             </div>
-                            <div className="text-sm text-green-700">Total Downloads</div>
+                            <div className="text-sm text-green-700">Total Unduhan</div>
                         </Card>
                         <Card className="p-4 text-center bg-gradient-to-br from-purple-50 to-violet-50 border-purple-200/50">
                             <BookOpen className="h-6 w-6 text-purple-600 mx-auto mb-2" />
                             <div className="text-xl font-bold text-purple-600">
                                 {Array.from(new Set(favoriteNotes.map(note => note.subject))).length}
                             </div>
-                            <div className="text-sm text-purple-700">Subjects</div>
+                            <div className="text-sm text-purple-700">Mata Pelajaran</div>
                         </Card>
                         <Card className="p-4 text-center bg-gradient-to-br from-orange-50 to-amber-50 border-orange-200/50">
                             <Sparkles className="h-6 w-6 text-orange-600 mx-auto mb-2" />
                             <div className="text-xl font-bold text-orange-600">
                                 {favoriteNotes.length > 0 ? (favoriteNotes.reduce((sum, note) => sum + (note.averageRating || 0), 0) / favoriteNotes.length).toFixed(1) : '0.0'}
                             </div>
-                            <div className="text-sm text-orange-700">Avg Rating</div>
+                            <div className="text-sm text-orange-700">Rating Rata-rata</div>
                         </Card>
                     </div>
                 </div>
@@ -153,17 +152,16 @@ const FavoritesPage = () => {
                         </div>
 
                         <div className="flex items-center gap-3">
-                            <label className="text-sm font-medium text-gray-700">Sort by:</label>
+                            <label className="text-sm font-medium text-gray-700">Urutkan berdasarkan:</label>
                             <select
                                 value={sortBy}
                                 onChange={(e) => setSortBy(e.target.value)}
                                 className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            >
-                                <option value="newest">Latest Added</option>
-                                <option value="oldest">Oldest First</option>
-                                <option value="rating">Highest Rated</option>
-                                <option value="downloads">Most Downloaded</option>
-                                <option value="title">Title (A-Z)</option>
+                            >                                <option value="newest">Terbaru Ditambahkan</option>
+                                <option value="oldest">Terlama Ditambahkan</option>
+                                <option value="rating">Rating Tertinggi</option>
+                                <option value="downloads">Paling Banyak Diunduh</option>
+                                <option value="title">Judul (A-Z)</option>
                             </select>
                         </div>
                     </div>
@@ -179,24 +177,21 @@ const FavoritesPage = () => {
                             <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center">
                                 <Star className="w-4 h-4 text-white" />
                             </div>
-                        </div>
-                        <h3 className="text-3xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent mb-4">
-                            No favorite notes yet
+                        </div>                        <h3 className="text-3xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent mb-4">
+                            Belum ada catatan favorit
                         </h3>
                         <p className="text-lg text-gray-500 mb-8 max-w-md mx-auto leading-relaxed">
-                            Start exploring and star the notes you love to build your personal collection of quality study materials.
+                            Mulai jelajahi dan bintangi catatan yang Anda sukai untuk membangun koleksi pribadi materi belajar berkualitas.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link to="/notes">
-                                <Button variant="gradient" size="lg" className="px-8 py-4">
-                                    <Search className="w-5 h-5 mr-2 inline" />
-                                    Browse Notes
+                                <Button variant="gradient" size="lg" className="px-8 py-4">                                    <Search className="w-5 h-5 mr-2 inline" />
+                                    Jelajahi Catatan
                                 </Button>
                             </Link>
                             <Link to="/upload">
-                                <Button variant="outline" size="lg" className="px-8 py-4">
-                                    <BookOpen className="w-5 h-5 mr-2 inline" />
-                                    Upload Note
+                                <Button variant="outline" size="lg" className="px-8 py-4">                                    <BookOpen className="w-5 h-5 mr-2 inline" />
+                                    Upload Catatan
                                 </Button>
                             </Link>
                         </div>

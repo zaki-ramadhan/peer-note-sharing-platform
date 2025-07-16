@@ -129,14 +129,12 @@ const SettingsPage = () => {
             alert('Akun berhasil dihapus secara permanen.');
             // In real app, redirect to home
         }, 2000);
-    };
-
-    const tabs = [
-        { id: 'profile', label: 'Profile', icon: User },
-        { id: 'security', label: 'Security', icon: Lock },
-        { id: 'notifications', label: 'Notifications', icon: Bell },
-        { id: 'privacy', label: 'Privacy', icon: Eye },
-        { id: 'account', label: 'Account', icon: Shield }
+    }; const tabs = [
+        { id: 'profile', label: 'Profil', icon: User },
+        { id: 'security', label: 'Keamanan', icon: Lock },
+        { id: 'notifications', label: 'Notifikasi', icon: Bell },
+        { id: 'privacy', label: 'Privasi', icon: Eye },
+        { id: 'account', label: 'Akun', icon: Shield }
     ];
 
     return (
@@ -145,9 +143,8 @@ const SettingsPage = () => {
                 {/* Header */}
                 <div
                     className="mb-8"
-                >
-                    <h1 data-aos="fade-up" className="text-3xl font-bold text-gray-900 mb-2">Settings</h1>
-                    <p data-aos="fade-up" className="text-gray-600">Manage your account settings and preferences</p>
+                >                    <h1 data-aos="fade-up" className="text-3xl font-bold text-gray-900 mb-2">Pengaturan</h1>
+                    <p data-aos="fade-up" className="text-gray-600">Kelola pengaturan akun dan preferensi Anda</p>
                 </div>
 
                 <div className="flex flex-col lg:flex-row gap-8">
@@ -185,7 +182,7 @@ const SettingsPage = () => {
                         {activeTab === 'profile' && (<div data-aos="fade-up" data-aos-delay="200"
                             className="bg-white rounded-xl shadow-sm p-8"
                         >
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-6">Profile Information</h2>
+                            <h2 className="text-2xl font-semibold text-gray-900 mb-6">Informasi Profil</h2>
 
                             <form onSubmit={handleProfileSubmit} className="space-y-6">
                                 {/* Avatar Upload */}
@@ -203,9 +200,9 @@ const SettingsPage = () => {
                                             className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
                                         >
                                             <Camera className="w-4 h-4" />
-                                            Change Avatar
+                                            Ubah Avatar
                                         </button>                                            <p className="text-sm text-gray-500 mt-3">
-                                            JPG, PNG or GIF. Max size 2MB.
+                                            JPG, PNG atau GIF. Maksimal 2MB.
                                         </p>
                                     </div>
                                 </div>
@@ -214,10 +211,9 @@ const SettingsPage = () => {
                                     className="grid grid-cols-1 md:grid-cols-2 gap-6"
                                     data-aos="fade-up"
                                     data-aos-delay="200"
-                                >                                        <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                                            Full Name
-                                        </label>
+                                >                                        <div>                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Nama Lengkap
+                                </label>
                                         <input
                                             type="text"
                                             value={profileData.name}
@@ -226,10 +222,9 @@ const SettingsPage = () => {
                                         />
                                     </div>
 
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                                            Email Address
-                                        </label>
+                                    <div>                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Alamat Email
+                                    </label>
                                         <input
                                             type="email"
                                             value={profileData.email}
@@ -238,10 +233,9 @@ const SettingsPage = () => {
                                         />
                                     </div>
 
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                                            Phone Number
-                                        </label>
+                                    <div>                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Nomor Telepon
+                                    </label>
                                         <input
                                             type="tel"
                                             value={profileData.phone}
@@ -250,10 +244,9 @@ const SettingsPage = () => {
                                         />
                                     </div>
 
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                                            Location
-                                        </label>
+                                    <div>                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Lokasi
+                                    </label>
                                         <input
                                             type="text"
                                             value={profileData.location}
@@ -262,10 +255,9 @@ const SettingsPage = () => {
                                         />
                                     </div>
 
-                                    <div className="md:col-span-2">
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                                            Website
-                                        </label>
+                                    <div className="md:col-span-2">                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Situs Web
+                                    </label>
                                         <input
                                             type="url"
                                             value={profileData.website}
@@ -283,7 +275,7 @@ const SettingsPage = () => {
                                             value={profileData.bio}
                                             onChange={(e) => setProfileData({ ...profileData, bio: e.target.value })}
                                             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                                            placeholder="Tell us about yourself..."
+                                            placeholder="Ceritakan tentang diri Anda..."
                                         />
                                     </div>
                                 </div>                                    <div
@@ -292,9 +284,8 @@ const SettingsPage = () => {
                                     <button
                                         type="submit"
                                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors"
-                                    >
-                                        <Save className="w-4 h-4" />
-                                        Save Changes
+                                    >                                        <Save className="w-4 h-4" />
+                                        Simpan Perubahan
                                     </button>
                                 </div>
                             </form>
@@ -308,48 +299,43 @@ const SettingsPage = () => {
                                 data-aos="fade-up"
                                 data-aos-delay="200"
                             >
-                                <h2 className="text-2xl font-semibold text-gray-900 mb-6">Security Settings</h2>
+                                <h2 className="text-2xl font-semibold text-gray-900 mb-6">Pengaturan Keamanan</h2>
 
                                 <div className="space-y-8">
                                     {/* Change Password */}
                                     <div data-aos="fade-up" data-aos-delay="300">
-                                        <h3 className="text-lg font-medium text-gray-900 mb-4">Change Password</h3>
+                                        <h3 className="text-lg font-medium text-gray-900 mb-4">Ubah Kata Sandi</h3>
                                         <form onSubmit={handlePasswordSubmit} className="space-y-4">
-                                            <div>
-                                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                                    Current Password
-                                                </label>
+                                            <div>                                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                                Kata Sandi Saat Ini
+                                            </label>
                                                 <input
                                                     type="password"
                                                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                                                 />
                                             </div>
 
-                                            <div>
-                                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                                    New Password
-                                                </label>
+                                            <div>                                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                                Kata Sandi Baru
+                                            </label>
                                                 <input
                                                     type="password"
                                                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                                                 />
                                             </div>
 
-                                            <div>
-                                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                                    Confirm New Password
-                                                </label>
+                                            <div>                                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                                Konfirmasi Kata Sandi Baru
+                                            </label>
                                                 <input
                                                     type="password"
                                                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                                                 />
-                                            </div>
-
-                                            <button
+                                            </div>                                            <button
                                                 type="submit"
                                                 className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors"
                                             >
-                                                Update Password
+                                                Perbarui Kata Sandi
                                             </button>
                                         </form>
                                     </div>                                    {/* Two-Factor Authentication */}
@@ -357,17 +343,16 @@ const SettingsPage = () => {
                                         className="pt-8 border-t"
                                         data-aos="fade-up"
                                         data-aos-delay="500"
-                                    >
-                                        <h3 className="text-lg font-medium text-gray-900 mb-4">Two-Factor Authentication</h3>
+                                    >                                        <h3 className="text-lg font-medium text-gray-900 mb-4">Autentikasi Dua Faktor</h3>
                                         <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                                             <div>
-                                                <p className="font-medium text-gray-900">SMS Authentication</p>
-                                                <p className="text-sm text-gray-600">Secure your account with SMS verification</p>
+                                                <p className="font-medium text-gray-900">Autentikasi SMS</p>
+                                                <p className="text-sm text-gray-600">Amankan akun Anda dengan verifikasi SMS</p>
                                             </div>                                            <button
                                                 onClick={() => setShow2FAModal(true)}
                                                 className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors"
                                             >
-                                                Enable
+                                                Aktifkan
                                             </button>
                                         </div>
                                     </div>                                    {/* Login Sessions */}
@@ -376,19 +361,18 @@ const SettingsPage = () => {
                                         data-aos="fade-up"
                                         data-aos-delay="600"
                                     >
-                                        <h3 className="text-lg font-medium text-gray-900 mb-4">Active Sessions</h3>
+                                        <h3 className="text-lg font-medium text-gray-900 mb-4">Sesi Aktif</h3>
                                         <div className="space-y-3">
                                             <div className="flex items-center justify-between p-4 border rounded-lg">
-                                                <div>
-                                                    <p className="font-medium text-gray-900">Current Session</p>
+                                                <div>                                                    <p className="font-medium text-gray-900">Sesi Saat Ini</p>
                                                     <p className="text-sm text-gray-600">Chrome on Windows • Jakarta, Indonesia</p>
                                                 </div>
-                                                <span className="text-green-600 text-sm font-medium">Active Now</span>
+                                                <span className="text-green-600 text-sm font-medium">Aktif Sekarang</span>
                                             </div>
 
                                             <div className="flex items-center justify-between p-4 border rounded-lg">
                                                 <div>
-                                                    <p className="font-medium text-gray-900">Mobile App</p>
+                                                    <p className="font-medium text-gray-900">Aplikasi Mobile</p>
                                                     <p className="text-sm text-gray-600">Android • Last seen 2 hours ago</p>
                                                 </div>                                                <button
                                                     onClick={() => {
@@ -412,11 +396,11 @@ const SettingsPage = () => {
                                 data-aos="fade-up"
                                 data-aos-delay="200"
                             >
-                                <h2 className="text-2xl font-semibold text-gray-900 mb-6">Notification Preferences</h2>
+                                <h2 className="text-2xl font-semibold text-gray-900 mb-6">Preferensi Notifikasi</h2>
 
                                 <div className="space-y-6">
                                     <div data-aos="fade-up" data-aos-delay="300">
-                                        <h3 className="text-lg font-medium text-gray-900 mb-4">Delivery Methods</h3>
+                                        <h3 className="text-lg font-medium text-gray-900 mb-4">Metode Pengiriman</h3>
                                         <div className="space-y-4">
                                             <label className="flex items-center gap-3">
                                                 <input
@@ -428,9 +412,8 @@ const SettingsPage = () => {
                                                     })}
                                                     className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                                                 />
-                                                <div>
-                                                    <p className="font-medium text-gray-900">Email Notifications</p>
-                                                    <p className="text-sm text-gray-600">Receive notifications via email</p>
+                                                <div>                                                    <p className="font-medium text-gray-900">Notifikasi Email</p>
+                                                    <p className="text-sm text-gray-600">Terima notifikasi melalui email</p>
                                                 </div>
                                             </label>
 
@@ -444,9 +427,8 @@ const SettingsPage = () => {
                                                     })}
                                                     className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                                                 />
-                                                <div>
-                                                    <p className="font-medium text-gray-900">Push Notifications</p>
-                                                    <p className="text-sm text-gray-600">Receive push notifications in browser</p>
+                                                <div>                                                    <p className="font-medium text-gray-900">Notifikasi Push</p>
+                                                    <p className="text-sm text-gray-600">Terima notifikasi push di browser</p>
                                                 </div>
                                             </label>
                                         </div>
@@ -455,14 +437,13 @@ const SettingsPage = () => {
                                         data-aos="fade-up"
                                         data-aos-delay="500"
                                     >
-                                        <h3 className="text-lg font-medium text-gray-900 mb-4">Activity Notifications</h3>
+                                        <h3 className="text-lg font-medium text-gray-900 mb-4">Notifikasi Aktivitas</h3>
                                         <div className="space-y-4">
-                                            {[
-                                                { key: 'newDownloads', label: 'New Downloads', desc: 'When someone downloads your notes' },
-                                                { key: 'newComments', label: 'New Comments', desc: 'When someone comments on your content' },
-                                                { key: 'newFollowers', label: 'New Followers', desc: 'When someone follows you' },
-                                                { key: 'systemUpdates', label: 'System Updates', desc: 'Important platform updates and announcements' },
-                                                { key: 'weeklyDigest', label: 'Weekly Digest', desc: 'Weekly summary of your activity' }
+                                            {[{ key: 'newDownloads', label: 'Unduhan Baru', desc: 'Ketika seseorang mengunduh catatan Anda' },
+                                            { key: 'newComments', label: 'Komentar Baru', desc: 'Ketika seseorang berkomentar pada konten Anda' },
+                                            { key: 'newFollowers', label: 'Pengikut Baru', desc: 'Ketika seseorang mengikuti Anda' },
+                                            { key: 'systemUpdates', label: 'Update Sistem', desc: 'Update platform penting dan pengumuman' },
+                                            { key: 'weeklyDigest', label: 'Ringkasan Mingguan', desc: 'Ringkasan mingguan aktivitas Anda' }
                                             ].map((item) => (
                                                 <label key={item.key} className="flex items-center gap-3">
                                                     <input
@@ -486,10 +467,9 @@ const SettingsPage = () => {
                                         data-aos="fade-up"
                                         data-aos-delay="300"
                                         data-aos-offset="-100"
-                                    >
-                                        <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors">
+                                    >                                        <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors">
                                             <Save className="w-4 h-4" />
-                                            Save Preferences
+                                            Simpan Preferensi
                                         </button>
                                     </div>
                                 </div>
@@ -503,15 +483,13 @@ const SettingsPage = () => {
                                 data-aos="fade-up"
                                 data-aos-delay="200"
                             >
-                                <h2 className="text-2xl font-semibold text-gray-900 mb-6">Privacy Settings</h2>
+                                <h2 className="text-2xl font-semibold text-gray-900 mb-6">Pengaturan Privasi</h2>
 
-                                <div className="space-y-6">                                    <div data-aos="fade-up" data-aos-delay="200">
-                                    <h3 className="text-lg font-medium text-gray-900 mb-4">Profile Visibility</h3>
+                                <div className="space-y-6">                                    <div data-aos="fade-up" data-aos-delay="200">                                    <h3 className="text-lg font-medium text-gray-900 mb-4">Visibilitas Profil</h3>
                                     <div className="space-y-3">
                                         {[
-                                            { value: 'public', label: 'Public', desc: 'Anyone can view your profile' },
-                                            { value: 'students', label: 'Students Only', desc: 'Only verified students can view your profile' },
-                                            { value: 'private', label: 'Private', desc: 'Only you can view your profile' }
+                                            { value: 'public', label: 'Publik', desc: 'Siapa saja dapat melihat profil Anda' }, { value: 'students', label: 'Hanya Mahasiswa', desc: 'Hanya mahasiswa terverifikasi yang dapat melihat profil Anda' },
+                                            { value: 'private', label: 'Privat', desc: 'Hanya Anda yang dapat melihat profil' }
                                         ].map((option) => (
                                             <label key={option.value} className="flex items-center gap-3">
                                                 <input
@@ -535,15 +513,14 @@ const SettingsPage = () => {
                                     className="pt-6 border-t"
                                     data-aos="fade-up"
                                     data-aos-delay="300"
-                                >
-                                        <h3 className="text-lg font-medium text-gray-900 mb-4">Information Visibility</h3>
+                                >                                        <h3 className="text-lg font-medium text-gray-900 mb-4">Visibilitas Informasi</h3>
                                         <div className="space-y-4">
                                             {[
-                                                { key: 'showEmail', label: 'Show Email Address', desc: 'Display your email on your profile' },
-                                                { key: 'showPhone', label: 'Show Phone Number', desc: 'Display your phone number on your profile' },
-                                                { key: 'showLocation', label: 'Show Location', desc: 'Display your location on your profile' },
-                                                { key: 'allowMessages', label: 'Allow Direct Messages', desc: 'Let other users send you messages' },
-                                                { key: 'showActivity', label: 'Show Activity Status', desc: 'Show when you were last online' }
+                                                { key: 'showEmail', label: 'Tampilkan Alamat Email', desc: 'Tampilkan email Anda di profil' },
+                                                { key: 'showPhone', label: 'Tampilkan Nomor Telepon', desc: 'Tampilkan nomor telepon Anda di profil' },
+                                                { key: 'showLocation', label: 'Tampilkan Lokasi', desc: 'Tampilkan lokasi Anda di profil' },
+                                                { key: 'allowMessages', label: 'Izinkan Pesan Langsung', desc: 'Biarkan pengguna lain mengirim pesan kepada Anda' },
+                                                { key: 'showActivity', label: 'Tampilkan Status Aktivitas', desc: 'Tampilkan kapan Anda terakhir online' }
                                             ].map((item) => (
                                                 <label key={item.key} className="flex items-center gap-3">
                                                     <input
@@ -585,46 +562,43 @@ const SettingsPage = () => {
                                     className="bg-white rounded-xl shadow-sm p-8"
                                     data-aos="fade-up"
                                     data-aos-delay="300"
-                                >
-                                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Export Your Data</h3>
+                                >                                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Ekspor Data Anda</h3>
                                     <p className="text-gray-600 mb-6">
-                                        Download a copy of all your data including notes, comments, and profile information.
-                                    </p>                                    <button
+                                        Unduh salinan semua data Anda termasuk catatan, komentar, dan informasi profil.
+                                    </p><button
                                         onClick={() => setShowExportModal(true)}
                                         className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors"
                                     >
-                                        Request Data Export
+                                        Minta Ekspor Data
                                     </button>
                                 </div>                                {/* Deactivate Account */}
                                 <div
                                     className="bg-white rounded-xl shadow-sm p-8"
                                     data-aos="fade-up"
                                     data-aos-delay="400"
-                                >
-                                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Deactivate Account</h3>
+                                >                                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Nonaktifkan Akun</h3>
                                     <p className="text-gray-600 mb-6">
-                                        Temporarily deactivate your account. You can reactivate it anytime by logging in.
-                                    </p>                                    <button
+                                        Nonaktifkan akun Anda sementara. Anda dapat mengaktifkannya kembali kapan saja dengan masuk.
+                                    </p><button
                                         onClick={() => setShowDeactivateModal(true)}
                                         className="bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-3 rounded-lg transition-colors"
                                     >
-                                        Deactivate Account
+                                        Nonaktifkan Akun
                                     </button>
                                 </div>                                {/* Delete Account */}
                                 <div
                                     className="bg-white rounded-xl shadow-sm p-8 border-l-4 border-red-500"
                                     data-aos="fade-up"
                                     data-aos-delay="500"
-                                >
-                                    <h3 className="text-xl font-semibold text-red-600 mb-4">Danger Zone</h3>
+                                >                                    <h3 className="text-xl font-semibold text-red-600 mb-4">Zona Berbahaya</h3>
                                     <p className="text-gray-600 mb-6">
-                                        Once you delete your account, there is no going back. Please be certain.
-                                    </p>                                    <button
+                                        Setelah Anda menghapus akun, tidak ada jalan untuk kembali. Pastikan Anda yakin.
+                                    </p><button
                                         onClick={() => setShowDeleteModal(true)}
                                         className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg transition-colors"
                                     >
                                         <Trash2 className="w-4 h-4" />
-                                        Delete Account Permanently
+                                        Hapus Akun Permanen
                                     </button>
                                 </div>
                             </div>

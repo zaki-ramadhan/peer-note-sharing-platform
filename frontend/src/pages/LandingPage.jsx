@@ -17,74 +17,69 @@ import {
 import { Button, Card, CardContent, Badge } from '../components/ui';
 
 const LandingPage = () => {
-    const features = [
-        {
-            icon: Upload,
-            title: 'Upload & Share',
-            description: 'Upload catatan Anda dan bagikan dengan komunitas. Dapatkan poin reward untuk setiap kontribusi.',
-            gradient: 'from-blue-500 to-cyan-500'
-        },
-        {
-            icon: Download,
-            title: 'Download Notes',
-            description: 'Akses ribuan catatan berkualitas dari berbagai mata pelajaran yang telah diverifikasi komunitas.',
-            gradient: 'from-green-500 to-emerald-500'
-        },
-        {
-            icon: MessageSquare,
-            title: 'Forum Diskusi',
-            description: 'Berdiskusi dengan sesama pelajar, tanya jawab, dan saling membantu dalam belajar.',
-            gradient: 'from-purple-500 to-pink-500'
-        },
-        {
-            icon: Star,
-            title: 'Rating & Review',
-            description: 'Sistem rating memastikan kualitas catatan terjaga dan membantu menemukan materi terbaik.',
-            gradient: 'from-orange-500 to-red-500'
-        },
-        {
-            icon: Trophy,
-            title: 'Leaderboard',
-            description: 'Kompetisi sehat melalui sistem poin dan leaderboard untuk memotivasi kontribusi aktif.',
-            gradient: 'from-yellow-500 to-orange-500'
-        },
-        {
-            icon: Shield,
-            title: 'Content Moderation',
-            description: 'Tim moderasi aktif memastikan semua konten berkualitas dan sesuai dengan guidelines.',
-            gradient: 'from-indigo-500 to-purple-500'
-        }
+    const features = [{
+        icon: Upload,
+        title: 'Upload & Bagikan',
+        description: 'Upload catatan Anda dan bagikan dengan komunitas. Dapatkan poin reward untuk setiap kontribusi.',
+        gradient: 'from-blue-500 to-cyan-500'
+    },
+    {
+        icon: Download,
+        title: 'Unduh Catatan',
+        description: 'Akses ribuan catatan berkualitas dari berbagai mata pelajaran yang telah diverifikasi komunitas.',
+        gradient: 'from-green-500 to-emerald-500'
+    },
+    {
+        icon: MessageSquare,
+        title: 'Forum Diskusi',
+        description: 'Berdiskusi dengan sesama pelajar, tanya jawab, dan saling membantu dalam belajar.',
+        gradient: 'from-purple-500 to-pink-500'
+    },
+    {
+        icon: Star,
+        title: 'Rating & Review',
+        description: 'Sistem rating memastikan kualitas catatan terjaga dan membantu menemukan materi terbaik.',
+        gradient: 'from-orange-500 to-red-500'
+    }, {
+        icon: Trophy,
+        title: 'Papan Peringkat',
+        description: 'Kompetisi sehat melalui sistem poin dan leaderboard untuk memotivasi kontribusi aktif.',
+        gradient: 'from-yellow-500 to-orange-500'
+    },
+    {
+        icon: Shield,
+        title: 'Moderasi Konten',
+        description: 'Tim moderasi aktif memastikan semua konten berkualitas dan sesuai dengan guidelines.',
+        gradient: 'from-indigo-500 to-purple-500'
+    }
+    ]; const stats = [
+        { value: '10K+', label: 'Mahasiswa Aktif', icon: Users },
+        { value: '50K+', label: 'Catatan Dibagikan', icon: BookOpen },
+        { value: '100K+', label: 'Unduhan', icon: Download },
+        { value: '4.8/5', label: 'Rating Pengguna', icon: Star }
     ];
 
-    const stats = [
-        { value: '10K+', label: 'Active Students', icon: Users },
-        { value: '50K+', label: 'Notes Shared', icon: BookOpen },
-        { value: '100K+', label: 'Downloads', icon: Download },
-        { value: '4.8/5', label: 'User Rating', icon: Star }
-    ];
-
-    const testimonials = [
-        {
-            name: 'Ahmad Rizki',
-            role: 'Mahasiswa ITB',
-            content: 'NoteShare sangat membantu saya menemukan catatan berkualitas untuk ujian. Sistemnya mudah digunakan!',
-            rating: 5,
-            avatar: null
-        },
-        {
-            name: 'Sari Indah',
-            role: 'Mahasiswa UGM',
-            content: 'Platform ini mengubah cara saya belajar. Bisa diskusi langsung dengan penulis catatan jika ada yang tidak dipahami.',
-            rating: 5,
-            avatar: null
-        },
-        {
-            name: 'Budi Santoso',
-            role: 'Mahasiswa UI',
-            content: 'Sistem poin memotivasi saya untuk lebih aktif berbagi. Win-win solution untuk semua pelajar!',
-            rating: 5,
-            avatar: null
-        }
+    const testimonials = [{
+        name: 'Ahmad Rizki',
+        role: 'Mahasiswa ITB',
+        content: 'PeerNote sangat membantu saya menemukan catatan berkualitas untuk ujian. Sistemnya mudah digunakan!',
+        rating: 5,
+        avatar: null
+    },
+    {
+        name: 'Sari Indah',
+        role: 'Mahasiswa UGM',
+        content: 'Platform ini mengubah cara saya belajar. Bisa diskusi langsung dengan penulis catatan jika ada yang tidak dipahami.',
+        rating: 5,
+        avatar: null
+    },
+    {
+        name: 'Budi Santoso',
+        role: 'Mahasiswa UI',
+        content: 'Sistem poin memotivasi saya untuk lebih aktif berbagi. Win-win solution untuk semua pelajar!',
+        rating: 5,
+        avatar: null
+    }
     ];
 
     const subjects = [
@@ -108,21 +103,21 @@ const LandingPage = () => {
                             <div className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-md groupmd transition-shadow">
                                 <BookOpen className="h-6 w-6 text-white" />
                             </div>                            <span className="text-xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent font-['Hanken_Grotesk']">
-                                NoteShare
+                                PeerNote
                             </span>
                         </Link>                        <div className="hidden md:flex items-center space-x-8 font-['Hanken_Grotesk']">
-                            <a href="#features" className="text-slate-600 hover:text-blue-600 transition-colors font-medium">Features</a>
-                            <a href="#how-it-works" className="text-slate-600 hover:text-blue-600 transition-colors font-medium">How it Works</a>
-                            <a href="#testimonials" className="text-slate-600 hover:text-blue-600 transition-colors font-medium">Testimonials</a>
+                            <a href="#features" className="text-slate-600 hover:text-blue-600 transition-colors font-medium">Fitur</a>
+                            <a href="#how-it-works" className="text-slate-600 hover:text-blue-600 transition-colors font-medium">Cara Kerja</a>
+                            <a href="#testimonials" className="text-slate-600 hover:text-blue-600 transition-colors font-medium">Testimoni</a>
                         </div>
 
                         <div className="flex items-center space-x-4">
                             <Link to="/login">
-                                <Button variant="ghost" className="font-medium">Login</Button>
+                                <Button variant="ghost" className="font-medium">Masuk</Button>
                             </Link>
                             <Link to="/register">
                                 <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-md">
-                                    Get Started
+                                    Mulai Sekarang
                                 </Button>
                             </Link>
                         </div>
@@ -247,11 +242,10 @@ const LandingPage = () => {
             {/* How it Works */}
             <section id="how-it-works" className="py-24 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-20">
-                        <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6">
-                            Cara Kerja
-                            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"> NoteShare</span>
-                        </h2>
+                    <div className="text-center mb-20">                        <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6">
+                        Cara Kerja
+                        <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"> PeerNote</span>
+                    </h2>
                         <p className="text-xl text-slate-600">
                             Hanya 3 langkah mudah untuk mulai berbagi dan belajar
                         </p>
@@ -395,42 +389,37 @@ const LandingPage = () => {
             <footer className="bg-slate-900 text-white py-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                        <div className="col-span-1 md:col-span-2">
-                            <Link to="/" className="flex items-center space-x-3 mb-6">
-                                <div className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl">
-                                    <BookOpen className="h-6 w-6 text-white" />
-                                </div>
-                                <span className="text-xl font-bold">NoteShare</span>
-                            </Link>
+                        <div className="col-span-1 md:col-span-2">                            <Link to="/" className="flex items-center space-x-3 mb-6">
+                            <div className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl">
+                                <BookOpen className="h-6 w-6 text-white" />
+                            </div>
+                            <span className="text-xl font-bold">PeerNote</span>
+                        </Link>
                             <p className="text-slate-400 max-w-md leading-relaxed">
                                 Platform peer-to-peer sharing terbaik untuk mahasiswa dan pelajar di Indonesia.
                                 Berbagi catatan, belajar bersama, berkembang bersama.
                             </p>
-                        </div>
-
-                        <div>
+                        </div>                        <div>
                             <h3 className="font-bold mb-4 text-white">Platform</h3>
                             <ul className="space-y-3 text-slate-400">
-                                <li><Link to="/upload" className="hover:text-white transition-colors">Upload Notes</Link></li>
-                                <li><Link to="/notes" className="hover:text-white transition-colors">Browse Notes</Link></li>
+                                <li><Link to="/upload" className="hover:text-white transition-colors">Upload Catatan</Link></li>
+                                <li><Link to="/notes" className="hover:text-white transition-colors">Jelajahi Catatan</Link></li>
                                 <li><Link to="/forum" className="hover:text-white transition-colors">Forum</Link></li>
-                                <li><Link to="/leaderboard" className="hover:text-white transition-colors">Leaderboard</Link></li>
+                                <li><Link to="/leaderboard" className="hover:text-white transition-colors">Papan Peringkat</Link></li>
                             </ul>
                         </div>
 
                         <div>
-                            <h3 className="font-bold mb-4 text-white">Support</h3>
+                            <h3 className="font-bold mb-4 text-white">Dukungan</h3>
                             <ul className="space-y-3 text-slate-400">
-                                <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Contact Us</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
+                                <li><a href="#" className="hover:text-white transition-colors">Pusat Bantuan</a></li>
+                                <li><a href="#" className="hover:text-white transition-colors">Hubungi Kami</a></li>
+                                <li><a href="#" className="hover:text-white transition-colors">Kebijakan Privasi</a></li>
+                                <li><a href="#" className="hover:text-white transition-colors">Syarat Layanan</a></li>
                             </ul>
                         </div>
-                    </div>
-
-                    <div className="border-t border-slate-800 pt-8 text-center text-slate-400">
-                        <p>&copy; 2025 NoteShare. All rights reserved. Made with ❤️ for students.</p>
+                    </div>                    <div className="border-t border-slate-800 pt-8 text-center text-slate-400">
+                        <p>&copy; 2025 PeerNote. Hak cipta dilindungi. Dibuat dengan ❤️ untuk para pelajar.</p>
                     </div>
                 </div>
             </footer>
