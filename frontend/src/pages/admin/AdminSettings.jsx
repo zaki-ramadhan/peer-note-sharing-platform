@@ -8,7 +8,7 @@ import {
     Database,
     Check
 } from 'lucide-react';
-import { showSuccessToast } from '../../utils/toastUtils';
+import { showSuccessToast } from '@utils/toastUtils';
 
 const AdminSettings = () => {
     const [activeTab, setActiveTab] = useState('general');

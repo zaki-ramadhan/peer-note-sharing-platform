@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '@contexts/AuthContext';
 import {
     Home,
     Users,
@@ -17,7 +17,7 @@ import {
     ChevronDown,
     Shield
 } from 'lucide-react';
-import { showInfoToast } from '../../utils/toastUtils';
+import { showInfoToast } from '@utils/toastUtils';
 import AdminSearchDropdown from './AdminSearchDropdown';
 import AdminNotificationDropdown from './AdminNotificationDropdown';
 

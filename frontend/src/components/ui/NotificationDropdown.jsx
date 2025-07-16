@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { X, Check, CheckCheck, Trash2, Bell, Heart, Star, MessageSquare } from 'lucide-react';
-import { useNotifications } from '../../hooks/useNotifications';
+import { useNotifications } from '@hooks/useNotifications';
 
 const NotificationDropdown = ({ isOpen, onClose }) => {
     const {

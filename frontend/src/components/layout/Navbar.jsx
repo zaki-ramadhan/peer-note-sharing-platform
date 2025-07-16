@@ -16,9 +16,9 @@ import {
     LogOut,
     ChevronDown
 } from 'lucide-react';
-import { Button, Avatar, Badge, ConfirmationModal, SearchDropdown, NotificationDropdown } from '../ui';
-import { useAuth } from '../../contexts/AuthContext';
-import { useNotifications } from '../../hooks/useNotifications';
+import { Button, Avatar, Badge, ConfirmationModal, SearchDropdown, NotificationDropdown } from '@ui';
+import { useAuth } from '@contexts/AuthContext';
+import { useNotifications } from '@hooks/useNotifications';
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

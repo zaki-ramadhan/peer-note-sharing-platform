@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { Upload, FileText, X, Plus } from 'lucide-react';
-import { Layout } from '../components/layout';
-import { Card, CardContent, CardHeader, CardTitle, Button, Input, Badge } from '../components/ui';
-import { currentUser } from '../data/dummyData';
+import { Layout } from '@components/layout';
+import { Card, CardContent, CardHeader, CardTitle, Button, Input, Badge } from '@components/ui';
+import { currentUser } from '@data/dummyData';
 
 const UploadPage = () => {
     const [dragActive, setDragActive] = useState(false);

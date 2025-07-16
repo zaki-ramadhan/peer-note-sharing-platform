@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router';
 import { Search, FileText, User, Hash, Clock } from 'lucide-react';
-import { generateDummyNotes } from '../../data/dummyData';
+import { generateDummyNotes } from '@data/dummyData';
 
 const SearchDropdown = ({ isOpen, searchQuery, onClose }) => {
     const [searchResults, setSearchResults] = useState({

@@ -14,7 +14,7 @@ import {
     showLogoutErrorToast,
     showSessionExpiredToast,
     showInvalidCredentialsToast
-} from '../utils/toastUtils';
+} from '@utils/toastUtils';
 
 const AuthContext = createContext();
 

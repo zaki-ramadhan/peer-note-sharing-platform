@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router';
 import { Star, Heart, BookOpen, Download, Calendar, User, ArrowLeft, Sparkles, Search } from 'lucide-react';
-import Layout from '../components/layout/Layout';
-import NoteCard from '../components/notes/NoteCard';
-import { Button, Card, Badge } from '../components/ui';
-import { useFavorites } from '../hooks/useFavorites';
-import { useAuth } from '../contexts/AuthContext';
-import { generateDummyNotes } from '../data/dummyData';
+import Layout from '@components/layout/Layout';
+import NoteCard from '@components/notes/NoteCard';
+import { Button, Card, Badge } from '@components/ui';
+import { useFavorites } from '@hooks/useFavorites';
+import { useAuth } from '@contexts/AuthContext';
+import { generateDummyNotes } from '@data/dummyData';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 

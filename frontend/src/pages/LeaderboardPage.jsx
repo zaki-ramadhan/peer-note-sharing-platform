@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Trophy, Crown, Medal, Award, Star, TrendingUp, Users, Upload } from 'lucide-react';
-import { Layout } from '../components/layout';
-import { Card, CardContent, CardHeader, CardTitle, Avatar, Badge } from '../components/ui';
-import { generateDummyUsers, currentUser } from '../data/dummyData';
+import { Layout } from '@components/layout';
+import { Card, CardContent, CardHeader, CardTitle, Avatar, Badge } from '@components/ui';
+import { generateDummyUsers, currentUser } from '@data/dummyData';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 

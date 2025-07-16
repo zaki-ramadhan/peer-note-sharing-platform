@@ -14,11 +14,11 @@ import {
     Share2,
     ThumbsUp
 } from 'lucide-react';
-import { Card, CardContent } from '../ui/Card';
-import { Button, Rating } from '../ui';
-import { Badge, Avatar } from '../ui';
+import { Card, CardContent } from '@ui/Card';
+import { Button, Rating } from '@ui';
+import { Badge, Avatar } from '@ui';
 import { formatDistanceToNow } from 'date-fns';
-import { useFavorites } from '../../hooks/useFavorites';
+import { useFavorites } from '@hooks/useFavorites';
 import RatingModal from './RatingModal';
 import {
     showDownloadStartToast,
@@ -31,7 +31,7 @@ import {
     showCopySuccessToast,
     showShareErrorToast,
     showGenericErrorToast
-} from '../../utils/toastUtils';
+} from '@utils/toastUtils';
 
 const NoteCard = ({ note, onDownload, onRate, compact = false, mini = false, showFavoriteButton = true }) => {
     const { toggleFavorite, isFavorite, loading: favLoading } = useFavorites();

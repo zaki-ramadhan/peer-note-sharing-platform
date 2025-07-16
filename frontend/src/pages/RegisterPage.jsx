@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { Eye, EyeOff, Mail, Lock, User, BookOpen, ArrowRight, School } from 'lucide-react';
-import { Button, Input, Card, CardContent } from '../components/ui';
-import { useAuth } from '../contexts/AuthContext';
+import { Button, Input, Card, CardContent } from '@components/ui';
+import { useAuth } from '@contexts/AuthContext';
 
 const RegisterPage = () => {
     const [showPassword, setShowPassword] = useState(false);

@@ -4,10 +4,10 @@ import { useForm } from 'react-hook-form';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { MessageSquare, ArrowLeft, Save } from 'lucide-react';
-import { Layout } from '../components/layout';
-import { Card, CardContent, CardHeader, CardTitle, Button, Input, Badge } from '../components/ui';
-import { currentUser } from '../data/dummyData';
-import { showSuccessToast } from '../utils/toastUtils';
+import { Layout } from '@components/layout';
+import { Card, CardContent, CardHeader, CardTitle, Button, Input, Badge } from '@components/ui';
+import { currentUser } from '@data/dummyData';
+import { showSuccessToast } from '@utils/toastUtils';
 
 const CreatePostPage = () => {
     const [tags, setTags] = useState([]);

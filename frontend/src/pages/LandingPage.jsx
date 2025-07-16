@@ -14,7 +14,7 @@ import {
     Sparkles,
     Rocket
 } from 'lucide-react';
-import { Button, Card, CardContent, Badge } from '../components/ui';
+import { Button, Card, CardContent, Badge } from '@components/ui';
 
 const LandingPage = () => {
     const features = [{

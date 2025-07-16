@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Star, X, MessageSquare } from 'lucide-react';
-import { Modal, ModalHeader, ModalContent, ModalFooter } from '../ui/Modal';
-import { Button, Rating } from '../ui';
+import { Modal, ModalHeader, ModalContent, ModalFooter } from '@ui/Modal';
+import { Button, Rating } from '@ui';
 
 const RatingModal = ({ isOpen, onClose, note, onSubmitRating }) => {
     const [rating, setRating] = useState(0);

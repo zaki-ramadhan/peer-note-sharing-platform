@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '@contexts/AuthContext';
 import { Eye, EyeOff, Shield } from 'lucide-react';
-import { showErrorToast, showSuccessToast } from '../../utils/toastUtils';
+import { showErrorToast, showSuccessToast } from '@utils/toastUtils';
 
 const AdminLogin = () => {
     const [formData, setFormData] = useState({

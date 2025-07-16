@@ -17,7 +17,7 @@ import {
     ArrowDownRight,
     ChevronDown
 } from 'lucide-react';
-import { showSuccessToast, showInfoToast } from '../../utils/toastUtils';
+import { showSuccessToast, showInfoToast } from '@utils/toastUtils';
 
 const AdminDashboard = () => {
     const navigate = useNavigate();

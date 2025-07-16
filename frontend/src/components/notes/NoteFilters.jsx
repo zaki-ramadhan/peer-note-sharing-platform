@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Search, Filter, SortAsc, SortDesc, Grid, List } from 'lucide-react';
-import { Button, Input, Badge } from '../ui';
+import { Button, Input, Badge } from '@ui';
 
 const NoteFilters = ({
     onFilterChange,

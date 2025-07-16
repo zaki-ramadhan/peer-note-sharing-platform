@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { Home, ArrowLeft, Search, BookOpen } from 'lucide-react';
-import { Button, Card, CardContent } from '../components/ui';
+import { Button, Card, CardContent } from '@components/ui';
 
 const NotFoundPage = () => {
     return (

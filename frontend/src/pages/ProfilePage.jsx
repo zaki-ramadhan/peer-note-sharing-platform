@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
-import Layout from '../components/layout/Layout';
-import { useAuth } from '../contexts/AuthContext';
+import Layout from '@components/layout/Layout';
+import { useAuth } from '@contexts/AuthContext';
 import {
     User,
     Mail,

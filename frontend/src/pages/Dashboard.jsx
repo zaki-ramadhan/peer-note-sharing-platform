@@ -17,10 +17,10 @@ import {
     Calendar,
     Activity
 } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
-import Layout from '../components/layout/Layout';
-import { Avatar, Badge } from '../components/ui';
-import { generateDummyUsers, currentUser } from '../data/dummyData';
+import { Card, CardContent, CardHeader, CardTitle } from '@components/ui/Card';
+import Layout from '@components/layout/Layout';
+import { Avatar, Badge } from '@components/ui';
+import { generateDummyUsers, currentUser } from '@data/dummyData';
 
 const Dashboard = () => {
     const [stats, setStats] = useState({

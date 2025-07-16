@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router';
 import { Search, Filter, Grid, List, Plus, SlidersHorizontal, Sparkles, Download, AlertCircle, Star, FileText, File, Image, BookOpen, TrendingUp, Calendar, Eye } from 'lucide-react';
-import Layout from '../components/layout/Layout';
-import NoteCard from '../components/notes/NoteCard';
-import Button from '../components/ui/Button';
-import { Card, CardContent } from '../components/ui/Card';
-import { Badge } from '../components/ui';
-import { generateDummyNotes, currentUser } from '../data/dummyData';
+import Layout from '@components/layout/Layout';
+import NoteCard from '@components/notes/NoteCard';
+import Button from '@components/ui/Button';
+import { Card, CardContent } from '@components/ui/Card';
+import { Badge } from '@components/ui';
+import { generateDummyNotes, currentUser } from '@data/dummyData';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 

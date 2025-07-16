@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router';
 import { MessageSquare, Plus, Search, TrendingUp, Clock, ThumbsUp, Reply } from 'lucide-react';
-import { Layout } from '../components/layout';
-import { Card, CardContent, CardHeader, CardTitle, Button, Input, Badge, Avatar } from '../components/ui';
-import { generateDummyForumPosts, currentUser } from '../data/dummyData';
+import { Layout } from '@components/layout';
+import { Card, CardContent, CardHeader, CardTitle, Button, Input, Badge, Avatar } from '@components/ui';
+import { generateDummyForumPosts, currentUser } from '@data/dummyData';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 

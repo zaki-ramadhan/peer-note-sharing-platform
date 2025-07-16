@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Layout from '../components/layout/Layout';
-import { ConfirmationModal } from '../components/ui';
-import { useAuth } from '../contexts/AuthContext';
+import Layout from '@components/layout/Layout';
+import { ConfirmationModal } from '@components/ui';
+import { useAuth } from '@contexts/AuthContext';
 import {
     User,
     Lock,

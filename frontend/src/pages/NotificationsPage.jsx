@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { Bell, Check, CheckCheck, Trash2, ArrowLeft, Filter } from 'lucide-react';
 import { Link } from 'react-router';
-import Layout from '../components/layout/Layout';
-import { Button, Card, Badge } from '../components/ui';
-import { useNotifications } from '../hooks/useNotifications';
-import { useAuth } from '../contexts/AuthContext';
+import Layout from '@components/layout/Layout';
+import { Button, Card, Badge } from '@components/ui';
+import { useNotifications } from '@hooks/useNotifications';
+import { useAuth } from '@contexts/AuthContext';
 import AOS from 'aos';
 
 const NotificationsPage = () => {
