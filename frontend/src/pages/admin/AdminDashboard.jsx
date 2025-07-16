@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import {
     Users,
     FileText,
@@ -13,10 +14,23 @@ import {
     Activity,
     Calendar,
     ArrowUpRight,
-    ArrowDownRight
+    ArrowDownRight,
+    ChevronDown
 } from 'lucide-react';
+import { showSuccessToast, showInfoToast } from '../../utils/toastUtils';
 
 const AdminDashboard = () => {
+    const navigate = useNavigate();
+    const [timeRange, setTimeRange] = useState('30 Hari Terakhir');
+    const [showTimeRangeDropdown, setShowTimeRangeDropdown] = useState(false);
+
+    const timeRangeOptions = [
+        '7 Hari Terakhir',
+        '30 Hari Terakhir',
+        '90 Hari Terakhir',
+        '1 Tahun Terakhir'
+    ];
+
     const [stats] = useState({
         totalUsers: 1250,
         totalNotes: 4830,
@@ -108,7 +122,23 @@ const AdminDashboard = () => {
             bgColor: 'from-red-500 to-red-600',
             description: 'Perlu perhatian'
         }
-    ]; const getActivityIcon = (type) => {
+    ];
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (showTimeRangeDropdown && !event.target.closest('.time-range-dropdown')) {
+                setShowTimeRangeDropdown(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [showTimeRangeDropdown]);
+
+    const getActivityIcon = (type) => {
         switch (type) {
             case 'user_registered':
                 return <Users className="h-4 w-4 text-white" />;
@@ -121,6 +151,49 @@ const AdminDashboard = () => {
             default:
                 return <CheckCircle className="h-4 w-4 text-white" />;
         }
+    };
+
+    // Navigation handlers for quick actions
+    const handleQuickAction = (action) => {
+        switch (action) {
+            case 'users':
+                navigate('/admin/users');
+                break;
+            case 'content':
+                navigate('/admin/content');
+                break;
+            case 'reports':
+                navigate('/admin/content?filter=flagged');
+                break;
+            case 'analytics':
+                navigate('/admin/analytics');
+                break;
+            case 'subjects':
+                // Navigate to subjects management (if route exists)
+                showInfoToast('Fitur manajemen mata pelajaran akan segera tersedia');
+                break;
+            default:
+                break;
+        }
+    };
+
+    // Handle time range change
+    const handleTimeRangeChange = (newRange) => {
+        setTimeRange(newRange);
+        setShowTimeRangeDropdown(false);
+        showInfoToast(`Filter waktu diubah ke: ${newRange}`);
+        // Here you would typically update the data based on the new time range
+    };
+
+    // Handle export report
+    const handleExportReport = () => {
+        showSuccessToast('Laporan sedang dipersiapkan. Anda akan menerima notifikasi ketika siap untuk diunduh.');
+        // Here you would typically trigger the actual export functionality
+    };
+
+    // Handle view all activity
+    const handleViewAllActivity = () => {
+        navigate('/admin/notifications');
     }; return (
         <div className="space-y-8">
             {/* Header */}
@@ -131,12 +204,39 @@ const AdminDashboard = () => {
                     <p className="mt-2 text-lg text-gray-300">
                         Selamat datang kembali! Berikut adalah yang terjadi di platform Anda.
                     </p>
-                </div>
-                <div className="mt-4 sm:mt-0 flex space-x-3">                    <button className="inline-flex items-center px-4 py-2 border border-gray-600 rounded-xl text-sm font-medium text-gray-300 bg-gray-800/50 hover:bg-gray-700/50 focus:ring-2 focus:ring-blue-500 transition-all duration-200 shadow-sm backdrop-blur-sm">
-                    <Calendar className="h-4 w-4 mr-2" />
-                    30 Hari Terakhir
-                </button>
-                    <button className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl text-sm font-medium hover:from-blue-700 hover:to-purple-700 focus:ring-2 focus:ring-blue-500 transition-all duration-200 shadow-lg">
+                </div>                <div className="mt-4 sm:mt-0 flex space-x-3">
+                    {/* Time Range Selector */}
+                    <div className="relative time-range-dropdown">
+                        <button
+                            onClick={() => setShowTimeRangeDropdown(!showTimeRangeDropdown)}
+                            className="inline-flex items-center px-4 py-2 border border-gray-600 rounded-xl text-sm font-medium text-gray-300 bg-gray-800/50 hover:bg-gray-700/50 focus:ring-2 focus:ring-blue-500 transition-all duration-200 shadow-sm backdrop-blur-sm"
+                        >
+                            <Calendar className="h-4 w-4 mr-2" />
+                            {timeRange}
+                            <ChevronDown className="h-4 w-4 ml-2" />
+                        </button>
+
+                        {showTimeRangeDropdown && (
+                            <div className="absolute right-0 mt-2 w-56 bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl z-50 py-1">
+                                {timeRangeOptions.map((option) => (
+                                    <button
+                                        key={option}
+                                        onClick={() => handleTimeRangeChange(option)}
+                                        className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-700/50 transition-colors ${timeRange === option ? 'text-blue-400 bg-gray-700/30' : 'text-gray-300'
+                                            }`}
+                                    >
+                                        {option}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Export Report Button */}
+                    <button
+                        onClick={handleExportReport}
+                        className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl text-sm font-medium hover:from-blue-700 hover:to-purple-700 focus:ring-2 focus:ring-blue-500 transition-all duration-200 shadow-lg"
+                    >
                         <Download className="h-4 w-4 mr-2" />
                         Ekspor Laporan
                     </button>
@@ -182,8 +282,10 @@ const AdminDashboard = () => {
                         <div className="flex items-center justify-between">                            <h3 className="text-xl font-semibold text-white flex items-center">
                             <Activity className="h-5 w-5 mr-2 text-blue-400" />
                             Aktivitas Terbaru
-                        </h3>
-                            <button className="text-sm text-blue-400 hover:text-blue-300 font-medium px-3 py-1 rounded-lg hover:bg-gray-700/50 transition-colors">
+                        </h3>                            <button
+                            onClick={handleViewAllActivity}
+                            className="text-sm text-blue-400 hover:text-blue-300 font-medium px-3 py-1 rounded-lg hover:bg-gray-700/50 transition-colors"
+                        >
                                 Lihat semua
                             </button>
                         </div>
@@ -217,9 +319,11 @@ const AdminDashboard = () => {
                     <TrendingUp className="h-5 w-5 mr-2 text-purple-400" />
                     Aksi Cepat
                 </h3>
-                </div>
-                    <div className="p-6 space-y-4">
-                        <button className="w-full flex items-center justify-between p-4 border border-gray-700/50 rounded-xl hover:bg-gradient-to-r hover:from-blue-900/30 hover:to-purple-900/30 transition-all duration-200 group">
+                </div>                    <div className="p-6 space-y-4">
+                        <button
+                            onClick={() => handleQuickAction('users')}
+                            className="w-full flex items-center justify-between p-4 border border-gray-700/50 rounded-xl hover:bg-gradient-to-r hover:from-blue-900/30 hover:to-purple-900/30 transition-all duration-200 group"
+                        >
                             <div className="flex items-center">
                                 <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                                     <Users className="h-5 w-5 text-white" />
@@ -233,7 +337,10 @@ const AdminDashboard = () => {
                             </div>
                         </button>
 
-                        <button className="w-full flex items-center justify-between p-4 border border-gray-700/50 rounded-xl hover:bg-gradient-to-r hover:from-green-900/30 hover:to-emerald-900/30 transition-all duration-200 group">
+                        <button
+                            onClick={() => handleQuickAction('content')}
+                            className="w-full flex items-center justify-between p-4 border border-gray-700/50 rounded-xl hover:bg-gradient-to-r hover:from-green-900/30 hover:to-emerald-900/30 transition-all duration-200 group"
+                        >
                             <div className="flex items-center">
                                 <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                                     <FileText className="h-5 w-5 text-white" />
@@ -247,7 +354,10 @@ const AdminDashboard = () => {
                             </div>
                         </button>
 
-                        <button className="w-full flex items-center justify-between p-4 border border-gray-700/50 rounded-xl hover:bg-gradient-to-r hover:from-red-900/30 hover:to-pink-900/30 transition-all duration-200 group">
+                        <button
+                            onClick={() => handleQuickAction('reports')}
+                            className="w-full flex items-center justify-between p-4 border border-gray-700/50 rounded-xl hover:bg-gradient-to-r hover:from-red-900/30 hover:to-pink-900/30 transition-all duration-200 group"
+                        >
                             <div className="flex items-center">
                                 <div className="w-10 h-10 bg-gradient-to-r from-red-500 to-red-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                                     <AlertTriangle className="h-5 w-5 text-white" />
@@ -261,14 +371,17 @@ const AdminDashboard = () => {
                             </div>
                         </button>
 
-                        <button className="w-full flex items-center justify-between p-4 border border-gray-700/50 rounded-xl hover:bg-gradient-to-r hover:from-purple-900/30 hover:to-indigo-900/30 transition-all duration-200 group">                            <div className="flex items-center">
-                            <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <TrendingUp className="h-5 w-5 text-white" />
-                            </div>
-                            <div className="ml-4 text-left">                                <span className="text-sm font-medium text-white">Lihat Analitik</span>
-                                <p className="text-xs text-gray-400">Wawasan platform</p>
-                            </div>
-                        </div>                            <div className="flex items-center space-x-2">
+                        <button
+                            onClick={() => handleQuickAction('analytics')}
+                            className="w-full flex items-center justify-between p-4 border border-gray-700/50 rounded-xl hover:bg-gradient-to-r hover:from-purple-900/30 hover:to-indigo-900/30 transition-all duration-200 group"
+                        >                            <div className="flex items-center">
+                                <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <TrendingUp className="h-5 w-5 text-white" />
+                                </div>
+                                <div className="ml-4 text-left">                                <span className="text-sm font-medium text-white">Lihat Analitik</span>
+                                    <p className="text-xs text-gray-400">Wawasan platform</p>
+                                </div>
+                            </div>                            <div className="flex items-center space-x-2">
                                 <span className="px-2 py-1 text-xs font-medium bg-purple-900/50 text-purple-300 rounded-full">Diperbarui 1j lalu</span>
                                 <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-purple-400 transition-colors" />
                             </div>
@@ -305,8 +418,10 @@ const AdminDashboard = () => {
                         <div className="flex items-center justify-between">
                             <div className="flex items-center space-x-2">
                                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>                                <span className="text-sm text-gray-300">Semua sistem operasional</span>
-                            </div>
-                            <button className="text-sm text-blue-400 hover:text-blue-300 font-medium">
+                            </div>                            <button
+                                onClick={() => showInfoToast('Fitur halaman status akan segera tersedia')}
+                                className="text-sm text-blue-400 hover:text-blue-300 font-medium"
+                            >
                                 Lihat halaman status
                             </button>
                         </div>

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router';
 import {
     FileText,
     MessageSquare,
@@ -11,9 +12,19 @@ import {
 } from 'lucide-react';
 
 const AdminContent = () => {
+    const location = useLocation();
     const [activeTab, setActiveTab] = useState('notes');
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState('all');
+
+    // Handle URL filter parameters (e.g., when coming from dashboard quick action)
+    useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        const filter = searchParams.get('filter');
+        if (filter === 'flagged') {
+            setStatusFilter('flagged');
+        }
+    }, [location.search]);
 
     const [notes, setNotes] = useState([
         {
