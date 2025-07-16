@@ -263,19 +263,21 @@ const AdminUsers = () => {
                     value={selectedRole}
                     onChange={(e) => setSelectedRole(e.target.value)}
                     className="px-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white"
-                >                    <option value="all">Semua Role</option>
-                    <option value="user">Pengguna</option>
-                    <option value="moderator">Moderator</option>
-                    <option value="admin">Admin</option>
+                >
+                    <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="all">Semua Role</option>
+                    <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="user">Pengguna</option>
+                    <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="moderator">Moderator</option>
+                    <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="admin">Admin</option>
                 </select>
 
                 {/* Status Filter */}                    <select
                     value={selectedStatus}
                     onChange={(e) => setSelectedStatus(e.target.value)}
                     className="px-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700/50 text-white"
-                >                    <option value="all">Semua Status</option>
-                    <option value="active">Aktif</option>
-                    <option value="suspended">Ditangguhkan</option>
+                >
+                    <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="all">Semua Status</option>
+                    <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="active">Aktif</option>
+                    <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="suspended">Ditangguhkan</option>
                 </select>                    {/* Export Button */}                    <button className="inline-flex items-center justify-center px-3 py-2 border border-gray-600 rounded-md text-sm font-medium text-gray-300 bg-gray-700/50 hover:bg-gray-600/50 transition-colors">
                     <Download className="h-4 w-4 mr-2" />
                     Ekspor

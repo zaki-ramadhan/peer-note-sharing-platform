@@ -260,12 +260,12 @@ const AdminAnalytics = () => {
                             onChange={(e) => setFilterType(e.target.value)}
                             className="pl-10 pr-8 py-2 w-full sm:w-auto bg-gray-800/50 border border-gray-600/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white appearance-none cursor-pointer text-sm"
                         >
-                            <option value="all">Semua Mata Pelajaran</option>
-                            <option value="computer science">Ilmu Komputer</option>
-                            <option value="mathematics">Matematika</option>
-                            <option value="physics">Fisika</option>
-                            <option value="chemistry">Kimia</option>
-                            <option value="biology">Biologi</option>
+                            <option className='bg-gray-800/95 backdrop-blur-sm border border-red-700/50 rounded-xl shadow-xl' value="all">Semua Mata Pelajaran</option>
+                            <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="computer science">Ilmu Komputer</option>
+                            <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="mathematics">Matematika</option>
+                            <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="physics">Fisika</option>
+                            <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="chemistry">Kimia</option>
+                            <option className='bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl' value="biology">Biologi</option>
                         </select>
                     </div>
 
