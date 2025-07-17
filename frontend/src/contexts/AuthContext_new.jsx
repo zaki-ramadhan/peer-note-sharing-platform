@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
       console.log("AuthContext: Login API response:", response);
 
       if (response.success) {
-        const { user: userData, token } = response.data;
+        const { user: userData, token } = response;
 
         // Store in localStorage
         localStorage.setItem("token", token);
@@ -109,7 +109,7 @@ export const AuthProvider = ({ children }) => {
       console.log("AuthContext: Registration API response:", response);
 
       if (response.success) {
-        const { user: newUser, token } = response.data;
+        const { user: newUser, token } = response;
 
         // Store in localStorage
         localStorage.setItem("token", token);
@@ -177,11 +177,11 @@ export const AuthProvider = ({ children }) => {
         throw new Error("No token found");
       }
 
-      const response = await apiService.getUserProfile();
+      const response = await apiService.getProfile();
       if (response.success) {
-        setUser(response.data.user);
+        setUser(response.user);
         setIsAuthenticated(true);
-        return { success: true, user: response.data.user };
+        return { success: true, user: response.user };
       } else {
         throw new Error(response.message || "Authentication check failed");
       }

@@ -1,161 +1,167 @@
 // API service for handling backend communication
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = "http://localhost:3001/api";
 
 class ApiService {
-    constructor() {
-        this.baseURL = API_BASE_URL;
+  constructor() {
+    this.baseURL = API_BASE_URL;
+  }
+
+  async request(endpoint, options = {}) {
+    const url = `${this.baseURL}${endpoint}`;
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      ...options,
+    };
+
+    // Add auth token if available
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
 
-    async request(endpoint, options = {}) {
-        const url = `${this.baseURL}${endpoint}`;
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            ...options,
-        };
+    try {
+      const response = await fetch(url, config);
+      const data = await response.json();
 
-        // Add auth token if available
-        const token = localStorage.getItem('authToken');
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
+      if (!response.ok) {
+        throw new Error(data.message || "Something went wrong");
+      }
 
-        try {
-            const response = await fetch(url, config);
-            const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("API Error:", error);
+      throw error;
+    }
+  }
 
-            if (!response.ok) {
-                throw new Error(data.message || 'Something went wrong');
-            }
+  // Notes API methods
+  async getNotes(params = {}) {
+    const queryParams = new URLSearchParams();
 
-            return data;
-        } catch (error) {
-            console.error('API Error:', error);
-            throw error;
-        }
+    Object.keys(params).forEach((key) => {
+      if (params[key] !== undefined && params[key] !== "") {
+        queryParams.append(key, params[key]);
+      }
+    });
+
+    const queryString = queryParams.toString();
+    const endpoint = `/notes${queryString ? `?${queryString}` : ""}`;
+
+    return this.request(endpoint);
+  }
+
+  async getNoteById(id) {
+    return this.request(`/notes/${id}`);
+  }
+
+  async uploadNote(formData) {
+    const url = `${this.baseURL}/notes`;
+    const config = {
+      method: "POST",
+      body: formData, // Don't set Content-Type header for FormData
+    };
+
+    // Add auth token if available
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers = {
+        Authorization: `Bearer ${token}`,
+      };
     }
 
-    // Notes API methods
-    async getNotes(params = {}) {
-        const queryParams = new URLSearchParams();
+    try {
+      const response = await fetch(url, config);
+      const data = await response.json();
 
-        Object.keys(params).forEach(key => {
-            if (params[key] !== undefined && params[key] !== '') {
-                queryParams.append(key, params[key]);
-            }
-        });
+      if (!response.ok) {
+        throw new Error(data.message || "Upload failed");
+      }
 
-        const queryString = queryParams.toString();
-        const endpoint = `/notes${queryString ? `?${queryString}` : ''}`;
-
-        return this.request(endpoint);
+      return data;
+    } catch (error) {
+      console.error("Upload Error:", error);
+      throw error;
     }
+  }
 
-    async getNoteById(id) {
-        return this.request(`/notes/${id}`);
-    }
+  async downloadNote(id) {
+    return this.request(`/notes/${id}/download`, {
+      method: "POST",
+    });
+  }
 
-    async uploadNote(formData) {
-        const url = `${this.baseURL}/notes`;
-        const config = {
-            method: 'POST',
-            body: formData, // Don't set Content-Type header for FormData
-        };
+  async rateNote(id, rating, review = "") {
+    return this.request(`/notes/${id}/rate`, {
+      method: "POST",
+      body: JSON.stringify({ rating, review }),
+    });
+  }
 
-        // Add auth token if available
-        const token = localStorage.getItem('authToken');
-        if (token) {
-            config.headers = {
-                Authorization: `Bearer ${token}`,
-            };
-        }
+  async deleteNote(id) {
+    return this.request(`/notes/${id}`, {
+      method: "DELETE",
+    });
+  }
 
-        try {
-            const response = await fetch(url, config);
-            const data = await response.json();
+  // Auth API methods
+  async login(credentials) {
+    return this.request("/auth/login", {
+      method: "POST",
+      body: JSON.stringify(credentials),
+    });
+  }
 
-            if (!response.ok) {
-                throw new Error(data.message || 'Upload failed');
-            }
+  async register(userData) {
+    return this.request("/auth/register", {
+      method: "POST",
+      body: JSON.stringify(userData),
+    });
+  }
 
-            return data;
-        } catch (error) {
-            console.error('Upload Error:', error);
-            throw error;
-        }
-    }
+  async getUserProfile() {
+    return this.request("/auth/me");
+  }
 
-    async downloadNote(id) {
-        return this.request(`/notes/${id}/download`, {
-            method: 'POST',
-        });
-    }
+  async logout() {
+    return this.request("/auth/logout", {
+      method: "POST",
+    });
+  }
 
-    async rateNote(id, rating, review = '') {
-        return this.request(`/notes/${id}/rate`, {
-            method: 'POST',
-            body: JSON.stringify({ rating, review }),
-        });
-    }
+  // Users API methods
+  async getUsers(params = {}) {
+    const queryParams = new URLSearchParams();
 
-    async deleteNote(id) {
-        return this.request(`/notes/${id}`, {
-            method: 'DELETE',
-        });
-    }
+    Object.keys(params).forEach((key) => {
+      if (params[key] !== undefined && params[key] !== "") {
+        queryParams.append(key, params[key]);
+      }
+    });
 
-    // Auth API methods
-    async login(credentials) {
-        return this.request('/auth/login', {
-            method: 'POST',
-            body: JSON.stringify(credentials),
-        });
-    }
+    const queryString = queryParams.toString();
+    const endpoint = `/users${queryString ? `?${queryString}` : ""}`;
 
-    async register(userData) {
-        return this.request('/auth/register', {
-            method: 'POST',
-            body: JSON.stringify(userData),
-        });
-    }
+    return this.request(endpoint);
+  }
 
-    async getUserProfile() {
-        return this.request('/auth/profile');
-    }
+  async getLeaderboard() {
+    return this.request("/users/leaderboard");
+  }
 
-    // Users API methods
-    async getUsers(params = {}) {
-        const queryParams = new URLSearchParams();
+  // Utility methods
+  setAuthToken(token) {
+    localStorage.setItem("token", token);
+  }
 
-        Object.keys(params).forEach(key => {
-            if (params[key] !== undefined && params[key] !== '') {
-                queryParams.append(key, params[key]);
-            }
-        });
+  removeAuthToken() {
+    localStorage.removeItem("token");
+  }
 
-        const queryString = queryParams.toString();
-        const endpoint = `/users${queryString ? `?${queryString}` : ''}`;
-
-        return this.request(endpoint);
-    }
-
-    async getLeaderboard() {
-        return this.request('/users/leaderboard');
-    }
-
-    // Utility methods
-    setAuthToken(token) {
-        localStorage.setItem('authToken', token);
-    }
-
-    removeAuthToken() {
-        localStorage.removeItem('authToken');
-    }
-
-    getAuthToken() {
-        return localStorage.getItem('authToken');
-    }
+  getAuthToken() {
+    return localStorage.getItem("token");
+  }
 }
 
 // Create and export a singleton instance

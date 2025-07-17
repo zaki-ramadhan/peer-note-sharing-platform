@@ -32,6 +32,11 @@ const RegisterPage = () => {
     e.preventDefault();
     setError("");
 
+    if (!agreeToTerms) {
+      setError("Anda harus menyetujui syarat dan ketentuan!");
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       setError("Password tidak cocok!");
       return;
@@ -42,7 +47,15 @@ const RegisterPage = () => {
       return;
     }
 
-    const result = await register(formData);
+    // Send data including university
+    const registrationData = {
+      name: formData.name,
+      email: formData.email,
+      university: formData.university,
+      password: formData.password,
+    };
+
+    const result = await register(registrationData);
 
     if (result.success) {
       navigate("/dashboard");
