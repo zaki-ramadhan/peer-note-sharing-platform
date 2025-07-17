@@ -150,9 +150,12 @@ export const register = async (req, res) => {
 // @access  Public
 export const login = async (req, res) => {
   try {
+    console.log("Login request received:", req.body);
+
     // Validate input
     const { error, value } = loginSchema.validate(req.body);
     if (error) {
+      console.log("Login validation error:", error.details[0].message);
       return res.status(400).json({
         success: false,
         message: error.details[0].message,
@@ -160,6 +163,7 @@ export const login = async (req, res) => {
     }
 
     const { email, password } = value;
+    console.log("Login attempt for email:", email);
 
     // Check if user exists
     const [users] = await db.execute(
@@ -167,7 +171,10 @@ export const login = async (req, res) => {
       [email]
     );
 
+    console.log("Found users:", users.length);
+
     if (users.length === 0) {
+      console.log("No user found with email:", email);
       return res.status(400).json({
         success: false,
         message: "Invalid credentials",
@@ -175,10 +182,18 @@ export const login = async (req, res) => {
     }
 
     const user = users[0];
+    console.log("User found:", {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    });
 
     // Check password
     const isMatch = await bcrypt.compare(password, user.password);
+    console.log("Password match:", isMatch);
+
     if (!isMatch) {
+      console.log("Password does not match for user:", email);
       return res.status(400).json({
         success: false,
         message: "Invalid credentials",
@@ -197,6 +212,8 @@ export const login = async (req, res) => {
 
     // Remove password from response
     const { password: _, ...userResponse } = user;
+
+    console.log("Login successful for user:", user.id);
 
     res.json({
       success: true,

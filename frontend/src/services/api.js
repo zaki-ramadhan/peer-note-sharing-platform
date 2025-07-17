@@ -25,12 +25,18 @@ class ApiService {
       const response = await fetch(url, config);
       const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.message || "Something went wrong");
+      // Don't throw error for 400/401, let the calling code handle it
+      if (!response.ok && response.status >= 500) {
+        throw new Error(data.message || "Server error occurred");
       }
 
       return data;
     } catch (error) {
+      // Only log and rethrow for network errors or server errors
+      if (error.name === "TypeError" || error.message.includes("fetch")) {
+        console.error("Network Error:", error);
+        throw new Error("Network error. Please check your connection.");
+      }
       console.error("API Error:", error);
       throw error;
     }

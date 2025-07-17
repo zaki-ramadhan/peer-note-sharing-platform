@@ -74,7 +74,17 @@ export const AuthProvider = ({ children }) => {
         showLoginSuccessToast(userData.name);
         return { success: true, user: userData };
       } else {
-        throw new Error(response.message || "Login failed");
+        // Handle API response with success: false
+        const errorMessage = response.message || "Login failed";
+        if (errorMessage.includes("Invalid credentials")) {
+          showInvalidCredentialsToast();
+        } else {
+          showLoginErrorToast(errorMessage);
+        }
+        return {
+          success: false,
+          message: errorMessage,
+        };
       }
     } catch (error) {
       console.error("AuthContext: Login error:", error);
@@ -122,7 +132,13 @@ export const AuthProvider = ({ children }) => {
         showRegisterSuccessToast(newUser.name);
         return { success: true, user: newUser };
       } else {
-        throw new Error(response.message || "Registration failed");
+        // Handle API response with success: false
+        const errorMessage = response.message || "Registration failed";
+        showRegisterErrorToast(errorMessage);
+        return {
+          success: false,
+          message: errorMessage,
+        };
       }
     } catch (error) {
       console.error("AuthContext: Registration error:", error);
