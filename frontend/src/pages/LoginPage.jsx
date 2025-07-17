@@ -6,6 +6,7 @@ import { useAuth } from "@contexts/AuthContext";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -111,12 +112,37 @@ const LoginPage = () => {
               </div>
 
               <div className="flex items-center justify-between">
-                <label className="flex items-center">
-                  <input
-                    type="checkbox"
-                    className="w-4 h-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500"
-                  />
-                  <span className="ml-2 text-sm text-slate-600">
+                <label className="flex items-center cursor-pointer group">
+                  <div className="relative">
+                    <input
+                      type="checkbox"
+                      className="sr-only"
+                      checked={rememberMe}
+                      onChange={(e) => setRememberMe(e.target.checked)}
+                    />
+                    <div
+                      className={`w-4 h-4 border-2 rounded transition-all duration-200 flex items-center justify-center ${
+                        rememberMe
+                          ? "bg-blue-600 border-blue-600"
+                          : "bg-transparent border-slate-300 group-hover:border-slate-400"
+                      }`}
+                    >
+                      <svg
+                        className={`w-3 h-3 text-white transition-opacity duration-200 ${
+                          rememberMe ? "opacity-100" : "opacity-0"
+                        }`}
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <span className="ml-3 text-sm text-slate-600 select-none">
                     Ingat saya
                   </span>
                 </label>
