@@ -157,128 +157,129 @@ const AdminUsers = () => {
     };
 
     // Modal Components
-    const UserModal = () => (<div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-        <div className="bg-gray-800/95 backdrop-blur-sm rounded-2xl shadow-2xl max-w-md w-full mx-4 transform transition-all border border-gray-700/50">
-            <div className="flex items-center justify-between p-6 border-b border-gray-700/50">                <h3 className="text-xl font-bold text-white">
-                {selectedUser?.id ? 'Edit Pengguna' : 'Tambah Pengguna Baru'}
-            </h3>
-                <button
-                    onClick={() => setShowUserModal(false)}
-                    className="p-2 hover:bg-gray-700/50 rounded-lg transition-colors"
-                >
-                    <X className="w-5 h-5 text-gray-400" />
-                </button>
-            </div>                <div className="p-6 space-y-4">
-                <div>                    <label className="block text-sm font-medium text-gray-300 mb-2">Nama</label>
-                    <input
-                        type="text"
-                        defaultValue={selectedUser?.name || ''}
-                        className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-700/50 text-white placeholder-gray-400"
-                        placeholder="Masukkan nama pengguna"
-                    />
+    const UserModal = () => (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+            <div className="bg-gray-800/95 backdrop-blur-sm rounded-2xl shadow-2xl max-w-md w-full mx-4 transform transition-all border border-gray-700/50">
+                <div className="flex items-center justify-between p-6 border-b border-gray-700/50">                <h3 className="text-xl font-bold text-white">
+                    {selectedUser?.id ? 'Edit Pengguna' : 'Tambah Pengguna Baru'}
+                </h3>
+                    <button
+                        onClick={() => setShowUserModal(false)}
+                        className="p-2 hover:bg-gray-700/50 rounded-lg transition-colors"
+                    >
+                        <X className="w-5 h-5 text-gray-400" />
+                    </button>
+                </div>                <div className="p-6 space-y-4">
+                    <div>                    <label className="block text-sm font-medium text-gray-300 mb-2">Nama</label>
+                        <input
+                            type="text"
+                            defaultValue={selectedUser?.name || ''}
+                            className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-700/50 text-white placeholder-gray-400"
+                            placeholder="Masukkan nama pengguna"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                        <input
+                            type="email"
+                            defaultValue={selectedUser?.email || ''}
+                            className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-700/50 text-white placeholder-gray-400"
+                            placeholder="Masukkan alamat email"
+                        />
+                    </div>                <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Peran</label>
+                        <Dropdown
+                            value={selectedUser?.role || modalUserRole}
+                            onChange={(e) => setModalUserRole(e.value)}
+                            options={modalRoleOptions}
+                            placeholder="Pilih Peran"
+                            className="w-full"
+                            itemTemplate={(option) => (
+                                <div className="flex items-center py-1 text-white rounded-lg transition-colors text-sm">
+                                    {option.label}
+                                </div>
+                            )}
+                            valueTemplate={(option) => (
+                                <div className="flex items-center text-white text-sm">
+                                    {option ? option.label : 'Pilih Peran'}
+                                </div>
+                            )}
+                            pt={{
+                                root: {
+                                    className: 'bg-gray-700/50 border border-gray-600 rounded-md text-white min-h-[38px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm flex items-center'
+                                },
+                                input: {
+                                    className: 'text-white bg-transparent px-3 h-full w-full text-sm flex items-center'
+                                },
+                                trigger: {
+                                    className: 'text-gray-400 hover:text-white w-8 h-8 flex items-center justify-center'
+                                },
+                                panel: {
+                                    className: 'bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl mt-1 z-50'
+                                },
+                                wrapper: {
+                                    className: 'max-h-48 overflow-y-auto'
+                                },
+                                item: {
+                                    className: 'text-white hover:bg-gray-700/50 px-3 py-2 cursor-pointer transition-colors border-none text-sm'
+                                }
+                            }}
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Status</label>
+                        <Dropdown
+                            value={selectedUser?.status || modalUserStatus}
+                            onChange={(e) => setModalUserStatus(e.value)}
+                            options={modalStatusOptions}
+                            placeholder="Pilih Status"
+                            className="w-full"
+                            itemTemplate={(option) => (
+                                <div className="flex items-center py-1 text-white rounded-lg transition-colors text-sm">
+                                    {option.label}
+                                </div>
+                            )}
+                            valueTemplate={(option) => (
+                                <div className="flex items-center text-white text-sm">
+                                    {option ? option.label : 'Pilih Status'}
+                                </div>
+                            )}
+                            pt={{
+                                root: {
+                                    className: 'bg-gray-700/50 border border-gray-600 rounded-md text-white min-h-[38px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm flex items-center'
+                                },
+                                input: {
+                                    className: 'text-white bg-transparent px-3 h-full w-full text-sm flex items-center'
+                                },
+                                trigger: {
+                                    className: 'text-gray-400 hover:text-white w-8 h-8 flex items-center justify-center'
+                                },
+                                panel: {
+                                    className: 'bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl mt-1 z-50'
+                                },
+                                wrapper: {
+                                    className: 'max-h-48 overflow-y-auto'
+                                },
+                                item: {
+                                    className: 'text-white hover:bg-gray-700/50 px-3 py-2 cursor-pointer transition-colors border-none text-sm'
+                                }
+                            }}
+                        />
+                    </div>
+                </div>                <div className="flex space-x-3 p-6 border-t border-gray-700/50">
+                    <button onClick={() => setShowUserModal(false)}
+                        className="flex-1 px-4 py-3 text-gray-300 bg-gray-700/50 border border-gray-600 rounded-xl hover:bg-gray-600/50 focus:ring-4 focus:ring-gray-600/25 transition-all duration-200 font-medium"
+                    >
+                        Batal
+                    </button>
+                    <button
+                        className="flex-1 px-4 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 focus:ring-4 focus:ring-blue-500/25 transition-all duration-200 font-medium"
+                    >
+                        {selectedUser?.id ? 'Perbarui Pengguna' : 'Buat Pengguna'}
+                    </button>
                 </div>
-                <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Email</label>
-                    <input
-                        type="email"
-                        defaultValue={selectedUser?.email || ''}
-                        className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-700/50 text-white placeholder-gray-400"
-                        placeholder="Masukkan alamat email"
-                    />
-                </div>                <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Peran</label>
-                    <Dropdown
-                        value={selectedUser?.role || modalUserRole}
-                        onChange={(e) => setModalUserRole(e.value)}
-                        options={modalRoleOptions}
-                        placeholder="Pilih Peran"
-                        className="w-full"
-                        itemTemplate={(option) => (
-                            <div className="flex items-center py-1 text-white rounded-lg transition-colors text-sm">
-                                {option.label}
-                            </div>
-                        )}
-                        valueTemplate={(option) => (
-                            <div className="flex items-center text-white text-sm">
-                                {option ? option.label : 'Pilih Peran'}
-                            </div>
-                        )}
-                        pt={{
-                            root: {
-                                className: 'bg-gray-700/50 border border-gray-600 rounded-md text-white min-h-[38px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm flex items-center'
-                            },
-                            input: {
-                                className: 'text-white bg-transparent px-3 h-full w-full text-sm flex items-center'
-                            },
-                            trigger: {
-                                className: 'text-gray-400 hover:text-white w-8 h-8 flex items-center justify-center'
-                            },
-                            panel: {
-                                className: 'bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl mt-1 z-50'
-                            },
-                            wrapper: {
-                                className: 'max-h-48 overflow-y-auto'
-                            },
-                            item: {
-                                className: 'text-white hover:bg-gray-700/50 px-3 py-2 cursor-pointer transition-colors border-none text-sm'
-                            }
-                        }}
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Status</label>
-                    <Dropdown
-                        value={selectedUser?.status || modalUserStatus}
-                        onChange={(e) => setModalUserStatus(e.value)}
-                        options={modalStatusOptions}
-                        placeholder="Pilih Status"
-                        className="w-full"
-                        itemTemplate={(option) => (
-                            <div className="flex items-center py-1 text-white rounded-lg transition-colors text-sm">
-                                {option.label}
-                            </div>
-                        )}
-                        valueTemplate={(option) => (
-                            <div className="flex items-center text-white text-sm">
-                                {option ? option.label : 'Pilih Status'}
-                            </div>
-                        )}
-                        pt={{
-                            root: {
-                                className: 'bg-gray-700/50 border border-gray-600 rounded-md text-white min-h-[38px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm flex items-center'
-                            },
-                            input: {
-                                className: 'text-white bg-transparent px-3 h-full w-full text-sm flex items-center'
-                            },
-                            trigger: {
-                                className: 'text-gray-400 hover:text-white w-8 h-8 flex items-center justify-center'
-                            },
-                            panel: {
-                                className: 'bg-gray-800/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl mt-1 z-50'
-                            },
-                            wrapper: {
-                                className: 'max-h-48 overflow-y-auto'
-                            },
-                            item: {
-                                className: 'text-white hover:bg-gray-700/50 px-3 py-2 cursor-pointer transition-colors border-none text-sm'
-                            }
-                        }}
-                    />
-                </div>
-            </div>                <div className="flex space-x-3 p-6 border-t border-gray-700/50">
-                <button onClick={() => setShowUserModal(false)}
-                    className="flex-1 px-4 py-3 text-gray-300 bg-gray-700/50 border border-gray-600 rounded-xl hover:bg-gray-600/50 focus:ring-4 focus:ring-gray-600/25 transition-all duration-200 font-medium"
-                >
-                    Batal
-                </button>
-                <button
-                    className="flex-1 px-4 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 focus:ring-4 focus:ring-blue-500/25 transition-all duration-200 font-medium"
-                >
-                    {selectedUser?.id ? 'Perbarui Pengguna' : 'Buat Pengguna'}
-                </button>
             </div>
         </div>
-    </div>
     ); const DeleteModal = () => (
         <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
             <div className="bg-gray-800/95 backdrop-blur-sm rounded-2xl shadow-2xl max-w-md w-full mx-4 transform transition-all border border-gray-700/50">
@@ -435,30 +436,30 @@ const AdminUsers = () => {
                     Ekspor
                 </button>
             </div>
-        </div>            {/* Users Table */}
+        </div>        {/* Users Table */}
         <div className="bg-gray-800/50 backdrop-blur-sm shadow-lg rounded-xl overflow-hidden border border-gray-700/50">
-            <div className="overflow-x-auto">
+            <div className="admin-table-container overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-700/50">
                     <thead className="bg-gray-900/50">
-                        <tr>                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                        <tr>                            <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                             Pengguna
                         </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                            <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                                 Peran
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                            <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                                 Status
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                            <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider hidden-mobile">
                                 Aktivitas
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                            <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider hidden-mobile">
                                 Konten
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                            <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider hidden-mobile">
                                 Bergabung
                             </th>
-                            <th className="relative px-6 py-3">
+                            <th className="relative px-4 md:px-6 py-3">
                                 <span className="sr-only">Actions</span>
                             </th>
                         </tr>
@@ -466,37 +467,37 @@ const AdminUsers = () => {
                     <tbody className="bg-gray-800/30 divide-y divide-gray-700/50">
                         {filteredUsers.map((user) => (
                             <tr key={user.id} className="hover:bg-gray-700/30">
-                                <td className="px-6 py-4 whitespace-nowrap">
+                                <td className="px-4 md:px-6 py-4 whitespace-nowrap" data-label="Pengguna">
                                     <div className="flex items-center">
                                         <img
-                                            className="h-10 w-10 rounded-full ring-2 ring-gray-600"
+                                            className="h-8 w-8 md:h-10 md:w-10 rounded-full ring-2 ring-gray-600"
                                             src={user.avatar}
                                             alt={user.name}
                                         />
-                                        <div className="ml-4">
-                                            <div className="text-sm font-medium text-white">
+                                        <div className="ml-3 md:ml-4">
+                                            <div className="text-sm font-medium text-white truncate max-w-[150px] md:max-w-none">
                                                 {user.name}
                                             </div>
-                                            <div className="text-sm text-gray-400">
+                                            <div className="text-xs md:text-sm text-gray-400 truncate max-w-[150px] md:max-w-none">
                                                 {user.email}
                                             </div>
                                         </div>
                                     </div>
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
+                                <td className="px-4 md:px-6 py-4 whitespace-nowrap" data-label="Peran">
                                     <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getRoleColor(user.role)}`}>
                                         {user.role}
                                     </span>
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
+                                <td className="px-4 md:px-6 py-4 whitespace-nowrap" data-label="Status">
                                     <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(user.status)}`}>
                                         {user.status}
                                     </span>
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                                <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300 hidden-mobile" data-label="Aktivitas">
                                     {user.lastActive}
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">                                    <div className="text-sm">
+                                <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300 hidden-mobile" data-label="Konten">                                    <div className="text-sm">
                                     <div>{user.notes} catatan</div>
                                     <div>{user.posts} postingan</div>
                                 </div>

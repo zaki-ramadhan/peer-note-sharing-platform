@@ -23,14 +23,37 @@ const AdminSearchDropdown = ({ isOpen, searchQuery, onClose }) => {
             href: '/admin/users',
             icon: Users,
             keywords: ['pengguna', 'user', 'akun', 'member', 'roles', 'peran']
-        },
-        {
+        },        {
             id: 'content',
             title: 'Manajemen Konten',
             description: 'Moderasi catatan dan postingan',
             href: '/admin/content',
             icon: FileText,
             keywords: ['konten', 'catatan', 'notes', 'postingan', 'moderasi', 'review']
+        },
+        {
+            id: 'reports',
+            title: 'Manajemen Laporan',
+            description: 'Kelola laporan pengguna dan konten',
+            href: '/admin/reports',
+            icon: FileText,
+            keywords: ['laporan', 'reports', 'keluhan', 'flagged', 'reported']
+        },
+        {
+            id: 'bulk-operations',
+            title: 'Operasi Massal',
+            description: 'Kelola data pengguna dan konten secara massal',
+            href: '/admin/bulk-operations',
+            icon: FileText,
+            keywords: ['operasi', 'massal', 'bulk', 'batch', 'multiple', 'export', 'import']
+        },
+        {
+            id: 'notification-templates',
+            title: 'Template Notifikasi',
+            description: 'Kelola template email dan notifikasi',
+            href: '/admin/notification-templates',
+            icon: FileText,
+            keywords: ['template', 'notifikasi', 'email', 'sms', 'push', 'notification']
         },
         {
             id: 'analytics',
@@ -117,10 +140,8 @@ const AdminSearchDropdown = ({ isOpen, searchQuery, onClose }) => {
 
             setSearchResults(results.slice(0, 8));
             setIsLoading(false);
-        }, 300);
-
-        return () => clearTimeout(searchTimeout);
-    }, [searchQuery]);
+        }, 300);        return () => clearTimeout(searchTimeout);
+    }, [searchQuery]); // adminMenuItems and quickActions are now constants outside component
 
     const calculateMatchScore = (item, query) => {
         let score = 0;

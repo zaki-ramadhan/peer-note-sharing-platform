@@ -288,18 +288,19 @@ const AdminNotifications = () => {
                 <div className="min-w-0 flex-1">
                     <h2 className="text-2xl font-bold leading-7 text-white sm:truncate sm:text-3xl sm:tracking-tight">
                         Notifikasi Admin
-                    </h2>
-                    <div className="mt-2 flex items-center text-sm text-gray-400">
-                        <Bell className="mr-1.5 h-4 w-4 flex-shrink-0" />
-                        <span>
-                            {unreadCount} belum dibaca dari {notifications.length} total notifikasi
-                        </span>
+                    </h2>                    <div className="mt-2 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-0 text-sm text-gray-400">
+                        <div className="flex items-center">
+                            <Bell className="mr-1.5 h-4 w-4 flex-shrink-0" />
+                            <span className="truncate">
+                                {unreadCount} belum dibaca dari {notifications.length} total notifikasi
+                            </span>
+                        </div>
                         {highPriorityCount > 0 && (
-                            <>
-                                <span className="mx-2">•</span>
+                            <div className="flex items-center sm:ml-2">
+                                <span className="hidden sm:inline mx-2">•</span>
                                 <AlertTriangle className="mr-1.5 h-4 w-4 flex-shrink-0 text-red-400" />
-                                <span className="text-red-400">{highPriorityCount} prioritas tinggi</span>
-                            </>
+                                <span className="text-red-400 truncate">{highPriorityCount} prioritas tinggi</span>
+                            </div>
                         )}
                     </div>
                 </div>                {/* Action Buttons */}
@@ -352,7 +353,7 @@ const AdminNotifications = () => {
                                 placeholder="Cari judul atau pesan..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="pl-10 pr-4 py-2 w-full border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-700/50 text-white placeholder-gray-400"
+                                className="pl-10 pr-4 py-2 w-full border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-700/50 text-white text-sm placeholder-gray-400"
                             />
                         </div>
                     </div>

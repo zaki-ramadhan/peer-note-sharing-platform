@@ -15,7 +15,15 @@ import {
     Moon,
     Sun,
     ChevronDown,
-    Shield
+    Shield,
+    AlertTriangle,
+    HardDrive,
+    Key,
+    Mail,
+    Activity,
+    CheckSquare,
+    FileCheck,
+    Package
 } from 'lucide-react';
 import { showInfoToast } from '@utils/toastUtils';
 import AdminSearchDropdown from './AdminSearchDropdown';
@@ -88,10 +96,22 @@ const AdminLayout = () => {
             description: 'Tinjau catatan dan postingan'
         },
         {
+            name: 'Laporan',
+            href: '/admin/reports',
+            icon: AlertTriangle,
+            description: 'Kelola laporan pengguna'
+        },
+        {
             name: 'Analitik',
             href: '/admin/analytics',
             icon: BarChart3,
             description: 'Statistik platform'
+        },
+        {
+            name: 'Notifikasi',
+            href: '/admin/notifications',
+            icon: Bell,
+            description: 'Kelola notifikasi admin'
         },
         {
             name: 'Pengaturan',
@@ -109,7 +129,7 @@ const AdminLayout = () => {
     };
 
     const LogoutModal = () => (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
             <div className="bg-gray-800/95 backdrop-blur-sm rounded-2xl shadow-2xl max-w-md w-full mx-4 transform transition-all border border-gray-700/50">
                 <div className="p-6">
                     <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-red-900/30 rounded-full border border-red-600/30">
@@ -144,8 +164,9 @@ const AdminLayout = () => {
                 <div className="fixed inset-0 z-40 lg:hidden">
                     <div className="fixed inset-0 bg-gray-900 bg-opacity-75" onClick={() => setSidebarOpen(false)} />
                 </div>
-            )}{/* Sidebar */}
-            <div className={`fixed inset-y-0 left-0 z-50 w-72 bg-gradient-to-b from-slate-900 to-slate-800 shadow-2xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+            )}
+            {/* Sidebar */}
+            <div className={`fixed inset-y-0 left-0 z-50 w-72 bg-gradient-to-b from-slate-900 to-slate-800 shadow-2xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full overflow-hidden'
                 }`}>
                 {/* Sidebar Header */}
                 <div className="flex items-center justify-between h-20 px-6 border-b border-slate-700">
@@ -166,28 +187,30 @@ const AdminLayout = () => {
                 </div>
 
                 {/* Navigation */}
-                <nav className="mt-8 px-4 space-y-2">
-                    {navigation.map((item) => (
-                        <NavLink
-                            key={item.name}
-                            to={item.href}
-                            end={item.href === '/admin'}
-                            className={({ isActive }) =>
-                                `group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${isActive
-                                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25'
-                                    : 'text-slate-300 hover:bg-slate-700 hover:text-white'
-                                }`
-                            }
-                            onClick={() => setSidebarOpen(false)}
-                        >
-                            <item.icon className="mr-3 h-5 w-5 flex-shrink-0" />
-                            <div className="flex-1">
-                                <div>{item.name}</div>
-                                <div className="text-xs opacity-75 hidden sm:block">{item.description}</div>
-                            </div>
-                        </NavLink>
-                    ))}
-                </nav>
+                <div className='nav-wrp max-h-[65%] overflow-y-auto'>
+                    <nav className="mt-8 px-4 space-y-2">
+                        {navigation.map((item) => (
+                            <NavLink
+                                key={item.name}
+                                to={item.href}
+                                end={item.href === '/admin'}
+                                className={({ isActive }) =>
+                                    `group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${isActive
+                                        ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25'
+                                        : 'text-slate-300 hover:bg-slate-700 hover:text-white'
+                                    }`
+                                }
+                                onClick={() => setSidebarOpen(false)}
+                            >
+                                <item.icon className="mr-3 h-5 w-5 flex-shrink-0" />
+                                <div className="flex-1">
+                                    <div>{item.name}</div>
+                                    <div className="text-xs opacity-75 hidden sm:block">{item.description}</div>
+                                </div>
+                            </NavLink>
+                        ))}
+                    </nav>
+                </div>
 
                 {/* User info at bottom */}
                 <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-700">
@@ -227,7 +250,7 @@ const AdminLayout = () => {
                                 >
                                     <Menu className="h-6 w-6" />
                                 </button>
-                                <div className="ml-4 lg:ml-0">                                    <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent">
+                                <div className="ml-4 lg:ml-0">                                    <h1 className=" md:text-2xl font-bold bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent">
                                     Dashboard Admin
                                 </h1>
                                     <p className="text-sm text-gray-400 hidden sm:block">
@@ -236,9 +259,10 @@ const AdminLayout = () => {
                                 </div>
                             </div>
 
-                            <div className="flex items-center space-x-4">                                {/* Search Bar */}
+                            <div className="flex items-center space-x-4">
+                                {/* Search Bar */}
                                 <div className="hidden md:block relative search-container">
-                                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-10 w-4 text-gray-200" />
                                     <input
                                         type="text"
                                         placeholder="Cari panel admin..."

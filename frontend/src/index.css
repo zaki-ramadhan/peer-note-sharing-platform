@@ -40,6 +40,33 @@ html {
 	width: 0px;
 	background: transparent;
 }
+/* Custom scrollbar for nav-wrp only */
+.nav-wrp::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+.nav-wrp::-webkit-scrollbar-track {
+	background: rgba(31, 41, 55, 0.5);
+	border-radius: 4px;
+}
+
+.nav-wrp::-webkit-scrollbar-thumb {
+	background: rgba(75, 85, 99, 0.8);
+	border-radius: 4px;
+	transition: background 0.2s ease;
+}
+
+.nav-wrp::-webkit-scrollbar-thumb:hover {
+	background: rgba(96, 165, 250, 0.8);
+}
+
+/* Firefox */
+.nav-wrp {
+	scrollbar-width: thin;
+	scrollbar-color: rgba(75, 85, 99, 0.8)
+		rgba(31, 41, 55, 0.5);
+}
 
 /* For Firefox */
 html {
@@ -270,4 +297,129 @@ input::placeholder {
 	max-width: calc(
 		100% - 40px
 	) !important; /* Account for trigger button width */
+}
+
+/* Responsive notification dropdown for mobile */
+@media (max-width: 640px) {
+	/* Make notification container take full width on mobile */
+	.notification-container {
+		position: static !important;
+	}
+
+	/* Override dropdown positioning for mobile */
+	.notification-container .admin-notification-dropdown {
+		position: fixed !important;
+		top: 4.5rem !important;
+		right: 0.5rem !important;
+		left: 0.5rem !important;
+		width: calc(
+			100vw -
+				1rem
+		) !important;
+		max-width: none !important;
+		margin-top: 0 !important;
+		transform: none !important;
+	}
+}
+
+@media (max-width: 480px) {
+	.notification-container .admin-notification-dropdown {
+		right: 0.25rem !important;
+		left: 0.25rem !important;
+		width: calc(
+			100vw -
+				0.5rem
+		) !important;
+	}
+}
+
+/* Responsive table improvements for admin pages */
+@media (max-width: 768px) {
+	/* Make tables scroll horizontally on mobile */
+	.admin-table-container {
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	/* Reduce table cell padding on mobile */
+	.admin-table-container table th,
+	.admin-table-container table td {
+		padding: 0.5rem 0.75rem !important;
+		font-size: 0.875rem !important;
+	}
+
+	/* Hide less important columns on mobile */
+	.admin-table-container .hidden-mobile {
+		display: none !important;
+	}
+
+	/* Stack table content vertically for small screens */
+	.admin-mobile-card {
+		display: block !important;
+		border: 1px solid
+			rgb(
+				75
+					85
+					99 /
+					0.5
+			) !important;
+		border-radius: 0.75rem !important;
+		padding: 1rem !important;
+		margin-bottom: 0.75rem !important;
+		background: rgb(
+			31
+				41
+				55 /
+				0.3
+		) !important;
+	}
+
+	.admin-mobile-card thead,
+	.admin-mobile-card tbody,
+	.admin-mobile-card th,
+	.admin-mobile-card td,
+	.admin-mobile-card tr {
+		display: block !important;
+	}
+
+	.admin-mobile-card thead tr {
+		display: none !important;
+	}
+
+	.admin-mobile-card td {
+		border: none !important;
+		position: relative !important;
+		padding-left: 0 !important;
+		margin-bottom: 0.5rem !important;
+	}
+
+	.admin-mobile-card td:before {
+		content: attr(data-label)
+			": " !important;
+		font-weight: 600 !important;
+		color: rgb(
+			156
+				163
+				175
+		) !important;
+		display: inline-block !important;
+		width: auto !important;
+		margin-right: 0.5rem !important;
+		font-size: 0.75rem !important;
+		text-transform: uppercase !important;
+	}
+}
+
+@media (max-width: 480px) {
+	.admin-table-container table th,
+	.admin-table-container table td {
+		padding: 0.375rem 0.5rem !important;
+		font-size: 0.8125rem !important;
+	}
+
+	/* Adjust avatar sizes on very small screens */
+	.admin-table-container img {
+		width: 2rem !important;
+		height: 2rem !important;
+	}
 }

@@ -83,50 +83,48 @@ const LandingPage = () => {
     ];
 
     const subjects = [
-        { name: 'Matematika', icon: '📐', count: '2.5k notes' },
-        { name: 'Fisika', icon: '⚛️', count: '1.8k notes' },
-        { name: 'Kimia', icon: '🧪', count: '1.2k notes' },
-        { name: 'Biologi', icon: '🧬', count: '1.5k notes' },
-        { name: 'Bahasa Inggris', icon: '🇬🇧', count: '3.1k notes' },
-        { name: 'Komputer', icon: '💻', count: '4.2k notes' },
-        { name: 'Ekonomi', icon: '📈', count: '900 notes' },
-        { name: 'Sejarah', icon: '🏛️', count: '700 notes' }
+        { name: 'Matematika', icon: '📐', count: '2.5k catatan' },
+        { name: 'Fisika', icon: '⚛️', count: '1.8k catatan' },
+        { name: 'Kimia', icon: '🧪', count: '1.2k catatan' },
+        { name: 'Biologi', icon: '🧬', count: '1.5k catatan' },
+        { name: 'Bahasa Inggris', icon: '📚', count: '3.1k catatan' },
+        { name: 'Komputer', icon: '💻', count: '4.2k catatan' },
+        { name: 'Ekonomi', icon: '📈', count: '900 catatan' },
+        { name: 'Sejarah', icon: '🏛️', count: '700 catatan' }
     ];
 
     return (
-        <div className="min-h-screen bg-white font-['Hanken_Grotesk']">
-            {/* Navigation */}
+        <div className="min-h-screen bg-white font-['Hanken_Grotesk']">            {/* Navigation */}
             <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/50 z-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between h-16 items-center">
-                        <Link to="/" className="flex items-center space-x-3 group">
-                            <div className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-md groupmd transition-shadow">
-                                <BookOpen className="h-6 w-6 text-white" />
-                            </div>                            <span className="text-xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent font-['Hanken_Grotesk']">
-                                PeerNote
-                            </span>
-                        </Link>                        <div className="hidden md:flex items-center space-x-8 font-['Hanken_Grotesk']">
-                            <a href="#features" className="text-slate-600 hover:text-blue-600 transition-colors font-medium">Fitur</a>
-                            <a href="#how-it-works" className="text-slate-600 hover:text-blue-600 transition-colors font-medium">Cara Kerja</a>
-                            <a href="#testimonials" className="text-slate-600 hover:text-blue-600 transition-colors font-medium">Testimoni</a>
+                    <div className="flex justify-between h-18 items-center">                        <Link to="/" className="flex items-center space-x-3 group">
+                        <div className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-md groupmd transition-shadow">
+                            <BookOpen className="h-6 w-6 md:h-7 md:w-7 text-white" />
                         </div>
+                        <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent font-['Hanken_Grotesk']">
+                            PeerNote
+                        </span>
+                    </Link>
 
-                        <div className="flex items-center space-x-4">
+                        <div className="hidden md:flex items-center space-x-8 font-['Hanken_Grotesk']">
+                            <a href="#features" className="text-lg text-slate-600 hover:text-blue-600 transition-colors font-medium">Fitur</a>
+                            <a href="#how-it-works" className="text-lg text-slate-600 hover:text-blue-600 transition-colors font-medium">Cara Kerja</a>
+                            <a href="#testimonials" className="text-lg text-slate-600 hover:text-blue-600 transition-colors font-medium">Testimoni</a>
+                        </div>                        <div className="flex items-center space-x-3 md:space-x-4">
                             <Link to="/login">
-                                <Button variant="ghost" className="font-medium">Masuk</Button>
+                                <Button variant="ghost" className="font-medium text-base md:text-lg px-4 md:px-6 py-2">Masuk</Button>
                             </Link>
                             <Link to="/register">
-                                <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-md">
-                                    Mulai Sekarang
+                                <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-md text-base md:text-lg px-4 md:px-6 py-2">
+                                    <span className="hidden sm:inline">Mulai Sekarang</span>
+                                    <span className="sm:hidden">Daftar</span>
                                 </Button>
                             </Link>
                         </div>
                     </div>
                 </div>
-            </nav>
-
-            {/* Hero Section */}
-            <section className="relative min-h-screen flex items-center bg-gradient-to-br from-slate-50 via-blue-50/50 to-indigo-50 overflow-hidden pt-16">
+            </nav>            {/* Hero Section */}
+            <section className="relative min-h-screen flex items-center bg-gradient-to-br from-slate-50 via-blue-50/50 to-indigo-50 overflow-hidden pt-20">
                 {/* Background Effects */}
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute -top-40 -right-32 w-80 h-80 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
@@ -162,14 +160,16 @@ const LandingPage = () => {
                         </p>                        {/* CTA Buttons */}
                         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
                             <Link to="/register">
-                                <Button size="xl" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold px-8 py-4 rounded-xl shadow-md transform  transition-all duration-200">
-                                    <Rocket className="inline mr-2 h-5 w-5" />
-                                    Mulai Gratis
-                                    <ArrowRight className="inline ml-2 w-5 h-5" />
+                                <Button size="xl" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold px-8 py-5 rounded-xl shadow-md transform transition-all duration-200 flex items-center justify-center">
+                                    <span className='flex items-center py-0.5'>
+                                        <Rocket className="inline-block mr-2 h-5 w-5" />
+                                        Mulai Gratis
+                                        <ArrowRight className="inline-block ml-2 h-5 w-5" />
+                                    </span>
                                 </Button>
                             </Link>
                             <Link to="/notes">
-                                <Button variant="outline" size="xl" className="border-2 border-slate-300 text-slate-700 hover:border-blue-500 hover:text-blue-600 font-semibold px-8 py-4 rounded-xl shadow-md transform  transition-all duration-200">
+                                <Button variant="outline" size="xl" className="border-2 border-slate-300 text-slate-700 hover:border-blue-500 hover:text-blue-600 font-semibold px-8 py-4 rounded-xl shadow-md transform transition-all duration-200 flex items-center justify-center">
                                     Jelajahi Catatan
                                 </Button>
                             </Link>
@@ -192,13 +192,6 @@ const LandingPage = () => {
                                 );
                             })}
                         </div>
-                    </div>
-                </div>
-
-                {/* Scroll Indicator */}
-                <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-                    <div className="w-6 h-10 border-2 border-slate-400 rounded-full flex justify-center">
-                        <div className="w-1 h-3 bg-slate-400 rounded-full mt-2 animate-pulse"></div>
                     </div>
                 </div>
             </section>
@@ -369,15 +362,16 @@ const LandingPage = () => {
                     </h2>
                     <p className="text-xl text-blue-100 mb-10 max-w-3xl mx-auto leading-relaxed">
                         Mulai berbagi catatan dan bangun network pembelajaran yang kuat bersama ribuan mahasiswa lainnya.
-                    </p>                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Link to="/register">
-                            <Button size="xl" className="bg-white text-blue-600 hover:bg-gray-50 font-semibold px-8 py-4 rounded-xl shadow-md transform  transition-all duration-200">
-                                <Zap className="mr-2 h-5 w-5" />
+                            <Button size="xl" className="bg-white text-blue-600 hover:bg-gray-50 font-semibold px-8 py-5.5 rounded-xl shadow-md transform  transition-all duration-200">
+                                <Zap className="inline-block mr-2 h-5 w-5" />
                                 Daftar Sekarang - Gratis!
                             </Button>
                         </Link>
                         <Link to="/notes">
-                            <Button size="xl" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-blue-600 font-semibold px-8 py-4 rounded-xl shadow-md transform  transition-all duration-200">
+                            <Button size="xl" variant="outline" className="border-2 border-white text-white hover:bg-white/20 hover:text-blue-700 font-semibold px-8 py-4 rounded-xl shadow-md transform  transition-all duration-200">
                                 Lihat Catatan Tersedia
                             </Button>
                         </Link>

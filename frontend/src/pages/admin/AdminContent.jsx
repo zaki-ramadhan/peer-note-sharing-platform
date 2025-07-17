@@ -117,9 +117,13 @@ const AdminContent = () => {
             reports: 3,
             views: 156
         }
-    ]); const tabs = [{ id: 'notes', name: 'Catatan', icon: FileText, count: notes.length },
+    ]);
+
+    const tabs = [{ id: 'notes', name: 'Catatan', icon: FileText, count: notes.length },
     { id: 'posts', name: 'Post Forum', icon: MessageSquare, count: posts.length }
-    ]; const getStatusColor = (status) => {
+    ];
+
+    const getStatusColor = (status) => {
         switch (status) {
             case 'approved':
                 return 'bg-green-900/50 text-green-300 border border-green-600/30';
@@ -158,41 +162,43 @@ const AdminContent = () => {
                 post.author.toLowerCase().includes(searchTerm.toLowerCase());
             const matchesStatus = statusFilter === 'all' || post.status === statusFilter;
             return matchesSearch && matchesStatus;
-        }); const ContentActions = ({ item, type }) => (
-            <div className="flex space-x-2">
-                <button
-                    className="p-1 text-blue-400 hover:bg-blue-900/30 rounded"
-                    title="View"
-                >
-                    <Eye className="h-4 w-4" />
-                </button>
-                {item.status === 'pending' && (
-                    <>
-                        <button
-                            onClick={() => handleContentAction(type, item.id, 'approved')}
-                            className="p-1 text-green-400 hover:bg-green-900/30 rounded"
-                            title="Approve"
-                        >
-                            <Check className="h-4 w-4" />
-                        </button>
-                        <button
-                            onClick={() => handleContentAction(type, item.id, 'rejected')}
-                            className="p-1 text-red-400 hover:bg-red-900/30 rounded"
-                            title="Reject"
-                        >
-                            <X className="h-4 w-4" />
-                        </button>
-                    </>
-                )}            {item.reports > 0 && (
+        });
+
+    const ContentActions = ({ item, type }) => (
+        <div className="flex space-x-2">
+            <button
+                className="p-1 text-blue-400 hover:bg-blue-900/30 rounded"
+                title="View"
+            >
+                <Eye className="h-4.5 w-4.5" />
+            </button>
+            {item.status === 'pending' && (
+                <>
                     <button
-                        className="p-1 text-orange-400 hover:bg-orange-900/30 rounded"
-                        title="View Reports"
+                        onClick={() => handleContentAction(type, item.id, 'approved')}
+                        className="p-1 text-green-400 hover:bg-green-900/30 rounded"
+                        title="Approve"
                     >
-                        <AlertTriangle className="h-4 w-4" />
+                        <Check className="h-4.5 w-4.5" />
                     </button>
-                )}
-            </div>
-        );
+                    <button
+                        onClick={() => handleContentAction(type, item.id, 'rejected')}
+                        className="p-1 text-red-400 hover:bg-red-900/30 rounded"
+                        title="Reject"
+                    >
+                        <X className="h-4.5 w-4.5" />
+                    </button>
+                </>
+            )}            {item.reports > 0 && (
+                <button
+                    className="p-1 text-orange-400 hover:bg-orange-900/30 rounded"
+                    title="View Reports"
+                >
+                    <AlertTriangle className="h-4.5 w-4.5" />
+                </button>
+            )}
+        </div>
+    );
 
     return (
         <div className="space-y-6">
@@ -276,49 +282,48 @@ const AdminContent = () => {
 
                     {/* Quick Actions */}
                     <div className="flex space-x-2">                        <button className="inline-flex items-center px-3 py-2 border border-gray-600 rounded-lg text-sm font-medium text-gray-300 bg-gray-700/50 hover:bg-gray-600/50 transition-colors">
-                        <Filter className="h-4 w-4 mr-2" />
+                        <Filter className="h-4.5 w-4.5 mr-2" />
                         Aksi Massal
                     </button>
                     </div>
                 </div>
             </div>            {/* Content Table */}
             <div className="bg-gray-800/50 backdrop-blur-sm shadow-lg rounded-xl overflow-hidden border border-gray-700/50">
-                <div className="overflow-x-auto">
-                    <table className="min-w-full divide-y divide-gray-700/50">
-                        <thead className="bg-gray-900/50">
-                            <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                                    <input type="checkbox" className="rounded border-gray-600 bg-gray-700 text-blue-600 focus:ring-blue-500" />
-                                </th>                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                                    {activeTab === 'notes' ? 'Catatan' : 'Post'}
-                                </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                                    Penulis
-                                </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                                    {activeTab === 'notes' ? 'Mata Pelajaran' : 'Kategori'}
-                                </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                                    Status
-                                </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                                    Statistik
-                                </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                                    Tanggal
-                                </th>
-                                <th className="relative px-6 py-3">
-                                    <span className="sr-only">Actions</span>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody className="bg-gray-800/30 divide-y divide-gray-700/50">
+                <div className="admin-table-container overflow-x-auto">
+                    <table className="min-w-full divide-y divide-gray-700/50">                        <thead className="bg-gray-900/50">
+                        <tr>
+                            <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                                <input type="checkbox" className="rounded border-gray-600 bg-gray-700 text-blue-600 focus:ring-blue-500" />
+                            </th>
+                            <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                                {activeTab === 'notes' ? 'Catatan' : 'Post'}
+                            </th>
+                            <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                                Penulis
+                            </th>
+                            <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider hidden-mobile">
+                                {activeTab === 'notes' ? 'Mata Pelajaran' : 'Kategori'}
+                            </th>
+                            <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                                Status
+                            </th>
+                            <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider hidden-mobile">
+                                Statistik
+                            </th>
+                            <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider hidden-mobile">
+                                Tanggal
+                            </th>
+                            <th className="relative px-4 md:px-6 py-3">
+                                <span className="sr-only">Actions</span>
+                            </th>
+                        </tr>
+                    </thead>                        <tbody className="bg-gray-800/30 divide-y divide-gray-700/50">
                             {filteredContent.map((item) => (
                                 <tr key={item.id} className="hover:bg-gray-700/30">
-                                    <td className="px-6 py-4 whitespace-nowrap">
+                                    <td className="px-4 md:px-6 py-4 whitespace-nowrap" data-label="Select">
                                         <input type="checkbox" className="rounded border-gray-600 bg-gray-700 text-blue-600 focus:ring-blue-500" />
                                     </td>
-                                    <td className="px-6 py-4">
+                                    <td className="px-4 md:px-6 py-4" data-label={activeTab === 'notes' ? 'Catatan' : 'Post'}>
                                         <div className="text-sm font-medium text-white">
                                             {item.title}
                                         </div>
@@ -328,37 +333,40 @@ const AdminContent = () => {
                                             </div>
                                         )}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                                    <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300" data-label="Penulis">
                                         {item.author}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                                    <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300 hidden-mobile" data-label={activeTab === 'notes' ? 'Mata Pelajaran' : 'Kategori'}>
                                         {activeTab === 'notes' ? item.subject : item.category}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
+                                    <td className="px-4 md:px-6 py-4 whitespace-nowrap" data-label="Status">
                                         <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(item.status)}`}>
                                             {item.status}
-                                        </span>                                        {item.reports > 0 && (
-                                            <span className="ml-2 inline-flex items-center px-2 py-1 text-xs font-medium bg-red-900/50 text-red-300 rounded-full border border-red-600/30">
+                                        </span>
+
+                                        {item.reports > 0 && (
+                                            <span className="ml-2 inline-flex items-center px-2 py-1 translate-y-0.5 text-xs font-medium bg-red-900/50 text-red-300 rounded-full border border-red-600/30">
                                                 <AlertTriangle className="h-3 w-3 mr-1" />
                                                 {item.reports}
                                             </span>
                                         )}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                                    <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300 hidden-mobile" data-label="Statistik">
                                         {activeTab === 'notes' ? (
                                             <div>
                                                 <div>{item.downloads} unduhan</div>
                                             </div>
                                         ) : (
-                                            <div>                                            <div>{item.replies} balasan</div>
+                                            <div>
+                                                <div>{item.replies} balasan</div>
                                                 <div>{item.views} dilihat</div>
                                             </div>
                                         )}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                                    <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300 hidden-mobile" data-label="Tanggal">
                                         {activeTab === 'notes' ? item.uploadDate : item.postDate}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <td className="px-4 md:px-6 py-4 whitespace-nowrap text-right text-sm font-medium" data-label="Actions">
                                         <ContentActions item={item} type={activeTab} />
                                     </td>
                                 </tr>
@@ -381,7 +389,7 @@ const AdminContent = () => {
                         </div>
                         </div>
                         <div className="ml-4">
-                            <p className="text-sm font-medium text-gray-400">Pending Review</p>
+                            <p className="text-sm font-medium text-gray-400">Menunggu</p>
                             <p className="text-2xl font-semibold text-white">
                                 {[...notes, ...posts].filter(item => item.status === 'pending').length}
                             </p>
@@ -391,9 +399,10 @@ const AdminContent = () => {
 
                 <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700/50">
                     <div className="flex items-center">
-                        <div className="flex-shrink-0">                            <div className="w-8 h-8 bg-green-900/50 rounded-lg flex items-center justify-center border border-green-600/30">
-                            <Check className="h-5 w-5 text-green-400" />
-                        </div>
+                        <div className="flex-shrink-0">
+                            <div className="w-8 h-8 bg-green-900/50 rounded-lg flex items-center justify-center border border-green-600/30">
+                                <Check className="h-5 w-5 text-green-400" />
+                            </div>
                         </div>
                         <div className="ml-4">
                             <p className="text-sm font-medium text-gray-400">Disetujui</p>
@@ -406,12 +415,13 @@ const AdminContent = () => {
 
                 <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700/50">
                     <div className="flex items-center">
-                        <div className="flex-shrink-0">                            <div className="w-8 h-8 bg-red-900/50 rounded-lg flex items-center justify-center border border-red-600/30">
-                            <X className="h-5 w-5 text-red-400" />
-                        </div>
+                        <div className="flex-shrink-0">
+                            <div className="w-8 h-8 bg-red-900/50 rounded-lg flex items-center justify-center border border-red-600/30">
+                                <X className="h-5 w-5 text-red-400" />
+                            </div>
                         </div>
                         <div className="ml-4">
-                            <p className="text-sm font-medium text-gray-400">Rejected</p>
+                            <p className="text-sm font-medium text-gray-400">Dibatalkan</p>
                             <p className="text-2xl font-semibold text-white">
                                 {[...notes, ...posts].filter(item => item.status === 'rejected').length}
                             </p>
@@ -421,12 +431,13 @@ const AdminContent = () => {
 
                 <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700/50">
                     <div className="flex items-center">
-                        <div className="flex-shrink-0">                            <div className="w-8 h-8 bg-orange-900/50 rounded-lg flex items-center justify-center border border-orange-600/30">
-                            <AlertTriangle className="h-5 w-5 text-orange-400" />
-                        </div>
+                        <div className="flex-shrink-0">
+                            <div className="w-8 h-8 bg-orange-900/50 rounded-lg flex items-center justify-center border border-orange-600/30">
+                                <AlertTriangle className="h-5 w-5 text-orange-400" />
+                            </div>
                         </div>
                         <div className="ml-4">
-                            <p className="text-sm font-medium text-gray-400">Reported</p>
+                            <p className="text-sm font-medium text-gray-400">Dilaporkan</p>
                             <p className="text-2xl font-semibold text-white">
                                 {[...notes, ...posts].filter(item => item.reports > 0).length}
                             </p>
