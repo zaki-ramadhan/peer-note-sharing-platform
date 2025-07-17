@@ -32,6 +32,25 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  // Function to refresh user data from server
+  const refreshUserData = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const response = await apiService.getUserProfile();
+      if (response.success) {
+        const updatedUser = response.data.user;
+        setUser(updatedUser);
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+        console.log("User data refreshed:", updatedUser);
+        return updatedUser;
+      }
+    } catch (error) {
+      console.warn("Failed to refresh user data:", error);
+    }
+  };
+
   // Check authentication status on app start
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -42,6 +61,9 @@ export const AuthProvider = ({ children }) => {
         const parsedUser = JSON.parse(userData);
         setUser(parsedUser);
         setIsAuthenticated(true);
+
+        // Refresh user data from server to get latest points/stats
+        refreshUserData();
       } catch (error) {
         console.error("Error parsing stored user data:", error);
         localStorage.removeItem("token");
@@ -74,17 +96,7 @@ export const AuthProvider = ({ children }) => {
         showLoginSuccessToast(userData.name);
         return { success: true, user: userData };
       } else {
-        // Handle API response with success: false
-        const errorMessage = response.message || "Login failed";
-        if (errorMessage.includes("Invalid credentials")) {
-          showInvalidCredentialsToast();
-        } else {
-          showLoginErrorToast(errorMessage);
-        }
-        return {
-          success: false,
-          message: errorMessage,
-        };
+        throw new Error(response.message || "Login failed");
       }
     } catch (error) {
       console.error("AuthContext: Login error:", error);
@@ -132,13 +144,7 @@ export const AuthProvider = ({ children }) => {
         showRegisterSuccessToast(newUser.name);
         return { success: true, user: newUser };
       } else {
-        // Handle API response with success: false
-        const errorMessage = response.message || "Registration failed";
-        showRegisterErrorToast(errorMessage);
-        return {
-          success: false,
-          message: errorMessage,
-        };
+        throw new Error(response.message || "Registration failed");
       }
     } catch (error) {
       console.error("AuthContext: Registration error:", error);
@@ -220,6 +226,7 @@ export const AuthProvider = ({ children }) => {
     register,
     logout,
     checkAuthStatus,
+    refreshUserData,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
