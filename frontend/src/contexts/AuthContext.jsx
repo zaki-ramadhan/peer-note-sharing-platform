@@ -31,6 +31,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   // Function to refresh user data from server
   const refreshUserData = async () => {
@@ -182,6 +183,10 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(false);
 
       showLogoutSuccessToast();
+
+      // Redirect to login page
+      navigate("/login");
+
       return { success: true };
     } catch (error) {
       console.error("Logout error:", error);
