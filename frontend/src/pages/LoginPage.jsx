@@ -65,11 +65,8 @@ const LoginPage = () => {
               </div>
             )}
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
-                    Email
-                  </label>
+              <div className="space-y-6">
+                <div className="relative">
                   <Input
                     type="email"
                     name="email"
@@ -80,12 +77,12 @@ const LoginPage = () => {
                     className="h-12 bg-white border-slate-200 focus:border-blue-500 focus:ring-blue-500/20 text-slate-900"
                     required
                   />
+                  <label className="absolute left-10 -top-2 text-xs font-medium text-slate-600 bg-white px-2 pointer-events-none">
+                    Email
+                  </label>
                 </div>
 
                 <div className="relative">
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
-                    Kata Sandi
-                  </label>
                   <Input
                     type={showPassword ? "text" : "password"}
                     name="password"
@@ -96,6 +93,9 @@ const LoginPage = () => {
                     className="h-12 bg-white border-slate-200 focus:border-blue-500 focus:ring-blue-500/20 pr-12 text-slate-900"
                     required
                   />
+                  <label className="absolute left-10 -top-2 text-xs font-medium text-slate-600 bg-white px-2 pointer-events-none">
+                    Kata Sandi
+                  </label>
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
