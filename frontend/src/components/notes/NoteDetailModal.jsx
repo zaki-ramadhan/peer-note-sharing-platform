@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   X,
   Download,
@@ -30,6 +30,22 @@ import { id } from "date-fns/locale";
 const NoteDetailModal = ({ isOpen, onClose, note, onDownload, onRate }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showFullDescription, setShowFullDescription] = useState(false);
+
+  // Handle Escape key press
+  useEffect(() => {
+    const handleEscapeKey = (event) => {
+      if (event.keyCode === 27) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("keydown", handleEscapeKey, false);
+      return () => {
+        document.removeEventListener("keydown", handleEscapeKey, false);
+      };
+    }
+  }, [isOpen, onClose]);
 
   if (!isOpen || !note) return null;
 
@@ -85,14 +101,34 @@ const NoteDetailModal = ({ isOpen, onClose, note, onDownload, onRate }) => {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   };
 
-  const getFileTypeIcon = (type) => {
-    const lowerType = type?.toLowerCase() || "";
+  const getFileExtension = (filename) => {
+    if (!filename) return "";
+    const lastDot = filename.lastIndexOf(".");
+    if (lastDot === -1) return "";
+    return filename.substring(lastDot + 1).toLowerCase();
+  };
+
+  const getDisplayFileType = (fileType, fileName) => {
+    if (fileType) return fileType.toUpperCase();
+    const extension = getFileExtension(fileName);
+    if (extension) return extension.toUpperCase();
+    return "Unknown";
+  };
+
+  const getFileTypeIcon = (type, fileName) => {
+    const actualType = type || getFileExtension(fileName);
+    const lowerType = actualType?.toLowerCase() || "";
+
     if (lowerType.includes("pdf"))
       return <FileText className="w-5 h-5 text-red-500" />;
-    if (lowerType.includes("doc"))
+    if (lowerType.includes("doc") || lowerType.includes("docx"))
       return <FileText className="w-5 h-5 text-blue-500" />;
-    if (lowerType.includes("ppt"))
+    if (lowerType.includes("ppt") || lowerType.includes("pptx"))
       return <FileText className="w-5 h-5 text-orange-500" />;
+    if (lowerType.includes("xls") || lowerType.includes("xlsx"))
+      return <FileText className="w-5 h-5 text-green-500" />;
+    if (lowerType.includes("txt"))
+      return <FileText className="w-5 h-5 text-gray-500" />;
     return <FileText className="w-5 h-5 text-gray-500" />;
   };
 
@@ -105,7 +141,10 @@ const NoteDetailModal = ({ isOpen, onClose, note, onDownload, onRate }) => {
         }
       }}
     >
-      <div className="bg-white rounded-3xl shadow-2xl max-w-5xl w-full max-h-[95vh] overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
+      <div
+        className="bg-white rounded-3xl shadow-2xl max-w-5xl w-full max-h-[95vh] overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
         <div className="relative bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 text-white px-8 py-6">
           {/* Background Pattern */}
@@ -115,8 +154,11 @@ const NoteDetailModal = ({ isOpen, onClose, note, onDownload, onRate }) => {
           </div>
 
           <button
-            onClick={onClose}
-            className="absolute top-6 right-6 p-2 hover:bg-white/20 rounded-xl transition-all duration-200 hover:scale-110 z-10"
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}
+            className="absolute top-6 right-6 p-2 hover:bg-white/20 rounded-xl transition-all duration-200 hover:scale-110 z-20 cursor-pointer"
           >
             <X className="w-6 h-6" />
           </button>
@@ -124,7 +166,7 @@ const NoteDetailModal = ({ isOpen, onClose, note, onDownload, onRate }) => {
           <div className="relative z-10 pr-16">
             <div className="flex items-center space-x-4 mb-4">
               <div className="p-3 bg-white/20 rounded-xl backdrop-blur-sm">
-                {getFileTypeIcon(fileType)}
+                {getFileTypeIcon(fileType, fileName)}
               </div>
               <Badge className="bg-white/25 backdrop-blur-sm text-white border-white/30 px-4 py-2 text-sm font-semibold rounded-xl">
                 {subject}
@@ -340,11 +382,11 @@ const NoteDetailModal = ({ isOpen, onClose, note, onDownload, onRate }) => {
                   </div>
                   <div className="flex items-center justify-between p-3 bg-white/60 backdrop-blur-sm rounded-xl">
                     <span className="text-sm font-medium text-gray-600 flex items-center">
-                      {getFileTypeIcon(fileType)}
+                      {getFileTypeIcon(fileType, fileName)}
                       <span className="ml-2">File Type:</span>
                     </span>
                     <span className="text-sm font-bold text-gray-900">
-                      {fileType || "Unknown"}
+                      {getDisplayFileType(fileType, fileName)}
                     </span>
                   </div>
                 </div>
