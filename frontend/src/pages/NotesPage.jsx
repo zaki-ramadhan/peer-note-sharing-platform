@@ -848,7 +848,10 @@ const NotesPage = () => {
           className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 text-lg"
         >
           <div className="flex items-center space-x-4">
-            <Badge variant="gradient" className="px-5 py-3 text-xl font-bold">
+            <Badge
+              variant="gradient"
+              className="px-5 py-2 text-xl font-bold text-white bg-gradient-to-r from-blue-600 to-indigo-600 shadow-md"
+            >
               {filteredNotes.length} Hasil
             </Badge>
             {filters.search && (
