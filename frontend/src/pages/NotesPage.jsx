@@ -200,19 +200,32 @@ const NotesPage = () => {
       filtered = filtered.filter(
         (note) =>
           note.title.toLowerCase().includes(filters.search.toLowerCase()) ||
-          note.description
-            .toLowerCase()
-            .includes(filters.search.toLowerCase()) ||
-          note.tags.some((tag) =>
-            tag.toLowerCase().includes(filters.search.toLowerCase())
-          )
+          (note.description &&
+            note.description
+              .toLowerCase()
+              .includes(filters.search.toLowerCase())) ||
+          (note.subject &&
+            note.subject
+              .toLowerCase()
+              .includes(filters.search.toLowerCase())) ||
+          (note.tags &&
+            note.tags.some &&
+            note.tags.some((tag) =>
+              tag.toLowerCase().includes(filters.search.toLowerCase())
+            ))
       );
     }
-    if (filters.subject && filters.subject !== "All") {
+    if (
+      filters.subject &&
+      filters.subject !== "All" &&
+      filters.subject !== ""
+    ) {
       if (filters.subject.includes(",")) {
         // Multiple categories selected
         const categories = filters.subject.split(",");
-        filtered = filtered.filter((note) => categories.includes(note.subject));
+        filtered = filtered.filter(
+          (note) => note.subject && categories.includes(note.subject)
+        );
       } else {
         // Single category selected
         filtered = filtered.filter((note) => note.subject === filters.subject);
