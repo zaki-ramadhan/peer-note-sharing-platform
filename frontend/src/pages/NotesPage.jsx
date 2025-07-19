@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import Layout from "@components/layout/Layout";
 import NoteCard from "@components/notes/NoteCard";
+import NoteDetailModal from "@components/notes/NoteDetailModal";
 import Button from "@components/ui/Button";
 import { Card, CardContent } from "@components/ui/Card";
 import { Badge } from "@components/ui";
@@ -50,6 +51,8 @@ const NotesPage = () => {
   const [filterStats, setFilterStats] = useState({});
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [quickFilterActive, setQuickFilterActive] = useState(null);
+  const [selectedNote, setSelectedNote] = useState(null);
+  const [showDetailModal, setShowDetailModal] = useState(false);
 
   const subjects = [
     "All",
@@ -437,6 +440,17 @@ const NotesPage = () => {
     addToRecentSearches(searchTerm);
     setShowSuggestions(false);
   };
+
+  const handleViewDetails = (note) => {
+    setSelectedNote(note);
+    setShowDetailModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowDetailModal(false);
+    setSelectedNote(null);
+  };
+
   const clearAllFilters = () => {
     setFilters({ search: "", subject: "", sort: "newest" });
     setSelectedCategories([]);
@@ -944,11 +958,20 @@ const NotesPage = () => {
                   mini={currentView === "compact"}
                   onDownload={handleDownload}
                   onRate={handleRate}
+                  onViewDetails={handleViewDetails}
                 />
               </div>
             ))}
           </div>
         )}
+        {/* Note Detail Modal */}
+        <NoteDetailModal
+          isOpen={showDetailModal}
+          onClose={handleCloseModal}
+          note={selectedNote}
+          onDownload={handleDownload}
+          onRate={handleRate}
+        />
         {/* Load More */}
         {filteredNotes.length > 0 && filteredNotes.length >= 6 && (
           <div className="text-center mt-16 ">
