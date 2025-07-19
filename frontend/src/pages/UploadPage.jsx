@@ -12,15 +12,21 @@ import {
   Button,
   Input,
   Badge,
+  SuccessModal,
 } from "@components/ui";
-import { currentUser } from "@data/dummyData";
+import { useAuth } from "@contexts/AuthContext";
+import apiService from "@services/api";
 
 const UploadPage = () => {
+  const { user, refreshUserData } = useAuth();
   const [dragActive, setDragActive] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
   const [uploading, setUploading] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [uploadError, setUploadError] = useState(null);
+  const [pointsEarned, setPointsEarned] = useState(0);
 
   const {
     register,
@@ -94,21 +100,53 @@ const UploadPage = () => {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   };
-  const onSubmit = async () => {
-    setUploading(true);
+  const onSubmit = async (data) => {
+    if (!selectedFile) {
+      setUploadError("Silakan pilih file terlebih dahulu");
+      return;
+    }
 
-    // Simulate upload
-    setTimeout(() => {
+    setUploading(true);
+    setUploadError(null);
+
+    try {
+      // Create FormData for file upload
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+      formData.append("title", data.title);
+      formData.append("subject", data.subject);
+      formData.append("description", data.description);
+      formData.append("tags", JSON.stringify(tags));
+
+      // Upload note to backend
+      const response = await apiService.uploadNote(formData);
+
+      if (response.success) {
+        // Update user data to reflect new points
+        await refreshUserData();
+
+        setPointsEarned(response.data.pointsAwarded || 15);
+        setShowSuccessModal(true);
+
+        // Reset form
+        reset();
+        setSelectedFile(null);
+        setTags([]);
+      } else {
+        throw new Error(response.message || "Upload failed");
+      }
+    } catch (error) {
+      console.error("Upload error:", error);
+      setUploadError(
+        error.message || "Terjadi kesalahan saat mengupload. Silakan coba lagi."
+      );
+    } finally {
       setUploading(false);
-      alert("Upload berhasil!");
-      reset();
-      setSelectedFile(null);
-      setTags([]);
-    }, 3000);
+    }
   };
 
   return (
-    <Layout user={currentUser}>
+    <Layout>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-['Hanken_Grotesk']">
         <div className="mb-8  ">
           <h1 data-aos="fade-up" className="text-3xl font-bold text-gray-900">
@@ -300,6 +338,11 @@ const UploadPage = () => {
 
           {/* Submit */}
           <div className="flex justify-end space-x-4">
+            {uploadError && (
+              <div className="w-full mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-red-600 text-sm">{uploadError}</p>
+              </div>
+            )}
             <Button
               type="button"
               variant="outline"
@@ -307,6 +350,7 @@ const UploadPage = () => {
                 reset();
                 setSelectedFile(null);
                 setTags([]);
+                setUploadError(null);
               }}
             >
               Reset
@@ -320,6 +364,20 @@ const UploadPage = () => {
             </Button>
           </div>
         </form>
+
+        {/* Success Modal */}
+        <SuccessModal
+          isOpen={showSuccessModal}
+          onClose={() => setShowSuccessModal(false)}
+          title="Upload Berhasil! 🎉"
+          message="Catatan Anda telah berhasil diunggah dan siap dibagikan dengan komunitas. Terima kasih atas kontribusi Anda!"
+          points={pointsEarned}
+          actionText="Lihat Catatan Saya"
+          onAction={() => {
+            // Navigate to notes page or user's uploaded notes
+            window.location.href = "/notes";
+          }}
+        />
       </div>
     </Layout>
   );

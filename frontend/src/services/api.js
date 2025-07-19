@@ -63,7 +63,7 @@ class ApiService {
   }
 
   async uploadNote(formData) {
-    const url = `${this.baseURL}/notes`;
+    const url = `${this.baseURL}/notes/upload`;
     const config = {
       method: "POST",
       body: formData, // Don't set Content-Type header for FormData

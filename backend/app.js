@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import authRoutes from "./routes/authRoutes.js";
-import notesRoutes from "./routes/notesRoutes.js";
+import notesRoutes from "./routes/notes.js";
 import usersRoutes from "./routes/usersRoutes.js";
 // import forumRoutes from "./routes/forumRoutes.js";
 
