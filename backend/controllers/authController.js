@@ -78,8 +78,8 @@ export const register = async (req, res) => {
     // Insert user into database
     console.log("Attempting to insert user...");
     const [result] = await db.execute(
-      `INSERT INTO users (name, email, university, password, avatar, points, role, total_uploads, total_downloads, average_rating, badges, bio, year, is_active, email_verified) 
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO users (name, email, university, password, avatar, points, role, total_uploads, total_downloads, average_rating, badges, bio, year, is_active) 
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         name,
         email,
@@ -95,7 +95,6 @@ export const register = async (req, res) => {
         "", // bio
         "", // year
         true, // is_active
-        false, // email_verified
       ]
     );
 
@@ -109,7 +108,7 @@ export const register = async (req, res) => {
 
     // Get the created user (without password)
     const [users] = await db.execute(
-      "SELECT id, name, email, university, avatar, points, role, total_uploads, total_downloads, average_rating, badges, bio, year, is_active, email_verified, created_at, updated_at FROM users WHERE id = ?",
+      "SELECT id, name, email, university, avatar, points, role, total_uploads, total_downloads, average_rating, badges, bio, year, is_active, created_at, updated_at FROM users WHERE id = ?",
       [userId]
     );
 
@@ -167,7 +166,7 @@ export const login = async (req, res) => {
 
     // Check if user exists
     const [users] = await db.execute(
-      "SELECT id, name, email, university, password, avatar, points, role, total_uploads, total_downloads, average_rating, badges, bio, year, is_active, email_verified, created_at, last_active FROM users WHERE email = ? AND is_active = true",
+      "SELECT id, name, email, university, password, avatar, points, role, total_uploads, total_downloads, average_rating, badges, bio, year, is_active, created_at, last_active FROM users WHERE email = ? AND is_active = true",
       [email]
     );
 
@@ -238,7 +237,7 @@ export const login = async (req, res) => {
 export const getMe = async (req, res) => {
   try {
     const [users] = await db.execute(
-      "SELECT id, name, email, university, avatar, points, role, total_uploads, total_downloads, average_rating, badges, bio, year, is_active, email_verified, created_at, last_active FROM users WHERE id = ? AND is_active = true",
+      "SELECT id, name, email, university, avatar, points, role, total_uploads, total_downloads, average_rating, badges, bio, year, is_active, created_at, last_active FROM users WHERE id = ? AND is_active = true",
       [req.user.userId]
     );
 
