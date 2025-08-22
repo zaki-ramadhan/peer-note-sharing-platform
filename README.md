@@ -1,15 +1,24 @@
 # 📚 Learning Platform
 
+<p align="left">
+
+  [![React](https://img.shields.io/badge/React-19.1.1-61DAFB?style=flat-square&logo=react)](https://reactjs.org/)
+  [![Vite](https://img.shields.io/badge/Vite-5.0.0-646CFF?style=flat-square&logo=vite)](https://vitejs.dev/)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1.12-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
+
+</p>
+
+<a href="#" target="_blank">
+  <img src="frontend/public/preview-peer-note-web-app.png" alt="Preview Peer Note" width="100%">
+</a>
+
+<br />
+
 <div align="center">
 
-[![React](https://img.shields.io/badge/React-Latest-61DAFB?style=flat-square&logo=react)](https://reactjs.org/)
-[![Vite](https://img.shields.io/badge/Vite-Latest-646CFF?style=flat-square&logo=vite)](https://vitejs.dev/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-Latest-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
-
-**Modern web application for collaborative learning and content sharing**
-
-[🚀 Quick Start](#quick-start) · [📖 Features](#features) · [🛠️ Tech Stack](#tech-stack)
+  **Modern web application for collaborative learning and content sharing**
+  
+  [🚀 Quick Start](https://github.com/zaki-ramadhan/peer-note-sharing-platform/edit/main/README.md#-quick-start) · [📖 Features](https://github.com/zaki-ramadhan/peer-note-sharing-platform/edit/main/README.md#-features) · [🛠️ Tech Stack](https://github.com/zaki-ramadhan/peer-note-sharing-platform/edit/main/README.md#%EF%B8%8F-tech-stack)
 
 </div>
 
@@ -90,12 +99,6 @@ Built with modern design principles featuring responsive layouts, consistent the
 2. Install dependencies
 3. Start development server
 4. Open browser to view application
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
 
 <div align="center">
 
